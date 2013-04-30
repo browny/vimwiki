@@ -1,0 +1,10 @@
+
+= This is a vim wiki =
+
+*Bold* _Italic_ ~~Delete~~ `Code Block`
+
+{{{
+void main(int arg) {
+	pirntf("hello world");
+}
+}}}

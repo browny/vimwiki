@@ -2,7 +2,7 @@
 <html>
 <head>
 <link rel="Stylesheet" type="text/css" href="style.css">
-<title>Brwony's Wiki</title>
+<title>Experiences</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- Bootstrap -->
 <link href="http://pancake.io/6daab7/bootstrap.min.css" rel="stylesheet"
@@ -18,28 +18,23 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 <body onload='prettyPrint()'>
 
 
+<h5 id="toc_0.0.0.0.1">Generic method 大大簡化了 jdbc 中餘冗重複的 code</h5>
+
 <p>
-<a href="TODO.html">TODO</a>
+1. 各種語言都可以找到 dependency injection 的 framework, DI 只是一種精神, Spring
+利用 xml 文檔的方式建立物件彼此之間的關聯達成 DI, Ruby 則是利用 syntax
+convention 的方式, 各有不同
 </p>
 
 <p>
-<a href="Eclipse.html">Eclipse</a>
+2. Interface 相當重要, 也是 mock 測試的基礎, 盡量將待測物與之相關的物件用
+interface 帶進來, 利用 mock framework 可以更快的產生隨用即丟的 impl
 </p>
 
 <p>
-<a href="RESTful.html">RESTful</a>
-</p>
-
-<p>
-<a href="Java.html">Java</a>
-</p>
-
-<p>
-<a href="SQL.html">SQL</a>
-</p>
-
-<p>
-<a href="Experiences.html">Experiences</a>
+3. 利用 META-INF 的 context.xml 連接 DB, 是透過 tomcat 來 connect DB, 所以
+depend on tomcat, 今天如果沒有用 tomcat 那就沒辦法測試, 所以利用 Spring 將
+tomcat 的 dependency 移除, 降低對 tomcat 的依賴
 </p>
 
 </body>

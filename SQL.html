@@ -2,7 +2,7 @@
 <html>
 <head>
 <link rel="Stylesheet" type="text/css" href="style.css">
-<title>Brwony's Wiki</title>
+<title>SQL</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- Bootstrap -->
 <link href="http://pancake.io/6daab7/bootstrap.min.css" rel="stylesheet"
@@ -18,29 +18,22 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 <body onload='prettyPrint()'>
 
 
-<p>
-<a href="TODO.html">TODO</a>
-</p>
 
-<p>
-<a href="Eclipse.html">Eclipse</a>
-</p>
+<h5 id="toc_0.0.0.0.1">MySQL commands</h5>
 
-<p>
-<a href="RESTful.html">RESTful</a>
-</p>
+<pre class='prettyprint'>
+mysql&gt; show databases;
 
-<p>
-<a href="Java.html">Java</a>
-</p>
+mysql&gt; use [db name];               // switch to a database
 
-<p>
-<a href="SQL.html">SQL</a>
-</p>
+mysql&gt; show tables;                 // show all tables
 
-<p>
-<a href="Experiences.html">Experiences</a>
-</p>
+mysql&gt; describe [table name];       // see database's field formats
+
+mysql&gt; SELECT * FROM [table name];  // show all data in a table
+
+mysql&gt; SELECT * FROM [table name] WHERE [field name] = "whatever";
+</pre>
 
 </body>
 </html>

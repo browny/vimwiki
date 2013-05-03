@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<title>vimwiki</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- Bootstrap -->
+<link href="http://pancake.io/6daab7/bootstrap.min.css" rel="stylesheet"
+media="screen" type='text/css'>
+
+<link href='http://pancake.io/6daab7/google-code-prettify/prettify.css' rel='stylesheet' type='text/css'/>
+<script language='javascript' src='http://pancake.io/6daab7/google-code-prettify/prettify.js' type='text/javascript'/>
+<script type='text/javascript'>
+document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();});
+</script>
+
+</head>
+<body onload='prettyPrint()'>
+
+
+<h4 id="toc_0.0.0.1">Vimwiki installation</h4>
+<p>
+<a href="https://code.google.com/p/vimwiki/wiki/Installation">https://code.google.com/p/vimwiki/wiki/Installation</a>
+</p>
+
+<ol>
+<li>
+Download and unpack <code>vimwiki_N_N.zip</code>. (N_N is version number ie 0_8)
+
+<li>
+Place unpacked files into (create directory if it isn't exists): <br>
+  Linux: <code>~/.vim/</code> <br>
+  Windows: <code>~/vimfiles/</code>, where ~ is a home directory, usually <code>C:\Documents and Settings\USERNAME\</code>
+
+<li>
+To install help, open Vim and run <code>:helptags ~/vimfiles/doc</code> command.
+
+</ol>
+
+
+<pre class='prettyprint'>
+" // --- vimwiki --- //
+let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/',
+			\'template_path': '~/Dropbox/vimwiki/template/',
+			\'template_default': 'default',
+			\'template_ext': '.html',
+			\'path_html': '~/Dropbox/github/vimwiki/'}]
+
+map &lt;F4&gt; :VimwikiAll2HTML&lt;cr&gt;
+</pre>
+
+
+<h4 id="toc_0.0.0.2">Use <strong>google-code-prettify</strong> for code highlight</h4>
+<p>
+<a href="https://code.google.com/p/google-code-prettify/">https://code.google.com/p/google-code-prettify/</a>
+</p>
+
+<ol>
+<li>
+Download code-prettify (ex: <code>prettify-small-4-Mar-2013.tar.bz2</code>) <br>
+  <a href="https://code.google.com/p/google-code-prettify/downloads/list">https://code.google.com/p/google-code-prettify/downloads/list</a>
+
+<li>
+Modify the default vimwiki template<br>
+  Add below code block before <code>&lt;/head&gt;</code> and change <code>&lt;body&gt;</code> to `&lt;body
+  onload='prettyPrint()'&gt;` <br>
+<pre class='prettyprint'>
+&lt;link href='http://XXX/prettify.css' rel='stylesheet' type='text/css'/&gt;
+&lt;script language='javascript' src='http://XXX/prettify.js' type='text/javascript'/&gt;
+&lt;script type='text/javascript'&gt;
+document.addEventListener(&amp;#39;DOMContentLoaded&amp;#39;,function() { prettyPrint();});
+&lt;/script&gt;
+</pre>
+  The result default.html should looks like as below <br>
+<pre class='prettyprint'>
+&lt;html&gt;
+&lt;head&gt;
+&lt;link rel="Stylesheet" type="text/css" href="%root_path%%css%"&gt;
+&lt;title&gt;%title%&lt;/title&gt;
+&lt;meta http-equiv="Content-Type" content="text/html; charset=%encoding%"&gt;
+&lt;!-- Bootstrap --&gt;
+&lt;link href="http://pancake.io/6daab7/bootstrap.min.css" rel="stylesheet"
+media="screen" type='text/css'&gt;
+
+&lt;link href='http://pancake.io/6daab7/google-code-prettify/prettify.css' rel='stylesheet' type='text/css'/&gt;
+&lt;script language='javascript' src='http://pancake.io/6daab7/google-code-prettify/prettify.js' type='text/javascript'/&gt;
+&lt;script type='text/javascript'&gt;
+document.addEventListener(&amp;#39;DOMContentLoaded&amp;#39;,function() { prettyPrint();});
+&lt;/script&gt;
+
+&lt;/head&gt;
+&lt;body onload='prettyPrint()'&gt;
+%content%
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+</ol>
+
+<h4 id="toc_0.0.0.3">Use Github pages to host/publish you wiki</h4>
+<p>
+<a href="http://pages.github.com/">http://pages.github.com/</a>
+</p>
+
+<ol>
+<li>
+Build a project page for the vimwiki<br>
+  <a href="https://help.github.com/articles/creating-project-pages-manually">https://help.github.com/articles/creating-project-pages-manually</a>
+
+</ol>
+
+</body>
+</html>

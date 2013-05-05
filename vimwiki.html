@@ -35,8 +35,10 @@ Place unpacked files into (create directory if it isn't exists): <br>
 <li>
 To install help, open Vim and run <code>:helptags ~/vimfiles/doc</code> command.
 
-</ol>
+<li>
+Modify vimrc as below, &lt;F4&gt; is mapped to generate html
 
+</ol>
 
 <pre class='prettyprint'>
 " // --- vimwiki --- //
@@ -49,19 +51,21 @@ let g:vimwiki_list = [{'path': '~/Dropbox/vimwiki/',
 map &lt;F4&gt; :VimwikiAll2HTML&lt;cr&gt;
 </pre>
 
-
-<h4 id="toc_0.0.0.2">Use <strong>google-code-prettify</strong> for code highlight</h4>
+<p>
+<br>
+</p>
+<h4 id="toc_0.0.0.2">Use google-code-prettify for code highlight</h4>
 <p>
 <a href="https://code.google.com/p/google-code-prettify/">https://code.google.com/p/google-code-prettify/</a>
 </p>
 
 <ol>
 <li>
-Download code-prettify (ex: <code>prettify-small-4-Mar-2013.tar.bz2</code>) <br>
+<strong>Download code-prettify</strong> (ex: <code>prettify-small-4-Mar-2013.tar.bz2</code>) <br>
   <a href="https://code.google.com/p/google-code-prettify/downloads/list">https://code.google.com/p/google-code-prettify/downloads/list</a>
 
 <li>
-Modify the default vimwiki template<br>
+<strong>Modify the default vimwiki template</strong><br>
   Add below code block before <code>&lt;/head&gt;</code> and change <code>&lt;body&gt;</code> to `&lt;body
   onload='prettyPrint()'&gt;` <br>
 <pre class='prettyprint'>
@@ -71,7 +75,7 @@ Modify the default vimwiki template<br>
 document.addEventListener(&amp;#39;DOMContentLoaded&amp;#39;,function() { prettyPrint();});
 &lt;/script&gt;
 </pre>
-  The result default.html should looks like as below <br>
+  <strong>The result default.html should looks like as below</strong><br>
 <pre class='prettyprint'>
 &lt;html&gt;
 &lt;head&gt;
@@ -97,6 +101,9 @@ document.addEventListener(&amp;#39;DOMContentLoaded&amp;#39;,function() { pretty
 
 </ol>
 
+<p>
+<br>
+</p>
 <h4 id="toc_0.0.0.3">Use Github pages to host/publish you wiki</h4>
 <p>
 <a href="http://pages.github.com/">http://pages.github.com/</a>

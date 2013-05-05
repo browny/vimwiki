@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<title>Assignment1</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- Bootstrap -->
+<link href="http://pancake.io/6daab7/bootstrap.min.css" rel="stylesheet"
+media="screen" type='text/css'>
+
+<link href='http://pancake.io/6daab7/google-code-prettify/prettify.css' rel='stylesheet' type='text/css'/>
+<script language='javascript' src='http://pancake.io/6daab7/google-code-prettify/prettify.js' type='text/javascript'/>
+<script type='text/javascript'>
+document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();});
+</script>
+
+</head>
+<body onload='prettyPrint()'>
+
+
+<h4 id="toc_0.0.0.1">Problem 0: Query Twitter with Python</h4>
+
+<pre class='prettyprint'>
+import urllib
+import json
+
+response = urllib.urlopen(
+    "http://search.twitter.com/search.json?q=brownylin&amp;page=1")
+data = json.load(response);
+#print(json.dumps(data, sort_keys=True, indent=4, ensure_ascii=False))
+
+resultList = data["results"]
+for result in resultList:
+    print(result["text"])
+</pre>
+
+
+<h4 id="toc_0.0.0.2">Problem 2: Derive the sentiment of each tweet</h4>
+
+<pre class='prettyprint'>
+import sys
+import csv
+import json
+import re
+
+def main():
+    sent_file = open(sys.argv[1])
+    tweet_file = open(sys.argv[2])
+
+    # read sent_file to dict
+    sent_dict = dict()
+    for row in csv.reader(sent_file, delimiter='\t'):
+        sent_dict[row[0]] = row[1]
+
+    # keep the keys of sent_dict for search
+    sent_keys = sent_dict.keys()
+
+    # calculate sent scores for each line tweet
+    for line in tweet_file.readlines():
+        tweet = json.loads(line);
+
+        sent_score = 0;
+        if 'text' in tweet:
+            tweet_text = tweet["text"]
+            sent_keys_in_tweet = list(re.findall(
+                r'\b(%s)\b' % '|'.join(sent_keys), tweet_text.lower()))
+
+            for k in sent_keys_in_tweet:
+                sent_score += float(sent_dict[k])
+
+            print(int(sent_score))
+
+if __name__ == '__main__':
+    main()
+</pre>
+
+
+<h4 id="toc_0.0.0.3">Problem 4: Compute Term Frequency</h4>
+
+<pre class='prettyprint'>
+import sys
+import json
+
+def main():
+    tweet_file = open(sys.argv[1])
+    freq = dict()
+
+    for line in tweet_file.readlines():
+        tweet = json.loads(line);
+        if 'text' in tweet:
+            tweet_text = tweet["text"]
+            # seperate tweet_text to each single word
+            low = tweet_text.split()
+            for w in low:
+                if w in freq:
+                    freq[w] += 1
+                else:
+                    freq[w] = 1
+
+    total = sum(freq.values())
+    for w, f in freq.items():
+        print(w.encode("utf-8") + '\t' + str(float(f)/float(total)))
+
+if __name__ == '__main__':
+    main()
+</pre>
+
+
+<h4 id="toc_0.0.0.4">Problem 6: Top ten hash tags</h4>
+
+<pre class='prettyprint'>
+import sys
+import json
+import operator
+
+def main():
+    tweet_file = open(sys.argv[1])
+    hashtags = dict()
+
+    for line in tweet_file.readlines():
+        tweet = json.loads(line);
+        if 'entities' in tweet:
+            for tag in (tweet['entities']['hashtags']):
+                tag_text = tag['text']
+                if tag_text in hashtags:
+                    hashtags[tag_text] += 1
+                else:
+                    hashtags[tag_text] = 1
+
+    # order tag by its occurence count descending
+    sorted_hashtags = sorted(hashtags.iteritems(), key=operator.itemgetter(1), reverse=True)
+    r = 10 if len(sorted_hashtags) &gt; 10 else len(sorted_hashtags)
+
+    for i in range(r):
+        tag = sorted_hashtags[i]
+        print(tag[0] + '\t' + str(float(tag[1])))
+
+if __name__ == '__main__':
+    main()
+</pre>
+
+</body>
+</html>

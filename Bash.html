@@ -2,7 +2,7 @@
 <html>
 <head>
 <link rel="Stylesheet" type="text/css" href="style.css">
-<title>SQL</title>
+<title>Bash</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- Bootstrap -->
 <link href="http://pancake.io/6daab7/bootstrap.min.css" rel="stylesheet"
@@ -18,25 +18,16 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 <body onload='prettyPrint()'>
 
 
-<h3 id="toc_0.0.1">SQL</h3>
+<h3 id="toc_0.0.1">Bash</h3>
 
-<h5 id="toc_0.0.1.0.1">MySQL commands</h5>
+<p>
+Execute a command with a timeout <br>
+<a href="http://www.pixelbeat.org/scripts/timeout">http://www.pixelbeat.org/scripts/timeout</a>
+</p>
 
-<pre class='prettyprint'>
-$ mysql -u &lt;userName&gt; -p -h &lt;ip-address&gt;
-
-mysql&gt; show databases;
-
-mysql&gt; use [db name];               // switch to a database
-
-mysql&gt; show tables;                 // show all tables
-
-mysql&gt; describe [table name];       // see database's field formats
-
-mysql&gt; SELECT * FROM [table name];  // show all data in a table
-
-mysql&gt; SELECT * FROM [table name] WHERE [field name] = "whatever";
-</pre>
+<p>
+Ex: <code>timeout.sh 5 python twitterstream.py</code>
+</p>
 
 </body>
 </html>

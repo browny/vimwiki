@@ -18,7 +18,35 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 <body onload='prettyPrint()'>
 
 
-<h4 id="toc_0.0.0.1">Vimwiki installation</h4>
+<p>
+Recently, I am looking for a simple solution for personal wiki. My basic 
+requirement is <code>no need of database</code>, <code>easy deploy</code> and <code>lightweight</code>.
+</p>
+
+<p>
+Finally, I found the vimwiki is a perfect solution with some other services.
+</p>
+
+<p>
+<strong>vimwiki</strong>: Simple syntax, perfectly integrated with vim. Export each single 
+wiki to separate html file. 
+<br>
+<strong>google-code-prettyfy</strong>: Used to make code snippets well formated.
+<br>
+<strong>Github pages</strong>: Used to host/publish the wiki. 
+<br>
+<strong>Bootswatch</strong>: There are many beautiful and basic templates to beautify your wiki
+</p>
+
+<p>
+Below is a brief description about how to setup the personal wiki which utilize 
+above tools. Enjoy them :)
+</p>
+
+<p>
+<br>
+</p>
+<h4 id="toc_0.0.0.1">1. Vimwiki installation</h4>
 <p>
 <a href="https://code.google.com/p/vimwiki/wiki/Installation">https://code.google.com/p/vimwiki/wiki/Installation</a>
 </p>
@@ -54,20 +82,27 @@ map &lt;F4&gt; :VimwikiAll2HTML&lt;cr&gt;
 <p>
 <br>
 </p>
-<h4 id="toc_0.0.0.2">Use google-code-prettify for code highlight</h4>
+<h4 id="toc_0.0.0.2">2. Use google-code-prettify for code highlight</h4>
 <p>
 <a href="https://code.google.com/p/google-code-prettify/">https://code.google.com/p/google-code-prettify/</a>
 </p>
 
-<ol>
-<li>
-<strong>Download code-prettify</strong> (ex: <code>prettify-small-4-Mar-2013.tar.bz2</code>) <br>
-  <a href="https://code.google.com/p/google-code-prettify/downloads/list">https://code.google.com/p/google-code-prettify/downloads/list</a>
+<p>
+1. <strong>Download code-prettify</strong> (ex: <code>prettify-small-4-Mar-2013.tar.bz2</code>) <br>
+<a href="https://code.google.com/p/google-code-prettify/downloads/list">https://code.google.com/p/google-code-prettify/downloads/list</a>
+</p>
 
-<li>
-<strong>Modify the default vimwiki template</strong><br>
-  Add below code block before <code>&lt;/head&gt;</code> and change <code>&lt;body&gt;</code> to `&lt;body
-  onload='prettyPrint()'&gt;` <br>
+<p>
+2. <strong>Modify the default vimwiki template</strong><br>
+Add below code block before <code>&lt;/head&gt;</code> and change <code>&lt;body&gt;</code> to
+<code>&lt;body onload='prettyPrint()'&gt;</code>
+</p>
+
+<p>
+Use your <code>prettify.js</code> and <code>prettify.css</code> instead of <code>http://XXX/prettify.css</code>
+and <code>ttp://XXX/prettify.js</code>
+</p>
+
 <pre class='prettyprint'>
 &lt;link href='http://XXX/prettify.css' rel='stylesheet' type='text/css'/&gt;
 &lt;script language='javascript' src='http://XXX/prettify.js' type='text/javascript'/&gt;
@@ -75,19 +110,24 @@ map &lt;F4&gt; :VimwikiAll2HTML&lt;cr&gt;
 document.addEventListener(&amp;#39;DOMContentLoaded&amp;#39;,function() { prettyPrint();});
 &lt;/script&gt;
 </pre>
-  <strong>The result default.html should looks like as below</strong><br>
+
+<p>
+<strong>The result default.html of vimwiki should looks like as below</strong><br>
+</p>
+
 <pre class='prettyprint'>
 &lt;html&gt;
 &lt;head&gt;
 &lt;link rel="Stylesheet" type="text/css" href="%root_path%%css%"&gt;
 &lt;title&gt;%title%&lt;/title&gt;
 &lt;meta http-equiv="Content-Type" content="text/html; charset=%encoding%"&gt;
-&lt;!-- Bootstrap --&gt;
-&lt;link href="http://pancake.io/6daab7/bootstrap.min.css" rel="stylesheet"
+&lt;!-- Bootstrap: Bootswatch template goes here --&gt;
+&lt;link href="http://XXX/bootstrap.min.css" rel="stylesheet"
 media="screen" type='text/css'&gt;
 
-&lt;link href='http://pancake.io/6daab7/google-code-prettify/prettify.css' rel='stylesheet' type='text/css'/&gt;
-&lt;script language='javascript' src='http://pancake.io/6daab7/google-code-prettify/prettify.js' type='text/javascript'/&gt;
+&lt;!-- google-code-prettify --&gt;
+&lt;link href='http://XXX/prettify.css' rel='stylesheet' type='text/css'/&gt;
+&lt;script language='javascript' src='http://XXX/prettify.js' type='text/javascript'/&gt;
 &lt;script type='text/javascript'&gt;
 document.addEventListener(&amp;#39;DOMContentLoaded&amp;#39;,function() { prettyPrint();});
 &lt;/script&gt;
@@ -99,12 +139,10 @@ document.addEventListener(&amp;#39;DOMContentLoaded&amp;#39;,function() { pretty
 &lt;/html&gt;
 </pre>
 
-</ol>
-
 <p>
 <br>
 </p>
-<h4 id="toc_0.0.0.3">Use Github pages to host/publish you wiki</h4>
+<h4 id="toc_0.0.0.3">3. Use Github pages to host/publish you wiki</h4>
 <p>
 <a href="http://pages.github.com/">http://pages.github.com/</a>
 </p>

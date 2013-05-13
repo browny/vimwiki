@@ -1,0 +1,361 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<title>Git</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- Bootstrap -->
+<link href="http://pancake.io/6daab7/bootstrap.min.css" rel="stylesheet"
+media="screen" type='text/css'>
+
+
+<link href='http://pancake.io/6daab7/google-code-prettify/prettify.css' rel='stylesheet' type='text/css'/>
+<script language='javascript' src='http://pancake.io/6daab7/google-code-prettify/prettify.js' type='text/javascript'/>
+<script type='text/javascript'>
+document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();});
+</script>
+
+</head>
+<body onload='prettyPrint()'>
+
+
+<h3 id="toc_0.0.1">Git</h3>
+
+<h4 id="toc_0.0.1.1">General</h4>
+<p>
+<code>git checkout -- &lt;somefile&gt;</code> // Discard local changes of some file
+</p>
+
+
+<p>
+<strong>Global git ignore</strong> 
+<code>git config --global core.excludesfile ~/.gitignore</code> <br>
+<code>printf ".DS_Store\nThumbs.db\n" &gt;&gt; ~/.gitignore</code>	// 忽略所有 .DS_Store 和 Thumbs.db
+</p>
+
+<p>
+<strong>Git Diff</strong>
+</p>
+
+<p>
+<code>git diff</code>              // Look diff from previous commited version <br>
+<code>git diff &gt; pk_xxx</code>     // Output diff to 'pk_xxx' file (pk:patch kernel) <br>
+<code>git checkout -f</code>       // Recover to previous version <br>
+<code>git apply pk_xxx</code>      // Apply patch 'pk_xxx'
+</p>
+
+<p>
+<code>git reset --hard 6a137</code>    // Force reset to version '6a137' will lost new commit <br>
+<code>git format-patch HEAD^^^</code>  // Patch to nth(^) previos version from HEAD, output multiple files
+</p>
+
+<p>
+<code>git diff --unified=10</code>     // Show 10 lines context of diff
+</p>
+
+<p>
+<code>git diff --name-status master..branchName</code>     // Lookup 2 branch difference <br>
+<code>git diff --stat --color master..branchName</code>	// Lookup 2 branch difference more detail
+</p>
+
+<p>
+<strong>Git Branch</strong>
+</p>
+
+<p>
+<code>git branch -av</code>    // detail branch info <br>
+<code>git pull --rebase</code> // pull remote branch use rebase method
+</p>
+
+<p>
+// Make existing branches to track remote branches
+<code>branch --set-upstream local-branch-name origin/remote-branch-name</code>	
+</p>
+
+<p>
+// Rebase your topic branch against the master branch:
+<code>git checkout foo</code>  <br>
+<code>git rebase master</code>
+</p>
+
+
+<p>
+// Stash
+<code>git stash save "work in progress for foo feature"</code> <br>
+<code>git stash list</code> <br>
+<code>git stash apply stash@{1}</code>
+</p>
+
+<p>
+// List which branch (remote &amp; local) contains some commit
+<code>git branch -a --contains &lt;commit id&gt;</code>
+</p>
+
+<p>
+// Merge multiple commits to one commit 
+// (ex: ABCDE), you want to ABE'(E'=CDE)
+<code>git rebase -i HEAD~2</code>	// rebase to C <br>
+<code>s e97a17b E</code> <br>
+<code>s asd314f D</code> <br>
+<code>p asd314f C</code>
+</p>
+
+<p>
+// 如何分辨 local br 追蹤哪一個 remote branch <br>
+<code>git remote show origin</code>	
+</p>
+
+<p>
+<code>cat .git/HEAD</code>                     // Show the HEAD location <br>
+<code>git reflog show HEAD@{now} -10</code>    // Show the HEAD change history
+</p>
+
+<p>
+<strong>Git Log</strong>
+</p>
+
+<p>
+<code>git log --pretty=short</code>    // 簡短的log <br>
+<code>git log --oneline</code>         // 超短的log <br>
+<code>git log --author="Jon"</code>    // Show Jon's commits <br>
+<code>git log /drivers/video</code>    // 只看drivers/video資料夾下更動的log <br>
+<code>git log ./</code>                // 只看當前資料夾下更動的log
+</p>
+
+<p>
+<code>git blame sha1_file.c</code>	            // 查看sha1_file.c 的修改 <br>
+<code>git blame -L 160,+10 sha1_file.c</code>  // 查看sha1_file.c 從第160行開始往下10行，是誰修改的
+</p>
+
+<p>
+<code>git log --grep=word</code>   // 搜尋 commit message 包含 'word' 的 commit <br>
+<code>git log -Sword</code>        // 搜尋 commit 修改內容包含 'word' 的 commit
+</p>
+
+<p>
+// 搜尋哪一筆 commit 在 SurfaceFlinger.cpp 中曾經修改過 surface_flinger_cblk_t 這個關鍵字 <br>
+<code>git log -S"surface_flinger_cblk_t" -p services/surfaceflinger/SurfaceFlinger.cpp</code>
+</p>
+
+<p>
+// 樹狀圖看log merge path <br>
+<code>git log --graph --pretty=format:'%Cred%h%Creset:%s  %Cgreen(%cr)%Creset %an' --abbrev-commit --date=relative</code>
+</p>
+
+<p>
+<strong>Git Patch</strong>
+</p>
+
+<p>
+// Pathc from commit to commit <br>
+<code>git format-patch -1 7ef30fa</code>   // 取出單一commit為patch <br>
+<code>git format-patch 7ef30fa2c(你要從別人那個commit開始patch)..e9623f0e67(一直patch到你想要的commit) --stdout &gt; pk.patch</code>
+</p>
+
+<p>
+<code>git am</code>        // apply format-patch patch <br>
+<code>git apply</code>     // apply diff &gt; patch
+</p>
+
+<p>
+<code>git apply --reject</code>    // 會把可以上的部份上去，衝突部份他會寫到 xxx.c.rej 檔案中
+</p>
+
+<p>
+<code>git reset</code>     // 把 changes to be commited 的部份拉到 changes but not commit <br>
+<code>git ch .</code>      // 把 changes but not commit 變成 no changes
+</p>
+
+<p>
+// Single file checkout
+<code>git checkout v1.2.3 -- filename</code>         // tag v1.2.3 <br>
+<code>git checkout stable -- filename</code>         // stable branch <br>
+<code>git checkout origin/master -- filename</code>  // upstream master <br>
+<code>git checkout HEAD -- filename</code>           // the version from the most recent commit <br>
+<code>git checkout HEAD^ -- filename</code>          // the version before the most recent commit
+</p>
+
+<p>
+// git revert
+<code>git revert 2cded15f64b2eb6f8acc</code>   // revert a previous commit, and the revert action will become a new commit
+</p>
+
+<p>
+// git bisect
+<code>git bisect start</code> <br>
+<code>git bisect bad 2ac4169f24e91e10d683cbf4676d</code> <br>
+<code>git bisect good a49b61dbb440fa48f78adece5e5980</code>
+</p>
+
+<p>
+// cherry-pick partial commit
+git cherry-pick -n &lt;commit&gt;   # get your patch, but don't commit (-n = --no-commit)
+git reset                     # unstage the changes from the cherry-picked commit
+git add -p                    # make all your choices (add the changes you do want)
+git commit                    # make the commit!
+</p>
+
+<p>
+// keep commit and remove some content
+git checkout -b test 
+git reset --hard HEAD^
+git cherry-pick -n master
+git reset .
+git add -p
+git diff master &gt; patch
+git checkout -f master
+git apply patch
+git cm --amend
+</p>
+
+<p>
+// --- Git Advances --- //
+</p>
+
+<p>
+// 3 way merge
+git am --3way
+git add
+git am --continue
+</p>
+
+
+<p>
+// 使用 rebase to merge commits
+// Suppose you have a history containing the three commits A, B and C: A-B-C
+// To combine the two commits A and B to one commit AB: AB-C
+git rebase -i A
+</p>
+
+<p>
+//It is possible to start like that if you continue with edit rather than squash:
+edit e97a17b B
+pick asd314f C
+</p>
+
+<p>
+//then run
+git reset --soft HEAD^
+git commit --amend
+git rebase --continue
+</p>
+
+
+<p>
+// 安全地整理 code 的流程
+// 列出某次commit修改了哪些檔案
+git log
+git show f8040320c63522312ec4ccaaccca9c8d7275b720 --name-only
+git show f8040320c63522312ec4ccaaccca9c8d7275b720 --name-only |awk '{print "cp " \(1 " mhl/"\)1}'
+</p>
+
+<p>
+mkdir mhl	// 新增一個資料夾存放這些修改的檔案
+</p>
+
+<p>
+// 然後複製產生的命令,執行複製動作
+cp arch/arm/mach-tegra/cpu-tegra3.c mhl/
+cp drivers/video/tegra/dc/hdmi.c mhl/
+cp drivers/video/tegra/fb.c mhl/
+</p>
+
+<p>
+// 針對每一次的 commit 做完複製動作, 開一個文字檔複製起這些 cp 指令 (因為可能會有檔案不同路徑但同檔名的問題)
+// 整理該文字檔將相同資料夾的分類
+</p>
+
+<p>
+// 回復到尚未修改的版本
+git format-patch HEAD^^^	// 備份
+git reset --hard HEAD^^^ 	// 還原
+</p>
+
+<p>
+// 再利用 meld 針對, mhl 資料夾進行手動 merge
+</p>
+
+
+<p>
+// --- Git 注意事項 ---- //
+</p>
+
+<p>
+1. 一個 branch 有 tracking remote branch 時，你從他 ch 個 br 出來，
+新的 br 並不會也 tracking 同一個 remote br，要自己設定
+</p>
+
+<p>
+2. 一旦 changes add 以後，git diff 就看不到了
+</p>
+
+<p>
+3. Always commit good code base before apply any debug step
+</p>
+
+
+<p>
+// --- repo 指令 --- //
+</p>
+
+<p>
+請參考以下 5 步驟上來開發 co-work git:
+</p>
+
+<p>
+1. repo sync
+</p>
+
+<p>
+2. repo start BRANCH_NAME [--all | project ]
+</p>
+
+<p>
+branch 建立在指定的 project:
+cd kernel
+repo start kernel_fix ./
+branch 建立在所有的 project:
+repo start my_branch --all
+</p>
+
+<p>
+3. make some changes
+3.1 git add
+3.2 git commit
+</p>
+
+<p>
+4. repo sync
+4.1 如果遇到 conflict，先修正 conflict，沒有則跳過步驟 4.1
+4.1.1 git add
+4.1.2 git rebase --continue
+</p>
+
+<p>
+5. repo upload [--re=REVIEWER@htc.com] #REVIEWER可先不指定，之後到 web site 指定
+</p>
+
+<p>
+6. repo abandon BRANCH_NAME #不一定需要此步驟，看需求
+</p>
+
+<p>
+總之，要修改 co-work git，流程大致是：
+repo sync
+repo start
+make some change / git add / git commit
+repo sync
+repo upload
+repo abandon
+</p>
+
+<p>
+提醒：
+1. 用 repo start 取代 git checkout -b NAME / git branch NAME，如果一定要用，要一併設定好 remote 跟 merge 對象，否則無法 repo upload
+2. 用 repo abandon 取代 git branch -D
+3. 用 repo sync 取代 git pull ，請勿使用 git pull，git pull 會造成 merge commit，之後將會擋掉 merge commit，如果必須使用 git pull，請加上 --rebase 參數
+4. repo forall -pvc 可以針對每個 projects 進行操作
+</p>
+
+</body>
+</html>

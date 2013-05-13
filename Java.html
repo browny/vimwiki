@@ -8,6 +8,7 @@
 <link href="http://pancake.io/6daab7/bootstrap.min.css" rel="stylesheet"
 media="screen" type='text/css'>
 
+
 <link href='http://pancake.io/6daab7/google-code-prettify/prettify.css' rel='stylesheet' type='text/css'/>
 <script language='javascript' src='http://pancake.io/6daab7/google-code-prettify/prettify.js' type='text/javascript'/>
 <script type='text/javascript'>
@@ -21,9 +22,13 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 <h3 id="toc_0.0.1">Java</h3>
 
 <p>
-<a href="Maven.html">Maven</a>
+<a href="Maven.html">Maven</a> | <a href="Java Regex.html">Java Regex</a> | <a href="Google Guava Collections.html">Google Guava Collections</a>
 </p>
 
+
+<p>
+<br>
+</p>
 <h5 id="toc_0.0.1.0.1">Exception Handling</h5>
 <p>
 Exceptions in the rainforest:
@@ -34,6 +39,47 @@ Exceptions in the rainforest:
 Exceptions: the throws declaration:
 <a href="http://www.javamex.com/tutorials/exceptions/exceptions_throws.shtml">http://www.javamex.com/tutorials/exceptions/exceptions_throws.shtml</a>
 </p>
+
+
+<p>
+<br>
+</p>
+<h5 id="toc_0.0.1.0.2">File IO</h5>
+
+<ul>
+<li>
+Read text file to String
+  <a href="http://stackoverflow.com/questions/6068197/utils-read-resource-text-file-to-string-java">http://stackoverflow.com/questions/6068197/utils-read-resource-text-file-to-string-java</a>
+
+</ul>
+  
+<pre class='prettyprint'>
+import com.google.common.base.Charsets;
+import com.google.common.io.Files;
+
+String content = Files.toString(new File("/home/x1/text.log"), Charsets.UTF_8);
+</pre>
+
+<p>
+<br>
+</p>
+<h5 id="toc_0.0.1.0.3">Generic</h5>
+
+<p>
+<a href="java generic example.html">java generic example</a>
+</p>
+
+
+<p>
+<br>
+</p>
+<h5 id="toc_0.0.1.0.4">Tips</h5>
+<ul>
+<li>
+Q: How to split a string, but also keep the delimiters? <br>
+  <strong>A:</strong> use Lookahead and Lookbehind - <a href="http://stackoverflow.com/questions/2206378/how-to-split-a-string-but-also-keep-the-delimiters">http://stackoverflow.com/questions/2206378/how-to-split-a-string-but-also-keep-the-delimiters</a>
+
+</ul>
 
 </body>
 </html>

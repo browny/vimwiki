@@ -8,6 +8,7 @@
 <link href="http://pancake.io/6daab7/bootstrap.min.css" rel="stylesheet"
 media="screen" type='text/css'>
 
+
 <link href='http://pancake.io/6daab7/google-code-prettify/prettify.css' rel='stylesheet' type='text/css'/>
 <script language='javascript' src='http://pancake.io/6daab7/google-code-prettify/prettify.js' type='text/javascript'/>
 <script type='text/javascript'>
@@ -20,7 +21,16 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 
 <h3 id="toc_0.0.1">SQL</h3>
 
-<h5 id="toc_0.0.1.0.1">MySQL commands</h5>
+<p>
+mysqldump
+</p>
+
+
+<p>
+<br>
+</p>
+<h4 id="toc_0.0.1.1">MySQL commands</h4>
+<hr />
 
 <pre class='prettyprint'>
 $ mysql -u &lt;userName&gt; -p -h &lt;ip-address&gt;
@@ -36,7 +46,24 @@ mysql&gt; describe [table name];       // see database's field formats
 mysql&gt; SELECT * FROM [table name];  // show all data in a table
 
 mysql&gt; SELECT * FROM [table name] WHERE [field name] = "whatever";
+
+mysqldump -u &lt;user-name&gt; -p &lt;db-name&gt; ooxx.sql // export db
+
+mysql -u &lt;user-name&gt; -p -h &lt;host-name&gt; &lt;db-name&gt; &lt; ooxx.sql // import db
+
 </pre>
+
+<p>
+<br>
+</p>
+<h4 id="toc_0.0.1.2">References</h4>
+<hr />
+<ul>
+<li>
+A Visual Explanation of SQL Joins <br>
+  <a href="http://www.codinghorror.com/blog/2007/10/a-visual-explanation-of-sql-joins.html">http://www.codinghorror.com/blog/2007/10/a-visual-explanation-of-sql-joins.html</a>
+
+</ul>
 
 </body>
 </html>

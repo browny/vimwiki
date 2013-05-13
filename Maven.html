@@ -8,6 +8,7 @@
 <link href="http://pancake.io/6daab7/bootstrap.min.css" rel="stylesheet"
 media="screen" type='text/css'>
 
+
 <link href='http://pancake.io/6daab7/google-code-prettify/prettify.css' rel='stylesheet' type='text/css'/>
 <script language='javascript' src='http://pancake.io/6daab7/google-code-prettify/prettify.js' type='text/javascript'/>
 <script type='text/javascript'>
@@ -20,30 +21,54 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 
 <h3 id="toc_0.0.1">Maven</h3>
 
+<h4 id="toc_0.0.1.1">Commands</h4>
+<hr />
+
+<p>
+mvn compile <br>
+mvn tomcat6:run <br>
+mvn test -Dtest=TagDaoTest <br>
+mvn package <br>
+mvn -P integration-server clean package -DskipTests=true
+</p>
+
 
 <p>
 <br>
 </p>
-<h4 id="toc_0.0.1.1">Tips</h4>
+<h4 id="toc_0.0.1.2">Tips</h4>
 <hr />
 
 <p>
-1. 利用 github 當作 maven 的 repo, 組織自己常用的 library <br>
+<strong>1. 利用 github 當作 maven 的 repo, 組織自己常用的 library</strong> <br>
 <a href="http://cemerick.com/2010/08/24/hosting-maven-repos-on-github/">http://cemerick.com/2010/08/24/hosting-maven-repos-on-github/</a>
 </p>
 
 
 <p>
-2. Maven 和 github 的整合 <br>
+<strong>2. Maven 和 github 的整合</strong> <br>
 <a href="http://www.thegameofcode.com/2012/09/maven-and-github.html">http://www.thegameofcode.com/2012/09/maven-and-github.html</a> <br>
 <a href="http://www.tutorialspoint.com/maven/">http://www.tutorialspoint.com/maven/</a>
 </p>
 
+<p>
+<strong>3. Make executable .jar by maven</strong> <br>
+How To Create A Jar File With Maven - <a href="http://www.mkyong.com/maven/how-to-create-a-jar-file-with-maven/">http://www.mkyong.com/maven/how-to-create-a-jar-file-with-maven/</a> <br>
+onejar-maven-plugin - <a href="https://code.google.com/p/onejar-maven-plugin/">https://code.google.com/p/onejar-maven-plugin/</a>
+</p>
+
+<p>
+<strong>4. Maven build</strong> <br>
+<code>mvn compile</code>, <code>mvn package</code>: 這種後面沒有冒號的叫做 life cycle, 其背後實作就是去一連串 goals 的呼叫 <br>
+<code>mvn tomcat6:run</code>: 這種後面有冒號的叫做 plugin, 這個例子就是呼叫 tomcat6 這個 plugin 裡面的 run 這個 goal <br>
+<code>mvn help:describe</code>: 這是 mvn 的 help 查詢 plugin 使用方法 <br>
+<code>mvn tomcat6:run -P integration-server</code>: 載入 integration-server 這個 profile
+</p>
 
 <p>
 <br>
 </p>
-<h4 id="toc_0.0.1.2">References</h4>
+<h4 id="toc_0.0.1.3">References</h4>
 <hr />
 <p>
 <a href="http://books.sonatype.com/mvnref-book/reference/">http://books.sonatype.com/mvnref-book/reference/</a>

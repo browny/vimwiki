@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<title>java generic example</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- Bootstrap -->
+<link href="http://pancake.io/6daab7/bootstrap.min.css" rel="stylesheet"
+media="screen" type='text/css'>
+
+
+<link href='http://pancake.io/6daab7/google-code-prettify/prettify.css' rel='stylesheet' type='text/css'/>
+<script language='javascript' src='http://pancake.io/6daab7/google-code-prettify/prettify.js' type='text/javascript'/>
+<script type='text/javascript'>
+document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();});
+</script>
+
+</head>
+<body onload='prettyPrint()'>
+
+
+<pre class='prettyprint'>
+
+class Result {
+    int getFirst() { return 1; }
+    int getLast() { return 9; }
+}
+
+interface calSum&lt;T&gt; {
+    T sum(Result result);
+}
+
+class StringCalSum implements calSum&lt;String&gt; {
+    @Override
+    public String sum(Result result) {
+        return Integer.toString(result.getFirst()) +
+            Integer.toString(result.getLast());
+    }
+}
+
+class IntCalSum implements calSum&lt;Integer&gt; {
+    @Override
+    public Integer sum(Result result) {
+        return result.getFirst() + result.getLast();
+    }
+}
+
+public class HelloWorld {
+
+    // generics method
+    public static &lt;T&gt; T calculateSum(Result result, calSum&lt;T&gt; cal) {
+        T out = cal.sum(result);
+        return out;
+    }
+
+    public static void main(String []args){
+
+        Result result  = new Result();
+
+        String sum1 = Integer.toString(result.getFirst()) +
+            Integer.toString(result.getLast());
+        System.out.println(sum1);
+
+        int sum2 = result.getFirst() + result.getLast();
+        System.out.println(Integer.toString(sum2));
+
+
+        StringCalSum s = new StringCalSum();
+        String sum3 = HelloWorld.calculateSum(result, s);
+        System.out.println(sum3);
+
+        IntCalSum i = new IntCalSum();
+        int sum4 = HelloWorld.calculateSum(result, i);
+        System.out.println(Integer.toString(sum4));
+
+
+    }
+}
+
+</pre>
+
+</body>
+</html>

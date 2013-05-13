@@ -8,6 +8,7 @@
 <link href="http://pancake.io/6daab7/bootstrap.min.css" rel="stylesheet"
 media="screen" type='text/css'>
 
+
 <link href='http://pancake.io/6daab7/google-code-prettify/prettify.css' rel='stylesheet' type='text/css'/>
 <script language='javascript' src='http://pancake.io/6daab7/google-code-prettify/prettify.js' type='text/javascript'/>
 <script type='text/javascript'>
@@ -20,16 +21,32 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 
 <h3 id="toc_0.0.1">Python</h3>
 
-<h4 id="toc_0.0.1.1">Issues</h4>
+<h4 id="toc_0.0.1.1"><a href="JSON.html">JSON</a></h4>
 <hr />
 <p>
-Debugging "No JSON object could be decoded" <br>
-<a href="http://stackoverflow.com/questions/14899506/debugging-no-json-object-could-be-decoded">http://stackoverflow.com/questions/14899506/debugging-no-json-object-could-be-decoded</a>
+Using python to pretty-print json in command line: <br>
+<code>echo '{"foo": "lorem", "bar": "ipsum"}' | python -mjson.tool</code>
 </p>
 
 <p>
-simplejson 可以得到更詳細的 error 訊息
+<br>
 </p>
+<h4 id="toc_0.0.1.2">Issues</h4>
+<hr />
+<ul>
+<li>
+Debugging "No JSON object could be decoded" <br>
+  <a href="http://stackoverflow.com/questions/14899506/debugging-no-json-object-could-be-decoded">http://stackoverflow.com/questions/14899506/debugging-no-json-object-could-be-decoded</a> <br>
+  simplejson 可以得到更詳細的 error 訊息
+
+</ul>
+
+<ul>
+<li>
+“TypeError: 'NoneType' object is not subscriptable” <br>
+  <a href="http://stackoverflow.com/questions/9846442/how-to-correct-typeerror-nonetype-object-is-not-subscriptable-in-recursive">http://stackoverflow.com/questions/9846442/how-to-correct-typeerror-nonetype-object-is-not-subscriptable-in-recursive</a>
+
+</ul>
 
 </body>
 </html>

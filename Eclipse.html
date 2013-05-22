@@ -25,21 +25,90 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 <hr />
 
 <pre class='prettyprint'>
-1. Ctrl + Shift + O     // Organize imports
-2. Ctrl + /             // Line Comment
-3. F3                   // Open Declaration
-4. Ctrl + Shift + F     // Auto indent
-5. Alt + Shift + S      // Open Source menu
-6. Alt + /              // Content Assist
-7. Ctrl + D             // Delete line
-7. Alt + &lt;-             // Back to previous tab
-8. Ctrl + Shift + I     // Open all hierachy
+1.  Ctrl + Shift + O     // Organize imports
+2.  Ctrl + /             // Line Comment
+3.  F3                   // Open Declaration
+4.  Ctrl + Shift + F     // Auto indent
+5.  Alt + Shift + S      // Open Source menu
+6.  Alt + /              // Content Assist
+7.  Ctrl + D             // Delete row
+7.  Alt + &lt;-             // Back to previous tab
+8.  Ctrl + Alt + H       // Open call hierachy
+9.  Ctrl + Shift + Y     // 小寫字母
+10. Ctrl + Shift + X     // 大寫字母
+11. Shift + Ctrl + R     // Open Resource
+12. Shift + Ctrl + T     // Open Type
+13. ALT + Up/Down Arrow  // Move the row (or the entire selection) up or down
+14. Ctrl + 1             // Quick fix
+15. Ctrl + E             // Shows you a list of all open editors
+16. Ctrl + Shift + L     // Shows you a list of your currently defined shortcut keys.
+17. Ctrl + PageUp/Down   // Switch between tabs
+18. Alt + Shift + A      // Toggle vertical selection
+19. Ctrl + O             // 快速打開 class 當中的 method 選單
+</pre>
+
+
+<h4 id="toc_0.0.1.2">eclim</h4>
+<hr />
+<p>
+Step1.
+</p>
+<pre class='prettyprint'>
+    // 安裝 eclim
+    java -jar eclim_2.2.5.jar
+</pre>
+
+<p>
+Step2.
+</p>
+<pre class='prettyprint'>
+    // 啟動 eclim deamon
+    /opt/eclipse/eclimd start
+</pre>
+
+<p>
+Step3.
+</p>
+<pre class='prettyprint'>
+    // 編輯 ~/.eclimrc, 加入你的 workspace 位置
+    osgi.instance.area.default=@user.home/myworkspace
+</pre>
+
+<p>
+Step4.
+</p>
+<pre class='prettyprint'>
+    // 查看 eclimd 是否正確運行
+    :PingEclim
+	
+    // 開 vim, :ProjectList 看目前有哪些 project
+    :EclimEnable 
+    &lt;Ctrl+X&gt;&lt;Ctrl+U&gt; 跳出提示
+</pre>
+
+<p>
+<strong>Issue.</strong> <br>
+Ubuntu 安裝的時候遇到下面的 Exception <br>
+<strong>解法</strong>: <code>sudo apt-get install openjdk-6-jre</code>
+</p>
+<pre class='prettyprint'>
+    Caused by: java.awt.HeadlessException
+        at sun.awt.HeadlessToolkit.getScreenResolution(HeadlessToolkit.java:221)
+            at com.jgoodies.looks.LookUtils.isLowResolution(LookUtils.java:480)
+                at com.jgoodies.looks.LookUtils.&lt;clinit&gt;(LookUtils.java:249)
+</pre>
+
+<p>
+<strong>Ref.</strong>
+</p>
+<pre class='prettyprint'>
+    http://pastandzero.blogspot.tw/2012/09/vim-java-eclim.html
 </pre>
 
 <p>
 <br>
 </p>
-<h4 id="toc_0.0.1.2">Tips</h4>
+<h4 id="toc_0.0.1.3">Tips</h4>
 <hr />
 
 <ul>

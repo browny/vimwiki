@@ -81,6 +81,14 @@ git remote show origin
 
 cat .git/HEAD                     // Show the HEAD location
 git reflog show HEAD@{now} -10    // Show the HEAD change history
+
+// Create remote branch
+git checkout -b your_branch
+git push -u origin your_branch
+
+// Delete remote branch
+git push origin :your_branch
+
 </pre>
 
 <h4 id="toc_0.0.1.5">Git Log</h4>

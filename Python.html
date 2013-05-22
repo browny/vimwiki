@@ -47,6 +47,29 @@ Debugging "No JSON object could be decoded" <br>
   <a href="http://stackoverflow.com/questions/9846442/how-to-correct-typeerror-nonetype-object-is-not-subscriptable-in-recursive">http://stackoverflow.com/questions/9846442/how-to-correct-typeerror-nonetype-object-is-not-subscriptable-in-recursive</a>
 
 </ul>
+  
+<ul>
+<li>
+如何釐清 python 版本和 library 的 search path
+  使用 python2.6
+
+</ul>
+  
+<pre class='prettyprint'>
+    $ type -p python
+
+    $ which python
+    /usr/local/bin/python
+    $ which python2.6
+    /usr/bin/python2.6
+    
+    // 把 python 指到 python2.6
+    ln -f /usr/bin/python2.6 /usr/local/bin/python
+    
+    // 看 python 去哪些路徑找 library
+    import sys
+    sys.path
+</pre>
 
 </body>
 </html>

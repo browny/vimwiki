@@ -24,19 +24,75 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 <a href="http://www.igniterealtime.org/projects/openfire/">http://www.igniterealtime.org/projects/openfire/</a>
 </p>
 
+
 <p>
 <br>
 </p>
-<h4 id="toc_0.0.1.1">XMPP</h4>
+<h4 id="toc_0.0.1.1">Set up Openfire on CentOS x64</h4>
+<hr />
+
 <p>
-<a href="http://wenku.baidu.com/view/24abcfd63186bceb19e8bb6b.html">http://wenku.baidu.com/view/24abcfd63186bceb19e8bb6b.html</a>
+Step0.
 </p>
+<pre class='prettyprint'>
+    yum install java glibc.i686 // Openfire depends on 32bit lib
+</pre>
+
+<p>
+Step1.
+</p>
+<pre class='prettyprint'>
+    rpm -ivh openfire-3.6.4-1.i386.rpm
+</pre>
+
+<p>
+Step2. 
+</p>
+<pre class='prettyprint'>
+    vim /etc/sysconfig/iptables
+
+    // add below port
+    -A INPUT -p tcp -m state --state NEW -m tcp --dport 5222 -j ACCEPT
+    -A INPUT -p tcp -m state --state NEW -m tcp --dport 7777 -j ACCEPT
+    -A INPUT -p tcp -m state --state NEW -m tcp --dport 7070 -j ACCEPT
+    -A INPUT -p tcp -m state --state NEW -m tcp --dport 7443 -j ACCEPT
+    -A INPUT -p tcp -m state --state NEW -m tcp --dport 9090 -j ACCEPT
+    -A INPUT -p tcp -m state --state NEW -m tcp --dport 9091 -j ACCEPT
+   
+    // refresh iptables
+    iptables-restore &lt; /etc/sysconfig/iptables
+</pre>
+
+<p>
+Step3.
+</p>
+<pre class='prettyprint'>
+    /etc/init.d/openfire start
+    /etc/init.d/openfire status // check openfire status
+</pre>
+
+<h5 id="toc_0.0.1.1.1">References</h5>
+
+<ul>
+<li>
+Openfire Jabber/XMPP Server on CentOS mini-Howto <br>
+  <a href="http://www.tonybhimani.com/2007/12/31/openfire-jabberxmpp-server-on-centos-mini-howto/">http://www.tonybhimani.com/2007/12/31/openfire-jabberxmpp-server-on-centos-mini-howto/</a>
+
+<li>
+Setting up an Openfire XMPP (Jabber) IM server on CentOS <br>
+  <a href="http://simoncoopey.com/2010/openfire-install">http://simoncoopey.com/2010/openfire-install</a>
+
+<li>
+Quick and Easy Openfire Install on Centos 6.3 <br>
+  <a href="http://swimminginthought.com/quick-easy-openfire-install-centos-6-3/">http://swimminginthought.com/quick-easy-openfire-install-centos-6-3/</a>
+
+</ul>
 
 
 <p>
 <br>
 </p>
-<h4 id="toc_0.0.1.2">Set up Openfire Server</h4>
+<h4 id="toc_0.0.1.2">Set up Openfire on Ubuntu 12.04</h4>
 <hr />
 
 <p>
@@ -79,19 +135,11 @@ Register a plugin as a PacketInterceptor。 這種方式可以接收系統傳輸
 </ol>
 </ol>
 
-<h5 id="toc_0.0.1.2.2">Basics of XMPP</h5>
-
-<ul>
-<li>
-Once you have negotiated an XML stream with your server, you and your server can 
-  exchange three special XML snippets over the stream: &lt;message/&gt;, &lt;presence/&gt;, and &lt;iq/&gt;
-
-</ul>
 
 <p>
 <br>
 </p>
-<h4 id="toc_0.0.1.3">Openfire Development</h4>
+<h4 id="toc_0.0.1.3">Openfire Plugin Development</h4>
 <hr />
 
 <ul>
@@ -117,10 +165,100 @@ Openfire Plugin Developer Guide <br>
 
 </ul>
 
+
 <p>
 <br>
 </p>
-<h4 id="toc_0.0.1.4">References</h4>
+<h4 id="toc_0.0.1.4">XMPP Clinet</h4>
+<hr />
+
+<h5 id="toc_0.0.1.4.1">SleekXmpp</h5>
+<p>
+<a href="http://sleekxmpp.com/">http://sleekxmpp.com/</a> <br>
+Python 2.6+/3.1+ XMPP Library
+</p>
+
+<h5 id="toc_0.0.1.4.2">Smack API</h5>
+<p>
+<a href="http://www.igniterealtime.org/projects/smack/">http://www.igniterealtime.org/projects/smack/</a> <br>
+Smack is an Open Source XMPP (Jabber) client library for instant messaging and presence
+</p>
+
+<p>
+Below is a sample smack application to send chatroom invitation
+</p>
+<pre class='prettyprint'>
+
+    package test.xmpp.smack;
+
+    import org.jivesoftware.smack.Connection;
+    import org.jivesoftware.smack.XMPPConnection;
+    import org.jivesoftware.smack.XMPPException;
+    import org.jivesoftware.smack.packet.Message;
+    import org.jivesoftware.smackx.GroupChatInvitation;
+
+    public class Client {
+
+        public static void main(String[] args) {
+            Connection connection = new XMPPConnection("localhost");
+            try {
+                connection.connect();
+                connection.login("admin", "browny1983");
+
+                Message message = new Message("fanxin@ub");
+                message.setBody("Join me for a group chat!");
+                message.addExtension(new GroupChatInvitation("room18@conference.ub"));
+                connection.sendPacket(message);
+
+                //Chat chat = connection.getChatManager().createChat(
+                //		"fanxin@ub", new MessageListener() {
+                //
+                //			@Override
+                //			public void processMessage(Chat chat, Message message) {
+                //				System.out.println("Received message: " + message);
+                //			}
+                //
+                //		});
+                //chat.sendMessage("Howdy!");
+
+            } catch (XMPPException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+</pre>
+
+<p>
+<br>
+</p>
+<h4 id="toc_0.0.1.5">Toolkit</h4>
+<hr />
+
+<h5 id="toc_0.0.1.5.1">XMPP</h5>
+<p>
+<a href="http://wenku.baidu.com/view/24abcfd63186bceb19e8bb6b.html">http://wenku.baidu.com/view/24abcfd63186bceb19e8bb6b.html</a>
+</p>
+
+<h5 id="toc_0.0.1.5.2">BOSH</h5>
+<p>
+<a href="http://en.wikipedia.org/wiki/BOSH">http://en.wikipedia.org/wiki/BOSH</a> <br>
+BOSH is simulating a persistent connection between client and XMPP server using HTTP calls
+</p>
+
+<h5 id="toc_0.0.1.5.3">Strophe</h5>
+<p>
+<a href="http://strophe.im/">http://strophe.im/</a> <br>
+Strophe is a collection of libraries for speaking the XMPP protocol
+</p>
+
+
+<p>
+<br>
+</p>
+<h4 id="toc_0.0.1.6">References</h4>
 <hr />
 
 <ul>

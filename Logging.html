@@ -19,8 +19,28 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 <body onload='prettyPrint()'>
 
 
+
+<h3 id="toc_0.0.1">Logging</h3>
+
 <p>
 "commons-log + log4j" vs. "slf4j + logback" 
+</p>
+
+<p>
+<br>
+</p>
+<h4 id="toc_0.0.1.1">Notes</h4>
+<hr />
+
+<p>
+log4j 不管要不要印, 字串都付出代價
+</p>
+
+<p>
+slf4j 會先檢查 level 是否需要輸出, 才會決定要不要組字串
+也可以用 formater 的寫法, 但是當 format 變數是另外的 function call 的
+時候, 還是會先跑,  這時候可以用 isDebugEnable() 之類的 if 先判斷, 提昇
+效能
 </p>
 
 </body>

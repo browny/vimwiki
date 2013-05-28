@@ -15,13 +15,63 @@ media="screen" type='text/css'>
 document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();});
 </script>
 
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+<script type="text/javascript" src="http://6daab7.pancakeapps.com/jquery.stoc.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$("#items").stoc({
+			search: "#container"
+		});
+	});
+</script>
+<style type="text/css">
+	#items {
+		position: fixed;
+		top: 5%;
+		right: 5%;
+		float: right;
+		width: 220px;
+		padding: 5px;
+		margin:0 0 0px 0px;
+		/* rgba with ie compatibility */
+		background-color: transparent;
+		background-color: rgba(255,255,255,0.4);
+		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#20ffffff,endColorstr=#20ffffff);
+		-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#20ffffff,endColorstr=#20ffffff)";
+	}
+	#items ul {
+		margin: 0 0 0 10px;
+		padding: 0 0 3px;
+		list-style-type: none;
+	}
+	#items ul ul {
+		font-size: 85%;
+	}
+	#items ul a {
+		font-family: "arial";
+		text-decoration: none;
+		color: #c10000;
+	}
+	#items ul a:hover { color: #ff0000 }
+</style>
+
 </head>
 <body onload='prettyPrint()'>
-
+<div id="container">
+<div id="items">
+</div>
+	
 
 <h3 id="toc_0.0.1">Openfire</h3>
+
 <p>
-<a href="http://www.igniterealtime.org/projects/openfire/">http://www.igniterealtime.org/projects/openfire/</a>
+<a href="XMPP stanzas xml packet.html">XMPP stanzas xml packet</a>
+</p>
+
+<p>
+Message Archive: <a href="http://community.igniterealtime.org/thread/48517">http://community.igniterealtime.org/thread/48517</a> <br>
+Monitoring Service 這個套件會把 message 寫到 database 當中
 </p>
 
 
@@ -46,7 +96,7 @@ Step1.
 </pre>
 
 <p>
-Step2. 
+Step2.
 </p>
 <pre class='prettyprint'>
     vim /etc/sysconfig/iptables
@@ -58,7 +108,7 @@ Step2.
     -A INPUT -p tcp -m state --state NEW -m tcp --dport 7443 -j ACCEPT
     -A INPUT -p tcp -m state --state NEW -m tcp --dport 9090 -j ACCEPT
     -A INPUT -p tcp -m state --state NEW -m tcp --dport 9091 -j ACCEPT
-   
+
     // refresh iptables
     iptables-restore &lt; /etc/sysconfig/iptables
 </pre>
@@ -71,7 +121,7 @@ Step3.
     /etc/init.d/openfire status // check openfire status
 </pre>
 
-<h5 id="toc_0.0.1.1.1">References</h5>
+<h5 id="toc_0.0.1.1.1">Ref.</h5>
 
 <ul>
 <li>
@@ -103,44 +153,36 @@ How to setup an IM / VOIP server using Openfire on Ubuntu 12.04<br>
 就跑起來了!
 </p>
 
-<p>
-<br>
-</p>
-<h5 id="toc_0.0.1.2.1">Notices</h5>
-<ol>
-<li>
-Openfire Admin Console 的 username 預設是 admin 不是 setup 裡面設定的 email
-
-<li>
-在 Pidgin 裡面加 Buddy 使用 username@&lt;openfire server name&gt; (ex: test@ub)
-
-<li>
-攔截數據包大概有4種方法
-
-<ol>
-<li>
-plugin <strong>Broadcast</strong> 使用 Component 的方式擷取 <br>
-    Components可以接收一個特定子域(sub-domain)的所有包。比如test_componet.example.com。所以，一個發送 給joe@test_componet.example.com的包將被轉發給這個componet <br>
-    sub-domain 透過 plugin.broadcast.serviceName 這個 property 來修改, 所有 packet 類型 (Message, Present, IQ) 都可以處理
-
-<li>
-Register a plugin as an IQHandler。IQ handlers 相應 packet 中特定的元素名或命名空間
-
-<li>
-Register a plugin as a PacketInterceptor。 這種方式可以接收系統傳輸的所有包，並可以隨意的丟棄它們 (可以參考 Packet Filter Plugin)
-
-<li>
-使用JiveGlobals.getProperty(String) 和 JiveGlobals.setProperty(String, String) 方法將我們的插件設置為openfire的一個全局屬性。通過實現org.jivesoftware.util.PropertyEventListener方法可以將我們的 插件做成一個屬性監聽器監聽任何屬性的變化。通過 PropertyEventDispatcher.addListener(PropertyEventListener)方法可以注冊監聽。要注意的一 點是，一定要在destroyPlugin()方法中將注冊的監聽注銷
-
-</ol>
-</ol>
-
 
 <p>
 <br>
 </p>
 <h4 id="toc_0.0.1.3">Openfire Plugin Development</h4>
 <hr />
+
+<h5 id="toc_0.0.1.3.1">攔截數據包大概有4種方法</h5>
+
+<ol>
+<li>
+<strong>plugin Broadcast 使用 Component 的方式擷取</strong> <br>
+  Components可以接收一個特定子域(sub-domain)的所有包。比如test_componet.example.com。所以，一個發送 給joe@test_componet.example.com的包將被轉發給這個componet sub-domain 透過 plugin.broadcast.serviceName 這個 property 來修改, 所有 packet 類型 (Message, Present, IQ) 都可以處理
+
+<li>
+<strong>Register a plugin as an IQHandler</strong> <br>
+  IQ handlers 相應 packet 中特定的元素名或命名空間
+  (Example for creating your own IQHandler for new needs: <a href="http://community.igniterealtime.org/docs/DOC-1535)">http://community.igniterealtime.org/docs/DOC-1535)</a>
+
+<li>
+<strong>Register a plugin as a PacketInterceptor</strong> <br>
+  這種方式可以接收系統傳輸的所有包，並可以隨意的丟棄它們 (可以參考 Packet Filter Plugin)
+
+<li>
+使用JiveGlobals.getProperty(String) 和 JiveGlobals.setProperty(String, String) 方法將我們的插件設置為openfire的一個全局屬性。通過實現org.jivesoftware.util.PropertyEventListener方法可以將我們的 插件做成一個屬性監聽器監聽任何屬性的變化。通過 PropertyEventDispatcher.addListener(PropertyEventListener)方法可以注冊監聽。要注意的一 點是，一定要在destroyPlugin()方法中將注冊的監聽注銷
+
+</ol>
+
+
+<h5 id="toc_0.0.1.3.2">Ref.</h5>
 
 <ul>
 <li>
@@ -165,94 +207,107 @@ Openfire Plugin Developer Guide <br>
 
 </ul>
 
+<ul>
+<li>
+XEP-0030: Service Discovery <br>
+  <a href="http://xmpp.org/extensions/xep-0030.html">http://xmpp.org/extensions/xep-0030.html</a>
+
+</ul>
+
+<ul>
+<li>
+XEP-0133: Service Administration <br>
+  <a href="http://xmpp.org/extensions/xep-0133.html">http://xmpp.org/extensions/xep-0133.html</a>
+
+</ul>
+
 
 <p>
 <br>
 </p>
-<h4 id="toc_0.0.1.4">XMPP Clinet</h4>
+<h4 id="toc_0.0.1.4">XMPP Clinet/Library</h4>
 <hr />
+<ul>
+<li>
+<strong>SparkWeb</strong>
+  Openfire could be used like a WebServer itself, just copy the sparkweb directory inside the <code>openfire\plugins\admin\webapp</code> directory, and then you could use Webchat from the administration port of Openfire(9090 by default).  Just use <a href="http://OpenfireServerip:9090/sparkweb/SparkWeb.html,">http://OpenfireServerip:9090/sparkweb/SparkWeb.html,</a> no Apache or IIS needed...
 
-<h5 id="toc_0.0.1.4.1">SleekXmpp</h5>
-<p>
-<a href="http://sleekxmpp.com/">http://sleekxmpp.com/</a> <br>
-Python 2.6+/3.1+ XMPP Library
-</p>
+</ul>
 
-<h5 id="toc_0.0.1.4.2">Smack API</h5>
-<p>
-<a href="http://www.igniterealtime.org/projects/smack/">http://www.igniterealtime.org/projects/smack/</a> <br>
-Smack is an Open Source XMPP (Jabber) client library for instant messaging and presence
-</p>
+<ul>
+<li>
+<strong>Profanity</strong>
+  <a href="http://www.profanity.im/">http://www.profanity.im/</a> <br>
+  A console based XMPP client
 
-<p>
-Below is a sample smack application to send chatroom invitation
-</p>
-<pre class='prettyprint'>
+</ul>
 
-    package test.xmpp.smack;
+<ul>
+<li>
+<strong>SleekXmpp</strong>
+  <a href="http://sleekxmpp.com/">http://sleekxmpp.com/</a> <br>
+  Python 2.6+/3.1+ XMPP Library
 
-    import org.jivesoftware.smack.Connection;
-    import org.jivesoftware.smack.XMPPConnection;
-    import org.jivesoftware.smack.XMPPException;
-    import org.jivesoftware.smack.packet.Message;
-    import org.jivesoftware.smackx.GroupChatInvitation;
+</ul>
 
-    public class Client {
+<ul>
+<li>
+<strong>Smack API</strong>
+  <a href="http://www.igniterealtime.org/projects/smack/">http://www.igniterealtime.org/projects/smack/</a> <br>
+  Smack is an Open Source XMPP (Jabber) client library for instant messaging and presence
 
-        public static void main(String[] args) {
-            Connection connection = new XMPPConnection("localhost");
-            try {
-                connection.connect();
-                connection.login("admin", "browny1983");
+</ul>
 
-                Message message = new Message("fanxin@ub");
-                message.setBody("Join me for a group chat!");
-                message.addExtension(new GroupChatInvitation("room18@conference.ub"));
-                connection.sendPacket(message);
+<ul>
+<li>
+<strong>BOSH</strong>
+  <a href="http://en.wikipedia.org/wiki/BOSH">http://en.wikipedia.org/wiki/BOSH</a> <br>
+  BOSH is simulating a persistent connection between client and XMPP server using HTTP calls
 
-                //Chat chat = connection.getChatManager().createChat(
-                //		"fanxin@ub", new MessageListener() {
-                //
-                //			@Override
-                //			public void processMessage(Chat chat, Message message) {
-                //				System.out.println("Received message: " + message);
-                //			}
-                //
-                //		});
-                //chat.sendMessage("Howdy!");
+</ul>
 
-            } catch (XMPPException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+<ul>
+<li>
+<strong>Strophe</strong>
+  <a href="http://strophe.im/">http://strophe.im/</a> <br>
+  Strophe is a collection of libraries for speaking the XMPP protocol
 
-        }
-    }
+</ul>
 
-</pre>
 
 <p>
 <br>
 </p>
-<h4 id="toc_0.0.1.5">Toolkit</h4>
+<h4 id="toc_0.0.1.5">Issues</h4>
 <hr />
+<ul>
+<li>
+如何重新設定 Database:
 
-<h5 id="toc_0.0.1.5.1">XMPP</h5>
-<p>
-<a href="http://wenku.baidu.com/view/24abcfd63186bceb19e8bb6b.html">http://wenku.baidu.com/view/24abcfd63186bceb19e8bb6b.html</a>
-</p>
+<ol>
+<li>
+turn off openfire
 
-<h5 id="toc_0.0.1.5.2">BOSH</h5>
-<p>
-<a href="http://en.wikipedia.org/wiki/BOSH">http://en.wikipedia.org/wiki/BOSH</a> <br>
-BOSH is simulating a persistent connection between client and XMPP server using HTTP calls
-</p>
+<li>
+edit the conf/openfire.xml <code>&lt;setup&gt;</code> tag to read <br>
 
-<h5 id="toc_0.0.1.5.3">Strophe</h5>
-<p>
-<a href="http://strophe.im/">http://strophe.im/</a> <br>
-Strophe is a collection of libraries for speaking the XMPP protocol
-</p>
+<li>
+start openfire
+
+</ol>
+</ul>
+
+<ul>
+<li>
+Openfire Admin Console 的 username 預設是 admin 不是 setup 裡面設定的 email
+
+</ul>
+
+<ul>
+<li>
+在 Pidgin 裡面加 Buddy 使用 username@&lt;openfire server name&gt; (ex: test@ub)
+
+</ul>
 
 
 <p>
@@ -263,18 +318,25 @@ Strophe is a collection of libraries for speaking the XMPP protocol
 
 <ul>
 <li>
+XMPP Wiki <br>
+  <a href="http://wiki.xmpp.org/web/Main_Page">http://wiki.xmpp.org/web/Main_Page</a>
+
+</ul>
+
+<ul>
+<li>
 Build a web-based notification tool with XMPP <br>
   <a href="http://www.ibm.com/developerworks/xml/tutorials/x-realtimeXMPPtut/section4.html">http://www.ibm.com/developerworks/xml/tutorials/x-realtimeXMPPtut/section4.html</a>
 
 </ul>
-  
+
 <ul>
 <li>
 openfire3.6.3 plugin 開發方法 <br>
   <a href="http://www.360doc.com/content/11/1214/16/59141_172227723.shtml">http://www.360doc.com/content/11/1214/16/59141_172227723.shtml</a>
 
 </ul>
-  
+
 <ul>
 <li>
 開發你自己的XMPP IM 續 - Openfire 插件開發 - [J2EE] <br>
@@ -282,34 +344,77 @@ openfire3.6.3 plugin 開發方法 <br>
   <a href="http://phoenixtoday.blogbus.com/logs/17246727.html">http://phoenixtoday.blogbus.com/logs/17246727.html</a>
 
 </ul>
- 
+
 <ul>
 <li>
 Openfire插件開發人員指南 <br>
-  <a href="http://www.blogjava.net/jyleon/articles/254197.html">http://www.blogjava.net/jyleon/articles/254197.html</a> 
+  <a href="http://www.blogjava.net/jyleon/articles/254197.html">http://www.blogjava.net/jyleon/articles/254197.html</a>
 
 </ul>
-  
+
 <ul>
 <li>
-XMPP openfire packet doc
+XMPP openfire packet doc <br>
   <a href="http://www.igniterealtime.org/builds/tinder/docs/latest/javadoc/org/xmpp/packet/package-summary.html">http://www.igniterealtime.org/builds/tinder/docs/latest/javadoc/org/xmpp/packet/package-summary.html</a>
 
 </ul>
-  
+
 <ul>
 <li>
-Custom servlet in Openfire plugin
+Custom servlet in Openfire plugin <br>
   <a href="http://uncommentedbytes.blogspot.tw/2008/07/custom-servlet-in-openfire-plugin.html">http://uncommentedbytes.blogspot.tw/2008/07/custom-servlet-in-openfire-plugin.html</a>
 
 </ul>
 
 <ul>
 <li>
-Openfire開發之Servlet的URL
+Openfire開發之Servlet的URL <br>
   <a href="http://www.haogongju.net/art/464193">http://www.haogongju.net/art/464193</a>
 
 </ul>
 
+<ul>
+<li>
+Android平台下基於XMPP的IM研究(二 MultiUserChat 聊天室) <br>
+  <a href="http://blog.csdn.net/liuhongwei123888/article/details/6618408">http://blog.csdn.net/liuhongwei123888/article/details/6618408</a>
+
+</ul>
+
+<ul>
+<li>
+Beautiful XMPP Testing <br>
+  <a href="http://el-tramo.be/documents/beautiful-xmpp-testing/">http://el-tramo.be/documents/beautiful-xmpp-testing/</a>
+
+</ul>
+
+<ul>
+<li>
+Android基於XMPP Smack openfire 開發的聊天室 <br>
+  <a href="http://www.kaixinwenda.com/article-cuiweijie3-8647569.html">http://www.kaixinwenda.com/article-cuiweijie3-8647569.html</a>
+
+</ul>
+
+<ul>
+<li>
+Use XMPP to Create Your Own Google Talk Client <br>
+  <a href="http://www.linuxforu.com/2012/06/use-xmpp-to-create-your-own-google-talk-client/">http://www.linuxforu.com/2012/06/use-xmpp-to-create-your-own-google-talk-client/</a>
+
+</ul>
+  
+<ul>
+<li>
+Setting up Openfire + BOSH + Strophe <br>
+  <a href="http://expertnotfound.wordpress.com/2013/04/08/setting-up-openfire-bosh-strophe/">http://expertnotfound.wordpress.com/2013/04/08/setting-up-openfire-bosh-strophe/</a>
+
+</ul>
+  
+<ul>
+<li>
+Professional XMPP Programming with JavaScript and jQuery <br>
+  <a href="http://professionalxmpp.com/">http://professionalxmpp.com/</a>
+
+</ul>
+
+</div>
 </body>
 </html>

@@ -15,9 +15,53 @@ media="screen" type='text/css'>
 document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();});
 </script>
 
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+<script type="text/javascript" src="http://6daab7.pancakeapps.com/jquery.stoc.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$("#items").stoc({
+			search: "#container"
+		});
+	});
+</script>
+<style type="text/css">
+	#items {
+		position: fixed;
+		top: 5%;
+		right: 5%;
+		float: right;
+		width: 220px;
+		padding: 5px;
+		margin:0 0 0px 0px;
+		/* rgba with ie compatibility */
+		background-color: transparent;
+		background-color: rgba(255,255,255,0.4);
+		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#20ffffff,endColorstr=#20ffffff);
+		-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#20ffffff,endColorstr=#20ffffff)";
+	}
+	#items ul {
+		margin: 0 0 0 10px;
+		padding: 0 0 3px;
+		list-style-type: none;
+	}
+	#items ul ul {
+		font-size: 85%;
+	}
+	#items ul a {
+		font-family: "arial";
+		text-decoration: none;
+		color: #c10000;
+	}
+	#items ul a:hover { color: #ff0000 }
+</style>
+
 </head>
 <body onload='prettyPrint()'>
-
+<div id="container">
+<div id="items">
+</div>
+	
 
 <p>
 EpgScheduleResources.java (listScheduleForWeb) 
@@ -53,5 +97,6 @@ Query sqlQuery = new SetQueryParameterProxy(
 
 </pre>
 
+</div>
 </body>
 </html>

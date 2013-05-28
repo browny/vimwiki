@@ -15,9 +15,53 @@ media="screen" type='text/css'>
 document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();});
 </script>
 
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+<script type="text/javascript" src="http://6daab7.pancakeapps.com/jquery.stoc.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$("#items").stoc({
+			search: "#container"
+		});
+	});
+</script>
+<style type="text/css">
+	#items {
+		position: fixed;
+		top: 5%;
+		right: 5%;
+		float: right;
+		width: 220px;
+		padding: 5px;
+		margin:0 0 0px 0px;
+		/* rgba with ie compatibility */
+		background-color: transparent;
+		background-color: rgba(255,255,255,0.4);
+		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#20ffffff,endColorstr=#20ffffff);
+		-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#20ffffff,endColorstr=#20ffffff)";
+	}
+	#items ul {
+		margin: 0 0 0 10px;
+		padding: 0 0 3px;
+		list-style-type: none;
+	}
+	#items ul ul {
+		font-size: 85%;
+	}
+	#items ul a {
+		font-family: "arial";
+		text-decoration: none;
+		color: #c10000;
+	}
+	#items ul a:hover { color: #ff0000 }
+</style>
+
 </head>
 <body onload='prettyPrint()'>
-
+<div id="container">
+<div id="items">
+</div>
+	
 
 <h3 id="toc_0.0.1">Java</h3>
 
@@ -30,7 +74,7 @@ FreeMarker StringTemplate
 <p>
 <br>
 </p>
-<h5 id="toc_0.0.1.0.1">Exception Handling</h5>
+<h4 id="toc_0.0.1.1">Exception Handling</h4>
 <p>
 Exceptions in the rainforest:
 <a href="http://nedbatchelder.com/text/exceptions-in-the-rainforest.html">http://nedbatchelder.com/text/exceptions-in-the-rainforest.html</a>
@@ -45,7 +89,7 @@ Exceptions: the throws declaration:
 <p>
 <br>
 </p>
-<h5 id="toc_0.0.1.0.2">File IO</h5>
+<h4 id="toc_0.0.1.2">File IO</h4>
 
 <ul>
 <li>
@@ -61,10 +105,11 @@ import com.google.common.io.Files;
 String content = Files.toString(new File("/home/x1/text.log"), Charsets.UTF_8);
 </pre>
 
+
 <p>
 <br>
 </p>
-<h5 id="toc_0.0.1.0.3">Generic</h5>
+<h4 id="toc_0.0.1.3">Generic</h4>
 
 <p>
 <a href="java generic example.html">java generic example</a>
@@ -74,7 +119,7 @@ String content = Files.toString(new File("/home/x1/text.log"), Charsets.UTF_8);
 <p>
 <br>
 </p>
-<h5 id="toc_0.0.1.0.4">Tips</h5>
+<h4 id="toc_0.0.1.4">Tips</h4>
 <ul>
 <li>
 Q: How to split a string, but also keep the delimiters? <br>
@@ -89,5 +134,6 @@ Q: Mac 安裝完 jdk1.7 請設定 PATH: <br>
 
 </ul>
 
+</div>
 </body>
 </html>

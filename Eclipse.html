@@ -89,7 +89,10 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 17. Alt + j/k            // 切換 tab
 18. Alt + Shift + A      // Toggle vertical selection
 19. Ctrl + O             // 快速打開 class 當中的 method 選單
-20. 
+20. Alt + &lt;- or -&gt;		 // Backward/Forward History
+21. F12					 // Activate Editor (把focus移至text editor)
+22. Ctrl + . or ,		 // Jump to next/previous error
+
 </pre>
 
 
@@ -174,6 +177,12 @@ Eclipse 如果沒開 Build Automatically, 會發生 class 沒有被 build 出來
 <li>
 Q: 明明 .java 有在 package 的路徑下，但是跳出找不到 package 的 error: <code>The declared package does not match the expected package</code> <br>
   A; 把 .java 移出資料夾，F5 更新 Eclipse，再把 .java 移回去，再按 F5
+
+</ul>
+
+<ul>
+<li>
+Maven 可以 build 過但是 Eclipse 就是出現 error, 可以下 <code>mvn eclipse:clean</code> 再重新匯入，或是按右鍵 Maven -&gt; Update Project
 
 </ul>
 

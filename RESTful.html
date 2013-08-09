@@ -67,6 +67,7 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 <p>
 Restful API 該如何定義: 以寄送 mail 這個動作為例<br>
 </p>
+
 <ul>
 <li>
 討論如何傳入參數 <br>
@@ -80,6 +81,88 @@ How to design REST API for email sending service? <br>
   <a href="http://stackoverflow.com/questions/12310442/how-to-design-rest-api-for-email-sending-service">http://stackoverflow.com/questions/12310442/how-to-design-rest-api-for-email-sending-service</a>
 
 </ul>
+
+<ul>
+<li>
+When to use @QueryParam vs @PathParam <br>
+  <a href="http://stackoverflow.com/questions/11552248/when-to-use-queryparam-vs-pathparam">http://stackoverflow.com/questions/11552248/when-to-use-queryparam-vs-pathparam</a>
+
+</ul>
+  
+<ul>
+<li>
+要用 POST 還是 PUT <br>
+  <a href="http://stackoverflow.com/questions/630453/put-vs-post-in-rest">http://stackoverflow.com/questions/630453/put-vs-post-in-rest</a> <br>
+  <a href="http://jcalcote.wordpress.com/2008/10/16/put-or-post-the-rest-of-the-story/">http://jcalcote.wordpress.com/2008/10/16/put-or-post-the-rest-of-the-story/</a>
+
+</ul>
+  
+<ul>
+<li>
+Restful API error handling <br>
+  <a href="http://stackoverflow.com/questions/942951/rest-api-error-return-good-practices">http://stackoverflow.com/questions/942951/rest-api-error-return-good-practices</a> <br>
+  <a href="https://blog.apigee.com/detail/restful_api_design_what_about_errors">https://blog.apigee.com/detail/restful_api_design_what_about_errors</a>
+
+</ul>
+
+  
+<h4 id="toc_0.0.1.1">Notes</h4>
+
+<p>
+1. URL 不能有 verb 是一個誤區, 把所有的動作都放到以 <code>action</code> 為名的 QueryParam 只會讓 URL 有過多的職責
+2. 可以把執行動作的 URL 想像成 linux 的指令, 把越容易變動的特性放在網址的越尾端
+3. PathParam, QueryParam 就像是 filter，決定最後結果對外呈現的樣貌
+4. 好的 URL 設計應該要可以讓 API 文件相當簡潔易懂
+</p>
+
+
+<h4 id="toc_0.0.1.2">References</h4>
+<hr />
+
+<ul>
+<li>
+Best Practices for Designing a Pragmatic RESTful API
+
+</ul>
+<p>
+<a href="http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api">http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api</a>
+</p>
+
+<ul>
+<li>
+HATEOAS 101: Opinionated Introduction to a REST API Style - Webcast
+
+</ul>
+<p>
+<a href="http://youtu.be/6UXc71O7htc">http://youtu.be/6UXc71O7htc</a>
+</p>
+
+<ul>
+<li>
+Beautiful REST + JSON APIs
+
+</ul>
+<p>
+<a href="http://www.slideshare.net/stormpath/rest-jsonapis">http://www.slideshare.net/stormpath/rest-jsonapis</a>
+</p>
+
+<ul>
+<li>
+Thoughts on RESTful API Design
+
+</ul>
+<p>
+<a href="https://restful-api-design.readthedocs.org/en/latest/">https://restful-api-design.readthedocs.org/en/latest/</a>
+</p>
+
+<ul>
+<li>
+How to create REST URLs without verbs?
+
+</ul>
+<p>
+<a href="http://stackoverflow.com/questions/1619152/how-to-create-rest-urls-without-verbs">http://stackoverflow.com/questions/1619152/how-to-create-rest-urls-without-verbs</a>
+</p>
 
 </div>
 </body>

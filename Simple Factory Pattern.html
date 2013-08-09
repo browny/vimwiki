@@ -2,7 +2,7 @@
 <html>
 <head>
 <link rel="Stylesheet" type="text/css" href="style.css">
-<title>JSON</title>
+<title>Simple Factory Pattern</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- Bootstrap -->
 <link href="http://pancake.io/6daab7/bootstrap.min.css" rel="stylesheet"
@@ -63,21 +63,19 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 </div>
 	
 
-<h3 id="toc_0.0.1">JSON</h3>
+<h3 id="toc_0.0.1">Simple Factory Pattern</h3>
+
 
 <p>
-JSONLint - The JSON Validator <br>
-<a href="http://jsonlint.com/">http://jsonlint.com/</a>
+Simple Factory模式又稱Static Factory模式。一個Simple Factory生產成品，
+而對客戶端隱藏產品產生的細節，物件如何生成，生成前是否與其它物件建立依賴關係，
+客戶端皆不用理會，用以<strong>將物件生成方式之變化 與客戶端程式碼隔離</strong>
 </p>
 
 <p>
-ObjectMapper.createObjectNode 可以自己建 json response
-</p>
-
-<p>
-@JsonSerialize() 用來自訂義 ORM -&gt; 客製化的 Json 格式
-@JsonView 一個 entity 可以利用 @JsonView 設定群組來決定不同的欄位輸出
-<a href="http://wiki.fasterxml.com/JacksonJsonViews">http://wiki.fasterxml.com/JacksonJsonViews</a>
+Simple Factory使用靜態方法來簡單地隱藏物件建立細節。撇開靜態方法不談，
+<strong>隱藏物件建立的細節仍是Factory模式的重點</strong> ，可將這個模式推至極緻，而成為一種通用、
+專門用來生成物件、建立依賴關係、甚至具備管理物件生命週期職責的輕量級容器
 </p>
 
 </div>

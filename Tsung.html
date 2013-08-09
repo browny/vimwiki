@@ -1,0 +1,172 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<title>Tsung</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- Bootstrap -->
+<link href="http://pancake.io/6daab7/bootstrap.min.css" rel="stylesheet"
+media="screen" type='text/css'>
+
+
+<link href='http://pancake.io/6daab7/google-code-prettify/prettify.css' rel='stylesheet' type='text/css'/>
+<script language='javascript' src='http://pancake.io/6daab7/google-code-prettify/prettify.js' type='text/javascript'/>
+<script type='text/javascript'>
+document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();});
+</script>
+
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+<script type="text/javascript" src="http://6daab7.pancakeapps.com/jquery.stoc.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$("#items").stoc({
+			search: "#container"
+		});
+	});
+</script>
+<style type="text/css">
+	#items {
+		position: fixed;
+		top: 5%;
+		right: 5%;
+		float: right;
+		width: 220px;
+		padding: 5px;
+		margin:0 0 0px 0px;
+		/* rgba with ie compatibility */
+		background-color: transparent;
+		background-color: rgba(255,255,255,0.4);
+		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#20ffffff,endColorstr=#20ffffff);
+		-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#20ffffff,endColorstr=#20ffffff)";
+	}
+	#items ul {
+		margin: 0 0 0 10px;
+		padding: 0 0 3px;
+		list-style-type: none;
+	}
+	#items ul ul {
+		font-size: 85%;
+	}
+	#items ul a {
+		font-family: "arial";
+		text-decoration: none;
+		color: #c10000;
+	}
+	#items ul a:hover { color: #ff0000 }
+</style>
+
+</head>
+<body onload='prettyPrint()'>
+<div id="container">
+<div id="items">
+</div>
+	
+
+<h3 id="toc_0.0.1">Tsung</h3>
+<p>
+<a href="http://tsung.erlang-projects.org/">http://tsung.erlang-projects.org/</a>
+</p>
+
+
+<h4 id="toc_0.0.1.1">Installation (Ubuntu 12.04)</h4>
+<hr />
+
+<h5 id="toc_0.0.1.1.1">1. Install dependencies</h5>
+<p>
+<code>sudo apt-get install erlang erlang-src gnuplot perl libtemplate-perl</code>
+</p>
+	
+<h5 id="toc_0.0.1.1.2">2. Download Tsung</h5>
+<p>
+<a href="http://tsung.erlang-projects.org/dist/">http://tsung.erlang-projects.org/dist/</a>
+</p>
+	
+<h5 id="toc_0.0.1.1.3">3. Install Tsung</h5>
+
+<pre class='prettyprint'>
+tar -zxvf tsung-1.4.2.tar.gz
+cd tsung-1.4.2/
+./configure
+make
+sudo make install	
+</pre>
+
+<h5 id="toc_0.0.1.1.4">4. Verify installation</h5>
+
+<p>
+Use command <code>tsung</code>, check if below message shown <br>
+<code>Usage: tsung &lt;options&gt; start|stop|debug|status</code>
+</p>
+
+<h5 id="toc_0.0.1.1.5">5. The default testing config will be placed in</h5>
+<p>
+<code>/usr/share/doc/tsung/examples</code>
+</p>
+
+
+<h4 id="toc_0.0.1.2">Issues</h4>
+<hr />
+<p>
+1. 跑 register loading test 的時候在 openfire admin console 沒看到 user 增加? 
+</p>
+
+<p>
+Ans; Server Settings -&gt; Registration Settings -&gt; Inband Account Registration -&gt; Set to <code>Enabled</code>
+</p>
+
+<p>
+2. 要 register 2000 個, 結果只建立了 5 個
+</p>
+
+<p>
+Ans: 先修改系統的最大數限制
+</p>
+<pre class='prettyprint'>
+在本機 /etc/security/limits.conf 最後增加：
+* soft nofile 65535
+* hard nofile 65535
+* soft nproc 65535
+* hard nproc 65535
+
+在配置文件中配置一個重要的參數 maxusers
+&lt;clients&gt;  
+    &lt;client host="localhost" use_controller_vm="true" maxusers="60000"&gt;  
+    &lt;/client&gt;  
+&lt;/clients&gt;  
+</pre>
+
+
+<h4 id="toc_0.0.1.3">References</h4>
+<hr />
+<ul>
+<li>
+【Tsung 壓力測試】XMPP/Jabber服務器之注冊大量用戶
+  <a href="http://hyjiang1989.iteye.com/blog/1860882">http://hyjiang1989.iteye.com/blog/1860882</a>
+
+</ul>
+  
+<ul>
+<li>
+Test the Performance and Scalability of Your Web Applications With Tsung
+  <a href="http://beebole.com/blog/erlang/test-performance-and-scalability-of-your-web-applications-with-tsung/">http://beebole.com/blog/erlang/test-performance-and-scalability-of-your-web-applications-with-tsung/</a>
+
+</ul>
+  
+<ul>
+<li>
+Load testing Ejabberd XMPP Server with Tsung
+  <a href="http://vidorsolutions.blogspot.tw/2010/12/load-testing-ejabberd-xmpp-server-with.html">http://vidorsolutions.blogspot.tw/2010/12/load-testing-ejabberd-xmpp-server-with.html</a>
+
+</ul>
+
+<ul>
+<li>
+tsung測試openfire時從CSV文件讀取user信息
+  <a href="http://rritw.com/a/bianchengyuyan/C__/20121223/277373.html">http://rritw.com/a/bianchengyuyan/C__/20121223/277373.html</a>
+
+</ul>
+
+</div>
+</body>
+</html>

@@ -65,42 +65,109 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 
 <h3 id="toc_0.0.1">SQL</h3>
 
+<h4 id="toc_0.0.1.1">MySQL command</h4>
 <p>
-mysqldump
+<a href="https://gist.github.com/browny/5906747">https://gist.github.com/browny/5906747</a>
 </p>
 
-
-<p>
-<br>
-</p>
-<h4 id="toc_0.0.1.1">MySQL commands</h4>
+<h4 id="toc_0.0.1.2">MySQL CLI commands</h4>
 <hr />
 
 <pre class='prettyprint'>
-$ mysql -u &lt;userName&gt; -p -h &lt;ip-address&gt;
-
 mysql&gt; show databases;
 
+mysql&gt; create database fanzytv_test character set='utf8';
+
 mysql&gt; use [db name];               // switch to a database
-
 mysql&gt; show tables;                 // show all tables
-
 mysql&gt; describe [table name];       // see database's field formats
 
-mysql&gt; SELECT * FROM [table name];  // show all data in a table
+// export db
+mysqldump -u dev -pft53738078 --routines --single-transaction fanzytv_test &gt; liquibase-backup.sql
 
-mysql&gt; SELECT * FROM [table name] WHERE [field name] = "whatever";
+// import db (注意: $db_name 要跟 export 的一樣)
+mysql -u dev -pft53738078 --database=$db_name &lt; liquibase-backup.sql 
 
-mysqldump -u &lt;user-name&gt; -p &lt;db-name&gt; ooxx.sql // export db
+mysql&gt; show triggers like '%fx_game%'\G // 查看 trigger 內容, \G 用來美化
 
-mysql -u &lt;user-name&gt; -p -h &lt;host-name&gt; &lt;db-name&gt; &lt; ooxx.sql // import db
+mysql&gt; desc table_name // 看 schema
+
+mysql&gt; \e // 用文字編輯器寫 sql
+
+// 建立使用者
+mysql&gt; CREATE USER 'monty'@'localhost' IDENTIFIED BY 'some_pass';
+mysql&gt; GRANT ALL PRIVILEGES ON *.* TO 'monty'@'localhost' WITH GRANT OPTION;
+
+// This shows you the SQL statement necessary to receate mytable in its current form.
+SHOW CREATE TABLE mytable;
 
 </pre>
 
+
+<h4 id="toc_0.0.1.3">MySQL operation</h4>
+<hr />
 <p>
-<br>
+<code>INSERT ... ON DUPLICATE KEY UPDATE</code> <br>
+<a href="http://dev.mysql.com/doc/refman/5.7/en/insert-on-duplicate.html">http://dev.mysql.com/doc/refman/5.7/en/insert-on-duplicate.html</a> <br>
+沒有的話 insert, 有的話 update
 </p>
-<h4 id="toc_0.0.1.2">References</h4>
+
+<h4 id="toc_0.0.1.4">my.cnf 設定</h4>
+<hr />
+<pre class='prettyprint'>
+// 設定資料庫採用 utf8, /etc/mysql/my.cnf
+
+[mysqld]
+init_connect='SET collation_connection = utf8_unicode_ci'
+character-set-server = utf8
+collation-server = utf8_unicode_ci
+
+[client]
+default-character-set = utf8
+
+Add these to /etc/mysql/my.cnf.
+</pre>
+
+<pre class='prettyprint'>
+// 重新啟動 mysql
+sudo /usr/local/mysql/support-files/mysql.server stop
+sudo /usr/local/mysql/support-files/mysql.server start
+</pre>
+
+
+<h4 id="toc_0.0.1.5">Issues</h4>
+<ol>
+<li>
+清空 database,  然後跑 liquibase 的時候出現 error <br>
+  建立資料庫的時候要選擇 utf8, 不然插入中文資料的時候會錯誤, 或是一開始就設定好 <code>/etc/mysql/my.cnf</code> <br>
+  <code>SHOW VARIABLES LIKE 'character%';</code> 這個指令可以看某個 database 的編碼設定 <br>
+  <a href="http://stackoverflow.com/questions/3513773/change-mysql-default-character-set-to-utf8-in-my-cnf">http://stackoverflow.com/questions/3513773/change-mysql-default-character-set-to-utf8-in-my-cnf</a>
+
+<li>
+因為 program table 有設一個 trigger 去新增 hot_program, 所以 test 之後並沒有刪掉 hot_program
+  導致下一次跑測試 insert 失敗, 解法是在 yaml 裡面加上 trigger 的 table (hot_program), 這樣 delete 才會刪掉 trigger 
+  產生出來的東西. 但是 INSERT 就要改成 REFRESH, 不然就會 insert 兩次 (trigger 一次, 然後又 insert 一次)
+
+<li>
+使用 liquibase 寫 trigger 的時候, 發生 DbUnit 載入 Default 測試資料的時候發生 duplicate 的 error, 但是明明用了
+  ON DUPLICATE KEY INSERT 怎麼會發生 duplicate 呢？<br>
+  原因是: 在 Default.xml table 建立的順序發生了問題, 假設 Default.xml 裡面 A -&gt; B, 如果你的 trigger 剛好又是 A trigger B
+  那麼, 當 DbUnit 跑到 A 的時候就會觸發 trigger 產生了 B, 等到 DbUnit 要建 B 的時候就會發生 duplicate 了！
+  所以錯誤的原因不是 liquibase 的 trigger, 而是 DbUnit 要建立 B 的時候發現 duplicate 已經被 A trigger 出來 <br>
+  <strong>Ans</strong>: 所以使用 trigger 的時候要注意 Default data 的順序
+
+<li>
+Native query select 到不同 table 但是相同名稱的 column 要怎麼 map 到 entity <br>
+  給相同名稱的欄位不一樣的 alias 
+<pre class='prettyprint'>
+    SELECT E1.id as "Employees_ID", E2.id as "Employers_ID"
+    FROM Employees as E1 LEFT JOIN Employers AS E2 ON (E1.Id=E2.Id)
+</pre>
+
+</ol>
+
+
+<h4 id="toc_0.0.1.6">References</h4>
 <hr />
 <ul>
 <li>
@@ -113,6 +180,46 @@ A Visual Explanation of SQL Joins <br>
 <li>
 Install MySQL on Mountaion Lion <br>
   <a href="http://www.macminivault.com/mysql-mountain-lion/">http://www.macminivault.com/mysql-mountain-lion/</a>
+
+</ul>
+
+<ul>
+<li>
+11 important database designing rules which I follow <br>
+  <a href="http://www.codeproject.com/Articles/359654/11-important-database-designing-rules-which-I-foll">http://www.codeproject.com/Articles/359654/11-important-database-designing-rules-which-I-foll</a>
+
+</ul>
+
+<ul>
+<li>
+MySQL Datetime 和 Timestamp 的差異 <br>
+  <a href="http://stackoverflow.com/questions/409286/datetime-vs-timestamp">http://stackoverflow.com/questions/409286/datetime-vs-timestamp</a>
+
+</ul>
+  
+<ul>
+<li>
+MySQL索引背後的數據結構及算法原理 <br>
+  <a href="http://blog.codinglabs.org/articles/theory-of-mysql-index.html">http://blog.codinglabs.org/articles/theory-of-mysql-index.html</a>
+  InnoDB 的數據文件本身就是索引文件, 稱為聚集式索引。網路上有說 InnoDB 最好使用 surrogate key 
+  當做 primary key, 才不會造成記憶體分頁太多空隙。但實際上, 這要看你如何查詢而論。查詢分為兩類，
+  <code>點查詢(一次輸出一筆資料)</code>和<code>範圍查詢(輸出符合條件範圍的多筆資料)</code>, 點查詢基本上跟如何索引沒有
+  關係, 範圍查詢才會牽扯到該範圍的結果是否在同一分頁內, 如果不是在同一個分頁內, 就需要額外的 IO 
+  存取。因此涉及到 primary key 的順序性(兩個以上 PK 的狀況)
+
+</ul>
+  
+<ul>
+<li>
+SQL Server 索引結構及其使用 <br>
+  <a href="http://my.oschina.net/zimingforever/blog/130888">http://my.oschina.net/zimingforever/blog/130888</a>
+
+</ul>
+  
+<ul>
+<li>
+MySQL 事件和觸發器
+  <a href="http://www.codedata.com.tw/database/mysql-stored-routines-trigger-event/">http://www.codedata.com.tw/database/mysql-stored-routines-trigger-event/</a>
 
 </ul>
 

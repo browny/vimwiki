@@ -69,21 +69,130 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 <a href="Hibernate.html">Hibernate</a>
 </p>
 
+<p>
+ORM 是表格與物件的中介層，但是要把它跟表格(schema) 綁的比較近一點。
+</p>
+
+<ul>
+<li>
+Entity 最好都要 Override <code>equals</code> 和 <code>hashCode</code> 方法
+  因為 default 的 object equality 是看記憶體位置, 但是你有可能從 persistence session 取出兩個 instance 是相同的 row, 
+  但是他們的記憶體位置肯定不同, 所以覆寫是為了彌補 object eqaulity 和 entity equality 語意上的出入 <br>
+
+</ul>
+
+<ol>
+<li>
+Equals and HashCode 
+	<a href="https://community.jboss.org/wiki/EqualsAndHashCode">https://community.jboss.org/wiki/EqualsAndHashCode</a>
+
+<li>
+Don't Let Hibernate Steal Your Identity
+	<a href="http://www.onjava.com/pub/a/onjava/2006/09/13/dont-let-hibernate-steal-your-identity.html">http://www.onjava.com/pub/a/onjava/2006/09/13/dont-let-hibernate-steal-your-identity.html</a>
+
+</ol>
+
+<ol>
+<li>
+How to map a composite key with Hibernate?
+  <a href="http://stackoverflow.com/a/3588400/474002">http://stackoverflow.com/a/3588400/474002</a>
+
+</ol>
+  
+<ul>
+<li>
+在測試的時候, 拿到的 Entity 裡面有 lazy fetch 成員, 會產生如下面的錯誤:
+<pre class='prettyprint'>
+org.hibernate.LazyInitializationException: session is not connected
+</pre>
+
+</ul>
 
 <p>
-<br>
+因為 session 已經 close, 所以需要在測試方法上面加上 @Transactional. <br>
+那為什麼 Resources 的 GET 方法不需要加 @Transactional 呢? 因為下面的設定已經把每個 request 都指派一個 EntityManager
 </p>
-<h4 id="toc_0.0.1.1">References</h4>
+
+<pre class='prettyprint'>
+	&lt;filter&gt;
+		&lt;filter-name&gt;SpringEntityManagerInViewFilter&lt;/filter-name&gt;
+		&lt;filter-class&gt;org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter&lt;/filter-class&gt;
+	&lt;/filter&gt;
+</pre>
+
+<h4 id="toc_0.0.1.1">Annotations</h4>
+<hr />
+
+<p>
+<code>@Transactional</code>: <a href="http://doanduyhai.wordpress.com/2011/11/20/spring-transactional-explained/">http://doanduyhai.wordpress.com/2011/11/20/spring-transactional-explained/</a>
+</p>
+
+<p>
+<code>@Transient</code>: Entity 當中沒有要被 persist 的屬性, 必須加上這個
+</p>
+
+<p>
+<code>@MappedSuperClass</code>: 一個假 Entity 
+</p>
+
+<p>
+Entity 使用繼承, query 的時候會付出 join 子類的表格的代價 <br>
+而使用 OneToManay/ManyToMany 等 mapping 的時候, 例如 Proudct 裡面有 List&lt;User&gt; 也會產生 join <br>
+但並非每次我們要用 Product 的時候都非要 List&lt;User&gt; 才行, 所以可以把 Proudct 的基本成員用 MappedSuperClass 抽取出來 <br>
+需要擴充的再去繼承他, 增加資料庫查詢的效能
+</p>
+
+<p>
+<code>@ElementCollection</code>: Product 裡面有 List&lt;User&gt; 的 orm, 但是我們需要的只是 user 的 id, 而不需要拿整個 User, 可以使用 ElementCollection
+</p>
+
+<p>
+<code>@IdClass</code>: 複數 Primary Key 可以使用這個宣告 PK class
+</p>
+
+<p>
+JPA and Enums via <code>@Enumerated</code> <br>
+<a href="http://tomee.apache.org/examples-trunk/jpa-enumerated/">http://tomee.apache.org/examples-trunk/jpa-enumerated/</a>
+</p>
+
+<h4 id="toc_0.0.1.2">Issues</h4>
+<ul>
+<li>
+LazyInitializationException
+  <a href="http://stackoverflow.com/a/5404645/474002">http://stackoverflow.com/a/5404645/474002</a>
+
+</ul>
+
+<h4 id="toc_0.0.1.3">References</h4>
 <hr />
 <p>
 JPA從入門到精通 <br>
 <a href="http://wenku.baidu.com/view/ebd42d708e9951e79b8927a8.html">http://wenku.baidu.com/view/ebd42d708e9951e79b8927a8.html</a>
 </p>
 
+<p>
+JPA總結 <br>
+<a href="http://rritw.com/a/JAVAbiancheng/Hibernate/20101214/71123.html">http://rritw.com/a/JAVAbiancheng/Hibernate/20101214/71123.html</a>
+</p>
 
 <p>
 通過 Hibernate 實現 JPA 對象關系模型之繼承映射策略 <br>
 <a href="http://www.ibm.com/developerworks/cn/java/j-lo-hibernatejpa/">http://www.ibm.com/developerworks/cn/java/j-lo-hibernatejpa/</a>
+</p>
+
+<p>
+Spring Data JPA Tutorial <br>
+<a href="http://www.petrikainulainen.net/spring-data-jpa-tutorial/">http://www.petrikainulainen.net/spring-data-jpa-tutorial/</a>
+</p>
+
+<p>
+Introduction to Java Persistence API(JPA) 了解 Persistence Context 和 EntityManager <br>
+<a href="http://www.javabeat.net/2007/04/jpa/">http://www.javabeat.net/2007/04/jpa/</a>
+</p>
+
+<p>
+Various States of JPA Entities <br>
+<a href="http://gerrytan.wordpress.com/2012/05/21/various-states-of-jpa-entities/">http://gerrytan.wordpress.com/2012/05/21/various-states-of-jpa-entities/</a>
 </p>
 
 </div>

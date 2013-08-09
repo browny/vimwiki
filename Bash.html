@@ -72,18 +72,31 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 <hr />
 <p>
 <code>uname -m</code> : check 32bit or 64bit
+</p>
+
+<p>
 <code>tail -f &lt;file&gt;</code> : keep printing the last file content 
+</p>
+
+<p>
 <code>nmap -v -sT -O localhost</code> : list opening port on localhost
 </p>
 
 
 <p>
 Execute a command with a timeout <br>
-<a href="http://www.pixelbeat.org/scripts/timeout">http://www.pixelbeat.org/scripts/timeout</a>
+<a href="http://www.pixelbeat.org/scripts/timeout">http://www.pixelbeat.org/scripts/timeout</a> <br>
+Ex: <code>timeout.sh 5 python twitterstream.py</code>
+</p>
+
+
+<h4 id="toc_0.0.1.2">Network Debug</h4>
+<p>
+<code>ps aux | less</code>: display all running process
 </p>
 
 <p>
-Ex: <code>timeout.sh 5 python twitterstream.py</code>
+<code>netstat -anp | grep LISTEN</code>: list open ports and listening services
 </p>
 
 </div>

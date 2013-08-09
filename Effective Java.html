@@ -2,7 +2,7 @@
 <html>
 <head>
 <link rel="Stylesheet" type="text/css" href="style.css">
-<title>JSON</title>
+<title>Effective Java</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- Bootstrap -->
 <link href="http://pancake.io/6daab7/bootstrap.min.css" rel="stylesheet"
@@ -63,22 +63,58 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 </div>
 	
 
-<h3 id="toc_0.0.1">JSON</h3>
+<h3 id="toc_0.0.1">Effective Java</h3>
 
-<p>
-JSONLint - The JSON Validator <br>
-<a href="http://jsonlint.com/">http://jsonlint.com/</a>
-</p>
+<ol>
+<li>
+靜態工廠方法 (返回類的實例的靜態方法)
 
-<p>
-ObjectMapper.createObjectNode 可以自己建 json response
-</p>
+<ul>
+<li>
+優點:
 
-<p>
-@JsonSerialize() 用來自訂義 ORM -&gt; 客製化的 Json 格式
-@JsonView 一個 entity 可以利用 @JsonView 設定群組來決定不同的欄位輸出
-<a href="http://wiki.fasterxml.com/JacksonJsonViews">http://wiki.fasterxml.com/JacksonJsonViews</a>
-</p>
+<ol>
+<li>
+與建構子不同的地方在於, 他 method name 有意義, 而非單純類的名稱
+
+<li>
+搭配 singleton, 不必像建構子一樣每次都創建一個新的物件返回
+
+<li>
+可以返回其類的任何子類型物件 (Service Provider Framework: <code>Service Interface</code>, <code>Service Provider Interface</code>, <code>Provider Registration API</code>, <code>Service Access API</code>)
+
+<li>
+建構參數化類的實例時, 使代碼更簡潔
+
+</ol>
+</ul>
+</ol>
+
+<pre class='prettyprint'>
+Map&lt;String, List&lt;String&gt;&gt; m = new HashMap&lt;String, List&lt;String&gt;&gt;();
+
+假設 Map 提供靜態工廠方法:
+public static &lt;K, V&gt; HashMap&lt;K, V&gt; newInstance() {
+	return new HashMap&lt;K, V&gt;();
+}
+
+就可以簡化為:
+Map&lt;String, List&lt;String&gt;&gt; m = HashMap&lt;K, V&gt;();
+</pre>
+
+<ul>
+<li>
+缺點:
+
+<ol>
+<li>
+若沒有 public/protected 建構子, 就無法被 subclass
+
+<li>
+與其他靜態方法實際上沒有區別
+
+</ol>
+</ul>
 
 </div>
 </body>

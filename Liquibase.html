@@ -92,6 +92,23 @@ patch 如果寫錯, 要用新的 patch 去修正. 否和有可能多產生 table
 命名如果有 prefix 的 convention 會比較好 debug
 </p>
 
+<p>
+用 liquibase 作資料庫 table 的欄位增加, 需要考慮兩點: <br>
+</p>
+
+<p>
+1. 使用 liquibase 工具把舊資料的資料填 null 或是 0
+</p>
+
+<p>
+2. 檢查有沒有重複的 column name 在你的 join 行為當中, 這邊就突顯了 prefix 的重要性
+</p>
+
+<p>
+3. 要 alter table 的時候 (例如重新命名 column), 先把該 column 的 foreign key constraint 移除
+</p>
+
+
 <h4 id="toc_0.0.1.2">References</h4>
 
 </div>

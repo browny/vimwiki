@@ -70,10 +70,68 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 </p>
 
 
+<h4 id="toc_0.0.1.1">Note</h4>
+
+<p>
+Spring 怎麼決定他要管理哪些 class (bean)
+</p>
+
+<p>
+Spring 的主要入口在 SpringAppConfig.java 這個設定檔, 由 src/main/webapp/WEB-INF/web.xml  
+Spring context configuration 裡面設定 (org.springframework.web.context.support.AnnotationConfigWebApplicationContext)
+ContextRefreshedListener 把 Spring context share 給非 Spring 管理的 class, 因此非 Spring 管理的 class 可以使用
+getApplicationContext 或是 @Inject BeanFactory 來取的 Spring Bean
+</p>
+
+<p>
+這個 SpringAppConfig 會去掃底下的 package 和所有的 <code>@Configuration</code> 的 class, 然後這些 class
+再去掃下面 <code>@ComponentScan</code> 的 package, <code>@Import</code> 進來的 class, 和下面 define 的 <code>@Bean</code>
+</p>
+
+<p>
+什麼是 Bean, 下面這 4 種 annotation 就是 bean:
+</p>
+
+<p>
+<code>@Named</code>, <code>@Service</code>, <code>@Repository</code> <br>
+</p>
+
+<p>
+<code>@Bean</code> <br>
+public xxx XXX() {} // 參考 src/main/java/com/fanzytv/config/DatabaseConfig.java, 代表這個方法會獲得一個 bean
+</p>
+
+<p>
+宣告為 Bean 以後, 這些物件就歸 Spring 管理, 就可以用 @Inject, @Named 注入該物件
+</p>
+
+<p>
+Spring <br>
+<code>@Component</code>: Indicates a auto scan component <br>
+</p>
+
+<p>
+<code>@Repository</code>, <code>@Service</code>, and <code>@Controller</code> serve as <strong>specializations</strong> of @Component for more specific use cases <br>
+</p>
+
+<p>
+<code>@Service</code>: Indicates DAO component in the persistence layer. <br>
+<code>@Repository</code>: Indicates a Service component in the business layer <br>
+<code>@Controller</code>: Indicates a controller component in the presentation layer. <br>
+<code>@Bean</code>: Annotation to be applied to methods that create beans in a Spring context
+</p>
+
+<p>
+JSR 330 <br>
+@Inject instead of Spring’s @Autowired to inject a bean. <br>
+@Named instead of Spring’s @Component to declare a bean.
+</p>
+
+
 <p>
 <br>
 </p>
-<h4 id="toc_0.0.1.1">References</h4>
+<h4 id="toc_0.0.1.2">References</h4>
 <hr />
 <p>
 SPRING FRAMEWORK <br>

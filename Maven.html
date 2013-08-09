@@ -73,13 +73,14 @@ mvn compile <br>
 mvn tomcat6:run <br>
 mvn test -Dtest=TagDaoTest <br>
 mvn package <br>
-mvn -P integration-server clean package -DskipTests=true
+mvn liquibase:update
 </p>
-
 
 <p>
-<br>
+mvn dependency:resolve
 </p>
+
+
 <h4 id="toc_0.0.1.2">Tips</h4>
 <hr />
 
@@ -108,6 +109,46 @@ onejar-maven-plugin - <a href="https://code.google.com/p/onejar-maven-plugin/">h
 <code>mvn help:describe</code>: 這是 mvn 的 help 查詢 plugin 使用方法 <br>
 <code>mvn tomcat6:run -P integration-server</code>: 載入 integration-server 這個 profile
 </p>
+
+<p>
+<strong>5. pom.xml 設定 resource 路徑</strong> <br>
+</p>
+
+<pre class='prettyprint'>
+InputStream is = getClass().getResourceAsStream("/application.properties")
+Properties urbanProperties = new Properties();
+urbanProperties.load(is);
+</pre>
+
+<p>
+因為 resource 有分用來 filtering 跟非 filtering 兩種, 如果只用第一個的話就只會包含到 application.properties 和 logback.xml,
+所以還需要第二個 filtering 屬性為 false 的宣告
+</p>
+<pre class='prettyprint'>
+
+&lt;resources&gt;
+	&lt;resource&gt;
+		&lt;directory&gt;src/main/resources&lt;/directory&gt;
+		&lt;filtering&gt;true&lt;/filtering&gt;
+		&lt;includes&gt;
+			&lt;include&gt;application.properties&lt;/include&gt;
+			&lt;include&gt;logback.xml&lt;/include&gt;
+		&lt;/includes&gt;
+	&lt;/resource&gt;
+	&lt;resource&gt;
+		&lt;directory&gt;src/main/resources&lt;/directory&gt;
+		&lt;filtering&gt;false&lt;/filtering&gt;
+		&lt;excludes&gt;
+			&lt;exclude&gt;application.properties&lt;/exclude&gt;
+			&lt;exclude&gt;logback.xml&lt;/exclude&gt;
+			&lt;exclude&gt;*.swp&lt;/exclude&gt;
+			&lt;exclude&gt;*.swo&lt;/exclude&gt;
+		&lt;/excludes&gt;
+	&lt;/resource&gt;
+&lt;/resources&gt;
+
+</pre>
+
 
 <p>
 <br>

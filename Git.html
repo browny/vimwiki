@@ -152,6 +152,8 @@ git blame -L 160,+10 sha1_file.c    // 查看sha1_file.c 從第160行開始往�
 git log --grep=word   // 搜尋 commit message 包含 'word' 的 commit
 git log -Sword        // 搜尋 commit 修改內容包含 'word' 的 commit
 
+git log -5 --name-only // 查最近 5 筆 commit 有修改哪些檔案
+
 // 搜尋哪一筆 commit 在 SurfaceFlinger.cpp 中曾經修改過 surface_flinger_cblk_t 這個關鍵字
 git log -S"surface_flinger_cblk_t" -p services/surfaceflinger/SurfaceFlinger.cpp
 

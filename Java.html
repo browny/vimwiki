@@ -66,30 +66,66 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 <h3 id="toc_0.0.1">Java</h3>
 
 <p>
-FreeMarker StringTemplate
+<code>sudo update-alternatives --config java</code> // 切換系統預設的 java (Sun/OpenJDK)
+</p>
+
+<p>
+FreeMarker | StringTemplate 
+</p>
+
+<p>
 <a href="Maven.html">Maven</a> | <a href="Java Regex.html">Java Regex</a> | <a href="Google Guava Collections.html">Google Guava Collections</a>
 </p>
 
 
-<p>
-<br>
-</p>
 <h4 id="toc_0.0.1.1">Exception Handling</h4>
 <p>
-Exceptions in the rainforest:
+Exceptions in the rainforest: <br>
 <a href="http://nedbatchelder.com/text/exceptions-in-the-rainforest.html">http://nedbatchelder.com/text/exceptions-in-the-rainforest.html</a>
 </p>
 
 <p>
-Exceptions: the throws declaration:
+Exceptions: the throws declaration: <br>
 <a href="http://www.javamex.com/tutorials/exceptions/exceptions_throws.shtml">http://www.javamex.com/tutorials/exceptions/exceptions_throws.shtml</a>
 </p>
 
+<p>
+Three Rules for Effective Exception Handling: <br>
+<a href="https://today.java.net/pub/a/today/2003/12/04/exceptions.html">https://today.java.net/pub/a/today/2003/12/04/exceptions.html</a>
+</p>
+
+<ul>
+<li>
+Be specific(把比較specific的exception放在比較前面的catch)
+
+<li>
+Throw early
+
+<li>
+Catch later(讓真正可以處理exception的人去catch他)
+
+<li>
+Exception 該在他需要被處理掉的地方被處理掉, 考慮上層的系統需要什麼 info, 可以自己包一個 runtime exception 出去
+
+</ul>
 
 <p>
-<br>
+Java Exception Handling Tutorial with Examples and Best Practices: <br>
+<a href="http://www.javacodegeeks.com/2013/07/java-exception-handling-tutorial-with-examples-and-best-practices.html">http://www.javacodegeeks.com/2013/07/java-exception-handling-tutorial-with-examples-and-best-practices.html</a>
 </p>
-<h4 id="toc_0.0.1.2">File IO</h4>
+
+<h4 id="toc_0.0.1.2">Enum</h4>
+<p>
+The Beauty of Enum <br>
+<a href="http://www.core-dump.net/programming/the-beauty-of-enums/">http://www.core-dump.net/programming/the-beauty-of-enums/</a>
+</p>
+
+<p>
+Java enum example <br>
+<a href="http://javahowto.blogspot.tw/2008/04/java-enum-examples.html">http://javahowto.blogspot.tw/2008/04/java-enum-examples.html</a>
+</p>
+
+<h4 id="toc_0.0.1.3">File IO</h4>
 
 <ul>
 <li>
@@ -106,20 +142,63 @@ String content = Files.toString(new File("/home/x1/text.log"), Charsets.UTF_8);
 </pre>
 
 
-<p>
-<br>
-</p>
-<h4 id="toc_0.0.1.3">Generic</h4>
+<h4 id="toc_0.0.1.4">Inheritance &amp; Interface</h4>
+
+<ul>
+<li>
+深入理解abstract class和interface
+  <a href="http://www.wretch.cc/blog/jshen/4308265">http://www.wretch.cc/blog/jshen/4308265</a>
+
+</ul>
+  
+<ul>
+<li>
+Abstract class 和 Interface 的差異
+  <a href="http://programmers.stackexchange.com/questions/96947/why-should-i-declare-a-class-as-an-abstract-class/96956#96956">http://programmers.stackexchange.com/questions/96947/why-should-i-declare-a-class-as-an-abstract-class/96956#96956</a>
+
+</ul>
+
+
+<h4 id="toc_0.0.1.5">Generic</h4>
 
 <p>
 <a href="java generic example.html">java generic example</a>
 </p>
 
 
-<p>
-<br>
-</p>
-<h4 id="toc_0.0.1.4">Tips</h4>
+<h4 id="toc_0.0.1.6">Patterns</h4>
+
+<h5 id="toc_0.0.1.6.1">Singleton</h5>
+<ul>
+<li>
+Singleton design pattern in java <br>
+  <a href="http://howtodoinjava.com/2012/10/22/singleton-design-pattern-in-java/">http://howtodoinjava.com/2012/10/22/singleton-design-pattern-in-java/</a>
+
+</ul>
+ 
+<pre class='prettyprint'>
+public class DemoSingleton implements Serializable {
+  private static final long serialVersionUID = 1L;
+
+  private DemoSingleton() {
+  	// private constructor
+  }
+
+  private static class DemoSingletonHolder {
+  	public static final DemoSingleton INSTANCE = new DemoSingleton();
+  }
+
+  public static DemoSingleton getInstance() {
+  	return DemoSingletonHolder.INSTANCE;
+  }
+
+  protected Object readResolve() {
+  	return getInstance();
+  }
+}
+</pre>
+
+<h4 id="toc_0.0.1.7">Tips</h4>
 <ul>
 <li>
 Q: How to split a string, but also keep the delimiters? <br>

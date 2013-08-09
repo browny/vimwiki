@@ -2,7 +2,7 @@
 <html>
 <head>
 <link rel="Stylesheet" type="text/css" href="style.css">
-<title>JSON</title>
+<title>Art of SQL</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- Bootstrap -->
 <link href="http://pancake.io/6daab7/bootstrap.min.css" rel="stylesheet"
@@ -63,22 +63,29 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 </div>
 	
 
-<h3 id="toc_0.0.1">JSON</h3>
+<h3 id="toc_0.0.1">Art of SQL</h3>
 
 <p>
-JSONLint - The JSON Validator <br>
-<a href="http://jsonlint.com/">http://jsonlint.com/</a>
+<a href="<br>.html"><br></a>
 </p>
+<h4 id="toc_0.0.1.1">Chap1.</h4>
 
 <p>
-ObjectMapper.createObjectNode 可以自己建 json response
+3NF: The data depends on the key [1NF], the whole key [2NF] and nothing but the key [3NF] <br>
+<a href="http://stackoverflow.com/questions/723998/can-someone-please-give-an-example-of-1nf-2nf-and-3nf-in-plain-english">http://stackoverflow.com/questions/723998/can-someone-please-give-an-example-of-1nf-2nf-and-3nf-in-plain-english</a>
 </p>
 
-<p>
-@JsonSerialize() 用來自訂義 ORM -&gt; 客製化的 Json 格式
-@JsonView 一個 entity 可以利用 @JsonView 設定群組來決定不同的欄位輸出
-<a href="http://wiki.fasterxml.com/JacksonJsonViews">http://wiki.fasterxml.com/JacksonJsonViews</a>
-</p>
+<ol>
+<li>
+1NF: each cell in a table must contain only one piece of information, and there can be no duplicate rows
+
+<li>
+2NF: A relation schema is in 2NF if every non-prime attribute is <strong>fully</strong> functionally dependent on every key.
+
+<li>
+3NF: All the non primary key columns in the table should depend DIRECTLY on the entire primary key.
+
+</ol>
 
 </div>
 </body>

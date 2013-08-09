@@ -65,36 +65,107 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 
 <h3 id="toc_0.0.1">Essay</h3>
 
-<p>
-<br>
-</p>
-<h4 id="toc_0.0.1.1">Programming</h4>
+<h4 id="toc_0.0.1.1">Thumb Rule</h4>
 <hr />
+<ul>
+<li>
+Any object should hold references ONLY to other objects whom it needs directly to get it’s work done
+
+<li>
+One factory should instantiate all the objects with same life span
+
+<li>
+High-level modules should not depend on low-level modules. Both should depend on abstractions
+
+<li>
+Abstractions should not depend upon details. Details should depend upon abstractions
+
+</ul>
+
+
+<h4 id="toc_0.0.1.2">Programming</h4>
+<hr />
+<h5 id="toc_0.0.1.2.1">Basic to Basics: What is Dependency Inversion? Is it IoC?</h5>
 <p>
-<strong>Inversion of Control</strong> Containers and the <strong>Dependency Injection</strong> pattern | Martin
-Fowler<br>
+<a href="http://www.simpleprogrammer.com/2010/11/13/basic-to-basics-what-is-dependency-inversion-is-it-ioc-part-1/">http://www.simpleprogrammer.com/2010/11/13/basic-to-basics-what-is-dependency-inversion-is-it-ioc-part-1/</a>
+<a href="http://www.simpleprogrammer.com/2010/11/16/basic-to-basics-what-is-dependency-inversion-is-it-ioc-part-2/">http://www.simpleprogrammer.com/2010/11/16/basic-to-basics-what-is-dependency-inversion-is-it-ioc-part-2/</a>
+</p>
+
+<p>
+Dependency inversion solves the problem of <strong>higher level modules being dependent on and coupled to the interfaces of lower level modules and their details</strong>
+</p>
+
+<p>
+依賴反轉解決了高階模組依賴/耦合低階模組的介面和他們的細節
+</p>
+
+<p>
+The key point here is that our high level module should be controlling the interface (non language construct kind) that the lower level modules need to adhere to instead of being at the whim of the interfaces of each lower level module.
+</p>
+
+<p>
+One way to think of this is that lower level modules provide a service to higher level modules. The higher level modules specifies the interfaces for that service and the lower level module provides that service.
+</p>
+
+<p>
+Difficult to write unit tests should give us hints like: <br>
+</p>
+<ul>
+<li>
+Our class is trying to do too much
+
+<li>
+Our class has lots of different dependencies
+
+<li>
+Our class requires a lot of setup to do work
+
+<li>
+Our class is just like this other class that does the same thing only for a different input
+
+</ul>
+
+<p>
+Dependency inversion = Inversion of control, but Dependency Injection is only the #3 control which be converted
+</p>
+
+<p>
+There are three basic “controls” that can be inverted. <br>
+1. The control of the interface. (How do these two systems, modules, or classes, interact with each other and exchange data?)
+2. The control of the flow. (What controls the flow the program? This control inversion happens when we go from procedural to event driven.)
+3. The control of dependency creation and binding. (This is the kind of inversion of control IoC containers do. This inversion is passing the control of the actual creation of and selection of dependencies to a 3rd party which is neutral to either of the other 2 involved.)
+</p>
+
+<h5 id="toc_0.0.1.2.2">Inversion of Control Containers and the Dependency Injection pattern | Martin Fowler</h5>
+<p>
 <a href="http://www.martinfowler.com/articles/injection.html">http://www.martinfowler.com/articles/injection.html</a>
 </p>
 
+<h5 id="toc_0.0.1.2.3">Dependency Injection – The manual way</h5>
 <p>
-<strong>Dependency Injection</strong> – The manual way <br>
 <a href="http://www.javacodegeeks.com/2010/12/dependency-injection-manual-way.html">http://www.javacodegeeks.com/2010/12/dependency-injection-manual-way.html</a>
 </p>
 
+<h5 id="toc_0.0.1.2.4">Can Your Programming Language Do This? (on first-class function) | Joel on Software</h5>
 <p>
-Can Your Programming Language Do This? (on first-class function) | Joel on Software <br>
 <a href="http://www.joelonsoftware.com/items/2006/08/01.html">http://www.joelonsoftware.com/items/2006/08/01.html</a>
 </p>
 
+<h5 id="toc_0.0.1.2.5">A typical N-layer application</h5>
 <p>
-A typical N-layer application <br>
 <a href="http://www.kenneth-truyers.net/2013/05/12/the-n-layer-myth-and-basic-dependency-injection/">http://www.kenneth-truyers.net/2013/05/12/the-n-layer-myth-and-basic-dependency-injection/</a>
 </p>
 
+<h5 id="toc_0.0.1.2.6">Taking the Single Responsibility Principle Seriously</h5>
 <p>
-Taking the Single Responsibility Principle Seriously <br>
 <a href="http://www.developerfusion.com/article/137636/taking-the-single-responsibility-principle-seriously/">http://www.developerfusion.com/article/137636/taking-the-single-responsibility-principle-seriously/</a>
 </p>
+<blockquote>
+Here’s a suggestion for a more general definition of the SRP:
+</blockquote>
+<blockquote>
+A functional unit on a given level of abstraction should only be responsible for a single aspect of a system’s requirements. An aspect of requirements is a trait or property of requirements, which can change independently of other aspects.
+</blockquote>
 
 </div>
 </body>

@@ -65,11 +65,45 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 
 <h3 id="toc_0.0.1">Vim</h3>
 
-
 <p>
 Learn to speak vim – verbs, nouns, and modifiers! <br>
 <a href="http://yanpritzker.com/2011/12/16/learn-to-speak-vim-verbs-nouns-and-modifiers/">http://yanpritzker.com/2011/12/16/learn-to-speak-vim-verbs-nouns-and-modifiers/</a>
 </p>
+
+<ul>
+<li>
+Break long line to multiple lines
+<pre class='prettyprint'>
+	:set tw=80 // set textwidth
+	V          // highlight line
+	gq         // reformat it
+</pre>
+
+</ul>
+
+<ul>
+<li>
+Replace multiple spaces with single space
+<pre class='prettyprint'>
+	s/ \{2,}/ /g
+</pre>
+
+</ul>
+
+<ul>
+<li>
+Regular expression 
+<pre class='prettyprint'>
+
+:h magic
+
+預設的 search mode 是 magic
+
+\(\) 用這個包住你想要 grouping 的東西, 然後用 \1 \2 在 replace 的時候 apply 
+
+</pre>
+
+</ul>
 
 </div>
 </body>

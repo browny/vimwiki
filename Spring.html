@@ -129,8 +129,12 @@ JSR 330 <br>
 
 
 <p>
-<br>
+<code>@Transactional</code> <br>
+Any RuntimeException triggers rollback, and any checked Exception does not. <br>
+Only unchecked exceptions (that is, subclasses of java.lang.RuntimeException) are rollbacked by default
 </p>
+
+
 <h4 id="toc_0.0.1.2">References</h4>
 <hr />
 <p>

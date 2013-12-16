@@ -123,17 +123,17 @@ Ans; Server Settings -&gt; Registration Settings -&gt; Inband Account Registrati
 Ans: 先修改系統的最大數限制
 </p>
 <pre class='prettyprint'>
-在本機 /etc/security/limits.conf 最後增加：
-* soft nofile 65535
-* hard nofile 65535
-* soft nproc 65535
-* hard nproc 65535
-
-在配置文件中配置一個重要的參數 maxusers
-&lt;clients&gt;  
-    &lt;client host="localhost" use_controller_vm="true" maxusers="60000"&gt;  
-    &lt;/client&gt;  
-&lt;/clients&gt;  
+	在本機 /etc/security/limits.conf 最後增加：
+	* soft nofile 65535
+	* hard nofile 65535
+	* soft nproc 65535
+	* hard nproc 65535
+	
+	在配置文件中配置一個重要的參數 maxusers
+	&lt;clients&gt;  
+	    &lt;client host="localhost" use_controller_vm="true" maxusers="60000"&gt;  
+	    &lt;/client&gt;  
+	&lt;/clients&gt;  
 </pre>
 
 
@@ -141,28 +141,28 @@ Ans: 先修改系統的最大數限制
 <hr />
 <ul>
 <li>
-【Tsung 壓力測試】XMPP/Jabber服務器之注冊大量用戶
+【Tsung 壓力測試】XMPP/Jabber服務器之注冊大量用戶 <br>
   <a href="http://hyjiang1989.iteye.com/blog/1860882">http://hyjiang1989.iteye.com/blog/1860882</a>
 
 </ul>
   
 <ul>
 <li>
-Test the Performance and Scalability of Your Web Applications With Tsung
+Test the Performance and Scalability of Your Web Applications With Tsung <br>
   <a href="http://beebole.com/blog/erlang/test-performance-and-scalability-of-your-web-applications-with-tsung/">http://beebole.com/blog/erlang/test-performance-and-scalability-of-your-web-applications-with-tsung/</a>
 
 </ul>
   
 <ul>
 <li>
-Load testing Ejabberd XMPP Server with Tsung
+Load testing Ejabberd XMPP Server with Tsung <br>
   <a href="http://vidorsolutions.blogspot.tw/2010/12/load-testing-ejabberd-xmpp-server-with.html">http://vidorsolutions.blogspot.tw/2010/12/load-testing-ejabberd-xmpp-server-with.html</a>
 
 </ul>
 
 <ul>
 <li>
-tsung測試openfire時從CSV文件讀取user信息
+tsung測試openfire時從CSV文件讀取user信息 <br>
   <a href="http://rritw.com/a/bianchengyuyan/C__/20121223/277373.html">http://rritw.com/a/bianchengyuyan/C__/20121223/277373.html</a>
 
 </ul>

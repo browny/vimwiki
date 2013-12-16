@@ -75,10 +75,17 @@ ObjectMapper.createObjectNode 可以自己建 json response
 </p>
 
 <p>
-@JsonSerialize() 用來自訂義 ORM -&gt; 客製化的 Json 格式
-@JsonView 一個 entity 可以利用 @JsonView 設定群組來決定不同的欄位輸出
-<a href="http://wiki.fasterxml.com/JacksonJsonViews">http://wiki.fasterxml.com/JacksonJsonViews</a>
+==== Anotation
 </p>
+
+<ul>
+<li>
+<code>@JsonSerialize()</code> 用來自訂義 ORM -&gt; 客製化的 Json 格式
+
+<li>
+<code>@JsonView</code> 一個 entity 可以利用 @JsonView 設定群組來決定不同的欄位輸出: <a href="http://wiki.fasterxml.com/JacksonJsonViews">http://wiki.fasterxml.com/JacksonJsonViews</a>
+
+</ul>
 
 </div>
 </body>

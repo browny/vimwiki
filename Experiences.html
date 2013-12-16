@@ -64,31 +64,42 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 	
 <h3 id="toc_0.0.1">Experiences</h3>
  
-<h4 id="toc_0.0.1.1">Generic method 大大簡化了 JDBC 中餘冗重複的 code</h4>
+<ul>
+<li>
+Generic method 大大簡化了 JDBC 中餘冗重複的 code
 
-<p>
-1. 各種語言都可以找到 dependency injection 的 framework, DI 只是一種精神, Spring
-利用 xml 文檔的方式建立物件彼此之間的關聯達成 DI, Ruby 則是利用 syntax
-convention 的方式, 各有不同
-</p>
+</ul>
+ 
+<ul>
+<li>
+各種語言都可以找到 dependency injection 的 framework, DI 只是一種精神,
+  Spring 利用 xml 文檔的方式建立物件彼此之間的關聯達成 DI, Ruby 則是利用 syntax
+  convention 的方式, 各有不同
 
-<p>
-2. Interface 相當重要, 也是 mock 測試的基礎, 盡量將待測物與之相關的物件用
-interface 帶進來, 利用 mock framework 可以更快的產生隨用即丟的 impl
-</p>
+</ul>
+  
+<ul>
+<li>
+Interface 相當重要, 也是 mock 測試的基礎, 盡量將待測物與之相關的物件用
+  interface 帶進來, 利用 mock framework 可以更快的產生隨用即丟的 impl
 
-<p>
-3. 利用 META-INF 的 context.xml 連接 DB, 是透過 tomcat 來 connect DB, 所以
-depend on tomcat, 今天如果沒有用 tomcat 那就沒辦法測試, 所以利用 Spring 將
-tomcat 的 dependency 移除, 降低對 tomcat 的依賴
-</p>
+</ul>
+  
+<ul>
+<li>
+利用 META-INF 的 context.xml 連接 DB, 是透過 tomcat 來 connect DB, 所以
+  depend on tomcat, 今天如果沒有用 tomcat 那就沒辦法測試, 所以利用 Spring 將
+  tomcat 的 dependency 移除, 降低對 tomcat 的依賴
 
+</ul>
 
-<p>
+<ul>
+<li>
 重構的時候, 你寫了一個新的 DAO 和 Resource 打算取代舊的 Resources
-那麼不要讓舊的 Resources 去用新的 DAO, 而是應該讓他 wrap 去新的 Resources
-因為你不知道新的 Resources 會不會再修改!!
-</p>
+  那麼不要讓舊的 Resources 去用新的 DAO, 而是應該讓他 wrap 去新的 Resources
+  因為你不知道新的 Resources 會不會再修改!!
+
+</ul>
 
 </div>
 </body>

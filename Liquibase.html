@@ -72,42 +72,64 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 <h4 id="toc_0.0.1.1">Notes</h4>
 <hr />
 
-<p>
+<ul>
+<li>
 database schema 控管 (整合/一致性/版本控管)
-</p>
 
-<p>
-<code>src/main/liquibase/main.xml</code>
-</p>
+</ul>
 
-<p>
-DDL for liquibase
-</p>
-
-<p>
+<ul>
+<li>
 patch 如果寫錯, 要用新的 patch 去修正. 否和有可能多產生 table
-</p>
 
-<p>
+</ul>
+
+<ul>
+<li>
 命名如果有 prefix 的 convention 會比較好 debug
-</p>
 
-<p>
-用 liquibase 作資料庫 table 的欄位增加, 需要考慮兩點: <br>
-</p>
+</ul>
 
-<p>
-1. 使用 liquibase 工具把舊資料的資料填 null 或是 0
-</p>
+<ul>
+<li>
+用 liquibase 作資料庫 table 的欄位增加, 需要考慮兩點
 
-<p>
-2. 檢查有沒有重複的 column name 在你的 join 行為當中, 這邊就突顯了 prefix 的重要性
-</p>
+<ol>
+<li>
+使用 liquibase 工具把舊資料的資料填 null 或是 0
 
-<p>
-3. 要 alter table 的時候 (例如重新命名 column), 先把該 column 的 foreign key constraint 移除
-</p>
+<li>
+檢查有沒有重複的 column name 在你的 join 行為當中, 這邊就突顯了 prefix 的重要性
 
+</ol>
+</ul>
+
+<ul>
+<li>
+要 alter table 的時候 (例如重新命名 column), 先把該 column 的 foreign key constraint 移除
+
+</ul>
+
+<ul>
+<li>
+Liquibase 在加複數個 foreign key 的時候要照順序
+<pre class='prettyprint'>
+	// ar_at_ach_id, ar_at_id 要照順序
+	&lt;addForeignKeyConstraint
+		constraintName="fk_ix_achi_reward__ix_achi_task"
+		baseTableName="ix_achi_reward"
+		referencedTableName="ix_achi_task"
+		baseColumnNames="ar_at_ach_id ,ar_at_id"
+		referencedColumnNames="at_ach_id, at_id" /&gt;
+</pre>
+
+</ul>
+
+<ul>
+<li>
+foreign key 要指向其中一個 composite key 當中的 key, 該 key 必須排在最前面
+
+</ul>
 
 <h4 id="toc_0.0.1.2">References</h4>
 

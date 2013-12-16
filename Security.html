@@ -2,7 +2,7 @@
 <html>
 <head>
 <link rel="Stylesheet" type="text/css" href="style.css">
-<title>Testing</title>
+<title>Security</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- Bootstrap -->
 <link href="http://pancake.io/6daab7/bootstrap.min.css" rel="stylesheet"
@@ -63,78 +63,33 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 </div>
 	
 
-<h3 id="toc_0.0.1">Testing</h3>
-
-<ul>
-<li>
-How do you write hard to test code?
-
-</ul>
+<h3 id="toc_0.0.1">Security</h3>
 
 <p>
-Ans: You mix object creation code with business logic. This will assure that a test 
-can never construct a graph of objects different from production. Hence nothing can 
-be tested in isolation.
+Is there a difference between authentication and authorization? <br>
+<a href="http://stackoverflow.com/a/6367931/474002">http://stackoverflow.com/a/6367931/474002</a>
 </p>
-
-
-<h4 id="toc_0.0.1.1">Video</h4>
-<hr />
-
-<ul>
-<li>
-The Clean Code Talks - Don't Look For Things!
-  <a href="http://www.youtube.com/watch?v=RlfLCWKxHJ0">http://www.youtube.com/watch?v=RlfLCWKxHJ0</a>
-
-</ul>
-  
 
 <p>
-根據The Art of Unit Testing With Examples in .NET，好的unit test應該具備如下特點：
+什麼是 Session? <br>
 </p>
-
-<ul>
-<li>
-It should be automated and repeatable.
-
-<li>
-It should be easy to implement.
-
-<li>
-Once it』s written, it should remain for future use.
-
-<li>
-Anyone should be able to run it.
-
-<li>
-It should run at the push of a button.
-
-<li>
-It should run quickly.
-
-</ul>
 
 <p>
-如果這還不夠，請回答下列問題，足以判斷一個測試是否是好的unit test：
+1. 某人輸入正確密碼登入
+2. 伺服器產生一個新的、唯一的、超難猜的 session_id，如果很好猜就會提高被人冒認的機會，
+例如不要用 1, 2, 3,.. ，而要用類似 !@<em>@a#$%<sup><small></em></small></sup>:-)XP&gt;_&lt; 這些超難猜的東西。
+3. 伺服器記著這個 ID 和它的最近訪問時間（假設這個 session_id='id1'）：
+	Session 清單：
+	id1 =&gt; 2005/07/15 11:30:00
 </p>
 
-<ul>
-<li>
-Can I run and get results from a unit test I wrote two weeks or months or years ago?
-
-<li>
-Can any member of my team run and get the results from unit tests I wrote two months ago?
-
-<li>
-Can I run all the unit tests I』ve written in no more than a few minutes?
-
-<li>
-Can I run all the unit tests I』ve written at the push of a button?
-
-<li>
-Can I write a basic unit test in no more than a few minutes?
-
-</ul>
+<p>
+4. 伺服器透過 Cookie ，把 session_id='id1' 儲存在客戶端。
+5. 每次客戶端訪問伺服器，都會把 session_id='id1' 送到伺服器。
+6. 伺服器收到 session_id='id1' ，就在清單內找一找是否真的有名叫 'id1' 的 Session，
+而且透過最近訪問時間，就可以知道他閒置了多久，如果太久的話可以在清單刪除這個 session，
+強逼他重新輸入密碼登入。
+</p>
 
 </div>
 </body>

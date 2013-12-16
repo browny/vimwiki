@@ -77,24 +77,21 @@ ORM 是表格與物件的中介層，但是要把它跟表格(schema) 綁的比�
 <li>
 Entity 最好都要 Override <code>equals</code> 和 <code>hashCode</code> 方法
   因為 default 的 object equality 是看記憶體位置, 但是你有可能從 persistence session 取出兩個 instance 是相同的 row, 
-  但是他們的記憶體位置肯定不同, 所以覆寫是為了彌補 object eqaulity 和 entity equality 語意上的出入 <br>
+  但是他們的記憶體位置肯定不同, 所以覆寫是為了彌補 object eqaulity 和 entity equality 語意上的出入
 
 </ul>
 
 <ol>
 <li>
-Equals and HashCode 
+Equals and HashCode <br>
 	<a href="https://community.jboss.org/wiki/EqualsAndHashCode">https://community.jboss.org/wiki/EqualsAndHashCode</a>
 
 <li>
-Don't Let Hibernate Steal Your Identity
+Don't Let Hibernate Steal Your Identity <br>
 	<a href="http://www.onjava.com/pub/a/onjava/2006/09/13/dont-let-hibernate-steal-your-identity.html">http://www.onjava.com/pub/a/onjava/2006/09/13/dont-let-hibernate-steal-your-identity.html</a>
 
-</ol>
-
-<ol>
 <li>
-How to map a composite key with Hibernate?
+How to map a composite key with Hibernate? <br>
   <a href="http://stackoverflow.com/a/3588400/474002">http://stackoverflow.com/a/3588400/474002</a>
 
 </ol>
@@ -103,7 +100,7 @@ How to map a composite key with Hibernate?
 <li>
 在測試的時候, 拿到的 Entity 裡面有 lazy fetch 成員, 會產生如下面的錯誤:
 <pre class='prettyprint'>
-org.hibernate.LazyInitializationException: session is not connected
+	org.hibernate.LazyInitializationException: session is not connected
 </pre>
 
 </ul>
@@ -119,6 +116,7 @@ org.hibernate.LazyInitializationException: session is not connected
 		&lt;filter-class&gt;org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter&lt;/filter-class&gt;
 	&lt;/filter&gt;
 </pre>
+
 
 <h4 id="toc_0.0.1.1">Annotations</h4>
 <hr />
@@ -136,24 +134,70 @@ org.hibernate.LazyInitializationException: session is not connected
 </p>
 
 <p>
-Entity 使用繼承, query 的時候會付出 join 子類的表格的代價 <br>
-而使用 OneToManay/ManyToMany 等 mapping 的時候, 例如 Proudct 裡面有 List&lt;User&gt; 也會產生 join <br>
-但並非每次我們要用 Product 的時候都非要 List&lt;User&gt; 才行, 所以可以把 Proudct 的基本成員用 MappedSuperClass 抽取出來 <br>
-需要擴充的再去繼承他, 增加資料庫查詢的效能
+Entity 使用繼承, query 的時候會付出 join 子類的表格的代價, 而使用
+OneToManay/ManyToMany 等 mapping 的時候, 例如 Proudct 裡面有 List&lt;User&gt;
+也會產生 join, 但並非每次我們要用 Product 的時候都非要 List&lt;User&gt; 才行,
+所以可以把 Proudct 的基本成員用 MappedSuperClass 抽取出來
+,需要擴充的再去繼承他, 增加資料庫查詢的效能
 </p>
 
 <p>
-<code>@ElementCollection</code>: Product 裡面有 List&lt;User&gt; 的 orm, 但是我們需要的只是 user 的 id, 而不需要拿整個 User, 可以使用 ElementCollection
+<code>@ElementCollection</code>: Product 裡面有 List&lt;User&gt; 的 orm, 但是我們需要的只是 user
+的 id, 而不需要拿整個 User, 可以使用 ElementCollection
 </p>
 
 <p>
 <code>@IdClass</code>: 複數 Primary Key 可以使用這個宣告 PK class
 </p>
 
+<ul>
+<li>
+JPA and Enums via <code>@Enumerated</code>
+	<a href="http://tomee.apache.org/examples-trunk/jpa-enumerated/">http://tomee.apache.org/examples-trunk/jpa-enumerated/</a>
+
+</ul>
+
+<ul>
+<li>
+<code>@ManyToOne</code> 跟 <code>@OneToMany</code> 有什麼不同 看這個關係的擁有者是那一方決定,
+
+</ul>
 <p>
-JPA and Enums via <code>@Enumerated</code> <br>
-<a href="http://tomee.apache.org/examples-trunk/jpa-enumerated/">http://tomee.apache.org/examples-trunk/jpa-enumerated/</a>
+關係的擁有方需定義 JoinColumn, 如果是雙向關係的話, 被動方可以用 mappedBy
+擁有方的 property 來省略重複的 JoinColumn 定義
 </p>
+
+<p>
+Lazy exceptions 的處理: <br>
+<a href="http://stackoverflow.com/a/5404645/474002">http://stackoverflow.com/a/5404645/474002</a>
+</p>
+
+<p>
+Lazy exceptions occur when you fetch an object typically containing a collection which is lazily loaded, and try to access that collection.
+</p>
+
+<p>
+You can avoid this problem by
+</p>
+
+<ol>
+<li>
+accessing the lazy collection within a transaction.
+
+<li>
+Initalizing the collection using Hibernate.initialize(obj);
+
+<li>
+Fetch the collection in another transaction
+
+<li>
+Use Fetch profiles to select lazy/non-lazy fetching runtime
+
+<li>
+Set fetch to non-lazy (which is generally not recommended)
+
+</ol>
+
 
 <h4 id="toc_0.0.1.2">Issues</h4>
 <ul>
@@ -163,35 +207,60 @@ LazyInitializationException
 
 </ul>
 
+
 <h4 id="toc_0.0.1.3">References</h4>
 <hr />
-<p>
+<ul>
+<li>
 JPA從入門到精通 <br>
+
+</ul>
+<p>
 <a href="http://wenku.baidu.com/view/ebd42d708e9951e79b8927a8.html">http://wenku.baidu.com/view/ebd42d708e9951e79b8927a8.html</a>
 </p>
 
-<p>
+<ul>
+<li>
 JPA總結 <br>
+
+</ul>
+<p>
 <a href="http://rritw.com/a/JAVAbiancheng/Hibernate/20101214/71123.html">http://rritw.com/a/JAVAbiancheng/Hibernate/20101214/71123.html</a>
 </p>
 
+<ul>
+<li>
+通過 Hibernate 實現 JPA 對象關系模型之繼承映射策略  <br>
+
+</ul>
 <p>
-通過 Hibernate 實現 JPA 對象關系模型之繼承映射策略 <br>
 <a href="http://www.ibm.com/developerworks/cn/java/j-lo-hibernatejpa/">http://www.ibm.com/developerworks/cn/java/j-lo-hibernatejpa/</a>
 </p>
 
-<p>
+<ul>
+<li>
 Spring Data JPA Tutorial <br>
+
+</ul>
+<p>
 <a href="http://www.petrikainulainen.net/spring-data-jpa-tutorial/">http://www.petrikainulainen.net/spring-data-jpa-tutorial/</a>
 </p>
 
-<p>
+<ul>
+<li>
 Introduction to Java Persistence API(JPA) 了解 Persistence Context 和 EntityManager <br>
+
+</ul>
+<p>
 <a href="http://www.javabeat.net/2007/04/jpa/">http://www.javabeat.net/2007/04/jpa/</a>
 </p>
 
-<p>
+<ul>
+<li>
 Various States of JPA Entities <br>
+
+</ul>
+<p>
 <a href="http://gerrytan.wordpress.com/2012/05/21/various-states-of-jpa-entities/">http://gerrytan.wordpress.com/2012/05/21/various-states-of-jpa-entities/</a>
 </p>
 

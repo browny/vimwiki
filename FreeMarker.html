@@ -75,12 +75,12 @@ In code, use Map to assign real value for the variable
 </ul>
 
 <pre class='prettyprint'>
-Map&lt;String, Object&gt; map = new HashMap&lt;String, Object&gt;();
-map.put("user", name);
-
-private Template welcomeLetterTmpl;
-Writer out = new StringWriter();
-welcomeLetterTmpl.process(map, out);
+	Map&lt;String, Object&gt; map = new HashMap&lt;String, Object&gt;();
+	map.put("user", name);
+	
+	private Template welcomeLetterTmpl;
+	Writer out = new StringWriter();
+	welcomeLetterTmpl.process(map, out);
 </pre>
 
 
@@ -100,9 +100,9 @@ use <code>setClassForTemplateLoading</code> as below, the path inner <code>freem
 </ul>
 
 <pre class='prettyprint'>
-freemarkerConfiguration = new Configuration();
-freemarkerConfiguration.setClassForTemplateLoading(this.getClass(), "/");
-Template freemarkerTemplate = freemarkerConfiguration.getTemplate("template/vendor.tpl");
+	freemarkerConfiguration = new Configuration();
+	freemarkerConfiguration.setClassForTemplateLoading(this.getClass(), "/");
+	Template freemarkerTemplate = freemarkerConfiguration.getTemplate("template/vendor.tpl");
 </pre>
 
 </div>

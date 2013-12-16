@@ -65,46 +65,95 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 
 <h3 id="toc_0.0.1">SQL</h3>
 
-<h4 id="toc_0.0.1.1">MySQL command</h4>
+<h4 id="toc_0.0.1.1">關系型數據庫設計</h4>
+
+<p>
+概念階段的主要工作是收集並分析需求。識別需求，主要是識別數據實體和業務規則, 當該階段結束時，你應該能夠回答以下問題：
+</p>
+
+<ul>
+<li>
+需要哪些數據？
+
+<li>
+數據該被怎樣使用？
+
+<li>
+哪些規則控制著數據的使用？
+
+<li>
+誰會使用何種數據？
+
+<li>
+客戶想在核心功能界面或者報表上看到哪些內容？
+
+<li>
+數據現在在哪裡？
+
+<li>
+數據是否與其他系統有交互、集成或同步？
+
+<li>
+主題數據有哪些？
+
+<li>
+核心數據價值幾何，對可靠性的要求程度？
+
+</ul>
+
+
+<h4 id="toc_0.0.1.2">MySQL command</h4>
 <p>
 <a href="https://gist.github.com/browny/5906747">https://gist.github.com/browny/5906747</a>
 </p>
 
-<h4 id="toc_0.0.1.2">MySQL CLI commands</h4>
+<h4 id="toc_0.0.1.3">MySQL CLI commands</h4>
 <hr />
 
 <pre class='prettyprint'>
-mysql&gt; show databases;
-
-mysql&gt; create database fanzytv_test character set='utf8';
-
-mysql&gt; use [db name];               // switch to a database
-mysql&gt; show tables;                 // show all tables
-mysql&gt; describe [table name];       // see database's field formats
-
-// export db
-mysqldump -u dev -pft53738078 --routines --single-transaction fanzytv_test &gt; liquibase-backup.sql
-
-// import db (注意: $db_name 要跟 export 的一樣)
-mysql -u dev -pft53738078 --database=$db_name &lt; liquibase-backup.sql 
-
-mysql&gt; show triggers like '%fx_game%'\G // 查看 trigger 內容, \G 用來美化
-
-mysql&gt; desc table_name // 看 schema
-
-mysql&gt; \e // 用文字編輯器寫 sql
-
-// 建立使用者
-mysql&gt; CREATE USER 'monty'@'localhost' IDENTIFIED BY 'some_pass';
-mysql&gt; GRANT ALL PRIVILEGES ON *.* TO 'monty'@'localhost' WITH GRANT OPTION;
-
-// This shows you the SQL statement necessary to receate mytable in its current form.
-SHOW CREATE TABLE mytable;
-
+	mysql&gt; show databases;
+	
+	mysql&gt; create database fanzytv_test character set='utf8';
+	
+	mysql&gt; use [db name];               // switch to a database
+	mysql&gt; show tables;                 // show all tables
+	mysql&gt; describe [table name];       // see database's field formats
+	
+	// export db
+	mysqldump -u dev -pft53738078 --routines --single-transaction fanzytv_test &gt; liquibase-backup.sql
+	
+	// import db (注意: $db_name 要跟 export 的一樣)
+	mysql -u dev -pft53738078 --database=$db_name &lt; liquibase-backup.sql 
+	
+	mysql&gt; show triggers like '%fx_game%'\G // 查看 trigger 內容, \G 用來美化
+	
+	mysql&gt; desc table_name // 看 schema
+	
+	mysql&gt; \e // 用文字編輯器寫 sql
+	
+	// 建立使用者
+	mysql&gt; CREATE USER 'monty'@'localhost' IDENTIFIED BY 'some_pass';
+	mysql&gt; GRANT ALL PRIVILEGES ON *.* TO 'monty'@'localhost' WITH GRANT OPTION;
+	
+	// This shows you the SQL statement necessary to receate mytable in its current form.
+	SHOW CREATE TABLE mytable;
+	
+	// 找出所有參考到 X table 的 X_id column 的 foreign key
+	USE information_schema;
+	SELECT *
+	FROM
+	  KEY_COLUMN_USAGE
+	WHERE
+	  REFERENCED_TABLE_NAME = 'X'
+	  AND REFERENCED_COLUMN_NAME = 'X_id';
+	
+	// 列出所有 store procedures
+	show procedure status
+	
 </pre>
 
 
-<h4 id="toc_0.0.1.3">MySQL operation</h4>
+<h4 id="toc_0.0.1.4">MySQL operation</h4>
 <hr />
 <p>
 <code>INSERT ... ON DUPLICATE KEY UPDATE</code> <br>
@@ -112,62 +161,94 @@ SHOW CREATE TABLE mytable;
 沒有的話 insert, 有的話 update
 </p>
 
-<h4 id="toc_0.0.1.4">my.cnf 設定</h4>
+<h4 id="toc_0.0.1.5">my.cnf 設定</h4>
 <hr />
 <pre class='prettyprint'>
-// 設定資料庫採用 utf8, /etc/mysql/my.cnf
-
-[mysqld]
-init_connect='SET collation_connection = utf8_unicode_ci'
-character-set-server = utf8
-collation-server = utf8_unicode_ci
-
-[client]
-default-character-set = utf8
-
-Add these to /etc/mysql/my.cnf.
+	// 設定資料庫採用 utf8, /etc/mysql/my.cnf
+	
+	[mysqld]
+	init_connect='SET collation_connection = utf8_unicode_ci'
+	character-set-server = utf8
+	collation-server = utf8_unicode_ci
+	
+	[client]
+	default-character-set = utf8
+	
+	Add these to /etc/mysql/my.cnf.
 </pre>
 
 <pre class='prettyprint'>
-// 重新啟動 mysql
-sudo /usr/local/mysql/support-files/mysql.server stop
-sudo /usr/local/mysql/support-files/mysql.server start
+	// 重新啟動 mysql
+	sudo /usr/local/mysql/support-files/mysql.server stop
+	sudo /usr/local/mysql/support-files/mysql.server start
 </pre>
 
 
-<h4 id="toc_0.0.1.5">Issues</h4>
-<ol>
+<h4 id="toc_0.0.1.6">Issues</h4>
+<ul>
 <li>
 清空 database,  然後跑 liquibase 的時候出現 error <br>
-  建立資料庫的時候要選擇 utf8, 不然插入中文資料的時候會錯誤, 或是一開始就設定好 <code>/etc/mysql/my.cnf</code> <br>
-  <code>SHOW VARIABLES LIKE 'character%';</code> 這個指令可以看某個 database 的編碼設定 <br>
-  <a href="http://stackoverflow.com/questions/3513773/change-mysql-default-character-set-to-utf8-in-my-cnf">http://stackoverflow.com/questions/3513773/change-mysql-default-character-set-to-utf8-in-my-cnf</a>
 
+<ul>
+<li>
+建立資料庫的時候要選擇 utf8, 不然插入中文資料的時候會錯誤, 或是一開始就設定好 <code>/etc/mysql/my.cnf</code>
+
+<li>
+<code>SHOW VARIABLES LIKE 'character%';</code> 這個指令可以看某個 database 的編碼設定
+
+<li>
+<a href="http://stackoverflow.com/questions/3513773/change-mysql-default-character-set-to-utf8-in-my-cnf">http://stackoverflow.com/questions/3513773/change-mysql-default-character-set-to-utf8-in-my-cnf</a>
+
+</ul>
+</ul>
+  
+<ul>
 <li>
 因為 program table 有設一個 trigger 去新增 hot_program, 所以 test 之後並沒有刪掉 hot_program
   導致下一次跑測試 insert 失敗, 解法是在 yaml 裡面加上 trigger 的 table (hot_program), 這樣 delete 才會刪掉 trigger 
   產生出來的東西. 但是 INSERT 就要改成 REFRESH, 不然就會 insert 兩次 (trigger 一次, 然後又 insert 一次)
 
+</ul>
+  
+<ul>
 <li>
 使用 liquibase 寫 trigger 的時候, 發生 DbUnit 載入 Default 測試資料的時候發生 duplicate 的 error, 但是明明用了
-  ON DUPLICATE KEY INSERT 怎麼會發生 duplicate 呢？<br>
-  原因是: 在 Default.xml table 建立的順序發生了問題, 假設 Default.xml 裡面 A -&gt; B, 如果你的 trigger 剛好又是 A trigger B
+  ON DUPLICATE KEY INSERT 怎麼會發生 duplicate 呢？
+
+<ul>
+<li>
+原因是: 在 Default.xml table 建立的順序發生了問題, 假設 Default.xml 裡面 A -&gt; B, 如果你的 trigger 剛好又是 A trigger B
   那麼, 當 DbUnit 跑到 A 的時候就會觸發 trigger 產生了 B, 等到 DbUnit 要建 B 的時候就會發生 duplicate 了！
-  所以錯誤的原因不是 liquibase 的 trigger, 而是 DbUnit 要建立 B 的時候發現 duplicate 已經被 A trigger 出來 <br>
-  <strong>Ans</strong>: 所以使用 trigger 的時候要注意 Default data 的順序
+  所以錯誤的原因不是 liquibase 的 trigger, 而是 DbUnit 要建立 B 的時候發現 duplicate 已經被 A trigger 出來
 
 <li>
-Native query select 到不同 table 但是相同名稱的 column 要怎麼 map 到 entity <br>
-  給相同名稱的欄位不一樣的 alias 
+<strong>Ans</strong>: 所以使用 trigger 的時候要注意 Default data 的順序
+
+</ul>
+</ul>
+  
+<ul>
+<li>
+Native query select 到不同 table 但是相同名稱的 column 要怎麼 map 到 entity
+
+<ul>
+<li>
+給相同名稱的欄位不一樣的 alias 
 <pre class='prettyprint'>
-    SELECT E1.id as "Employees_ID", E2.id as "Employers_ID"
-    FROM Employees as E1 LEFT JOIN Employers AS E2 ON (E1.Id=E2.Id)
+	  SELECT E1.id as "Employees_ID", E2.id as "Employers_ID"
+	  FROM Employees as E1 LEFT JOIN Employers AS E2 ON (E1.Id=E2.Id)
 </pre>
 
-</ol>
+</ul>
+</ul>
 
+<ul>
+<li>
+要 rename column 時候要先 drop 掉其相關連的 FK, 但是 PK 不能先 drop 掉
 
-<h4 id="toc_0.0.1.6">References</h4>
+</ul>
+
+<h4 id="toc_0.0.1.7">References</h4>
 <hr />
 <ul>
 <li>
@@ -220,6 +301,20 @@ SQL Server 索引結構及其使用 <br>
 <li>
 MySQL 事件和觸發器
   <a href="http://www.codedata.com.tw/database/mysql-stored-routines-trigger-event/">http://www.codedata.com.tw/database/mysql-stored-routines-trigger-event/</a>
+
+</ul>
+  
+<ul>
+<li>
+10 Common Mistakes Java Developers Make when Writing SQL <br>
+  <a href="http://www.javacodegeeks.com/2013/08/10-common-mistakes-java-developers-make-when-writing-sql.html">http://www.javacodegeeks.com/2013/08/10-common-mistakes-java-developers-make-when-writing-sql.html</a>
+
+</ul>
+
+<ul>
+<li>
+11. 寫給開發者看的關系型數據庫設計 <br>
+  <a href="http://www.cnblogs.com/MeteorSeed/archive/2013/03/27/2880054.html">http://www.cnblogs.com/MeteorSeed/archive/2013/03/27/2880054.html</a>
 
 </ul>
 

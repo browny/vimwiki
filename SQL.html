@@ -140,16 +140,21 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 	
 	// 找出所有參考到 X table 的 X_id column 的 foreign key
 	USE information_schema;
-	SELECT *
-	FROM
-	  KEY_COLUMN_USAGE
-	WHERE
-	  REFERENCED_TABLE_NAME = 'X'
-	  AND REFERENCED_COLUMN_NAME = 'X_id';
+	SELECT TABLE_NAME, COLUMN_NAME  FROM KEY_COLUMN_USAGE WHERE CONSTRAINT_SCHEMA = 'fanzytv_online' AND REFERENCED_TABLE_NAME = 'user' AND REFERENCED_COLUMN_NAME = 'id';
 	
 	// 列出所有 store procedures
 	show procedure status
 	
+	// 查詢 mysql 使用的 my.cnf 檔案
+	/usr/sbin/mysqld --verbose --help | grep -A 1 "Default options"
+	
+	// 查詢 char encoding
+	mysql&gt; show variables like 'char%';
+	
+	mysql&gt; show variables like 'collation%';
+	
+	// 查詢目前 session 的 timezone 資訊
+	mysql &gt; select timediff(now(),convert_tz(now(),@@session.time_zone,'+00:00'));
 </pre>
 
 
@@ -163,6 +168,26 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 
 <h4 id="toc_0.0.1.5">my.cnf 設定</h4>
 <hr />
+<p>
+預設 my.cnf 當中有一行 <code>!includedir /etc/mysql/conf.d/</code>, 代表他會去載入 /etc/mysql/conf.d/ 底下的子設定檔
+</p>
+
+<p>
+所以, 要修改 char encoding 可以不要直接改 my.cnf, 用附加子設定檔的方式: 新增檔案 <code>/etc/mysql/conf.d/utf8_charset.cnf</code>
+</p>
+
+<p>
+內容為, 請參考: <a href="http://blog.lesc.se/2011/06/switch-to-utf-8-charset-in-mysql-on.html">http://blog.lesc.se/2011/06/switch-to-utf-8-charset-in-mysql-on.html</a>
+</p>
+<pre class='prettyprint'>
+	[mysqld]
+	character-set-server=utf8
+	collation-server=utf8_general_ci
+	
+	default_time_zone='+00:00'
+</pre>
+
+
 <pre class='prettyprint'>
 	// 設定資料庫採用 utf8, /etc/mysql/my.cnf
 	

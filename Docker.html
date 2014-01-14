@@ -2,7 +2,7 @@
 <html>
 <head>
 <link rel="Stylesheet" type="text/css" href="style.css">
-<title>Git Alias Problem</title>
+<title>Docker</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- Bootstrap -->
 <link href="http://pancake.io/6daab7/bootstrap.min.css" rel="stylesheet"
@@ -63,50 +63,23 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 </div>
 	
 
+<h2 id="toc_0.1">Docker</h2>
+
 <p>
-Recently, don't know why, I found the git aliasing does not work. 
-When I use <code>git st</code> aliasing command, I got below error:
+=== Docker command 
 </p>
 
+
+<ul>
+<li>
+docker image 的安裝路徑在 <code>/var/lib/docker/graph</code>
+
+</ul>
+ 
 <pre class='prettyprint'>
-fatal: cannot exec 'git-st': Not a directory
-Problem is /usr/bin/python is not directed to directory
+	
+	
 </pre>
-
-<p>
-After search for a while, I found it should be caused by my environment
-variable <code>PATH</code>. 
-</p>
-
-<p>
-Use the command <code>echo $PATH |tr ':' '\n' |xargs ls -ld</code>, I found 
-there is a symbolic link in the list <code>/usr/bin/python -&gt; python2.7</code> 
-If it is removed, the git aliasing problem is gone.
-</p>
-
-<p>
-I think it should be noticed that <strong>the environment path should points to directories</strong> 
-not to files.
-</p>
-
-<pre class='prettyprint'>
-[~]$ echo $PATH |tr ':' '\n' |xargs ls -ld
-
-drwxr-xr-x 2 root      root         4096 Apr 17 09:52 /bin
-drwxrwxr-x 2 brownylin brownylin    4096 Apr 25 09:41 /home/brownylin/Java/maven3/bin
-drwxr-xr-x 2 root      root        40960 May  9 13:07 /usr/bin
-lrwxrwxrwx 1 root      root            9 Apr 15 15:54 /usr/bin/python -&gt; python2.7
-drwxr-xr-x 2 root      root         4096 Apr 24 11:34 /usr/local/bin
-</pre>
-
-<p>
-<br>
-</p>
-<h4 id="toc_0.0.0.1">References</h4>
-<p>
-Git alias problem <br>
-<a href="http://stackoverflow.com/questions/4019501/git-alias-problem">http://stackoverflow.com/questions/4019501/git-alias-problem</a>
-</p>
 
 </div>
 </body>

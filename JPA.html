@@ -199,6 +199,83 @@ Set fetch to non-lazy (which is generally not recommended)
 </ol>
 
 
+<p>
+@NamedNativeQuery: 將 sql query 取一個名字(name), 並且可以指定 <code>resultClass</code> 將查詢結果轉換成物件
+</p>
+<pre class='prettyprint'>
+	
+	@NamedNativeQueries({
+		@NamedNativeQuery(
+			// Get all prizes of exchange type of some prize challenger
+			name="PrizeExchangeRecord.Challenger",
+			query=
+				" SELECT UUID_SHORT() AS fake_id, per.pzer_pzcha_id, p.pz_pza_name, p.pz_itev_id," +
+				"   p.pz_name, per.pzer_pzitem_pz_id, per.pzer_pzitem_id, pe.pze_proof," +
+				"   pe.pze_start_time, pze_end_time, pi.pzitem_serial" +
+				" FROM ix_prize_exchange_record AS per" +
+				" 	INNER JOIN ix_prize_exchange AS pe" +
+				" 	ON per.pzer_pzitem_pz_id = pe.pze_pz_id" +
+				" 	INNER JOIN ix_prize AS p" +
+				" 	ON per.pzer_pzitem_pz_id = p.pz_id" +
+				" 	INNER JOIN ix_prize_item AS pi" +
+				" 	ON per.pzer_pzitem_pz_id = pi.pzitem_pz_id AND per.pzer_pzitem_id = pi.pzitem_id" +
+				" WHERE" +
+				" 	per.pzer_pzcha_id = :challengerId AND" +
+				" 	:currentTime &gt;= pe.pze_start_time AND :currentTime &lt;= pe.pze_end_time AND" +
+				"   per.pzer_exchanged = 0",
+			resultClass=PrizeExchangeRecordView.class
+		)
+	})
+	@Entity
+	public class PrizeExchangeRecordView {
+	
+	}
+</pre>
+
+
+<p>
+@SqlResultMapping: 指定 sql 查詢出來的結果 mapping 成物件
+</p>
+<pre class='prettyprint'>
+	@SqlResultSetMappings({
+	@SqlResultSetMapping(
+		name="ProgramTypeWithPrograms.ListWithPublishedProgram",
+		entities={
+			@EntityResult(
+				entityClass=ProgramTypeWithPrograms.class
+			),
+			@EntityResult(
+				entityClass=SimpleProgram.class
+			)
+		}
+	)
+	})
+</pre>
+
+<p>
+@AttributeOverride: 可以複寫 entity 屬性所對應的 table column name, 主要是 legacy table 命名太爛, 可以用這個去 wrap
+</p>
+<pre class='prettyprint'>
+@AttributeOverrides({
+	@AttributeOverride(
+		name="id",
+		column=@Column(name="pt_id")
+	),
+	@AttributeOverride(
+		name="name",
+		column=@Column(name="pt_name")
+	),
+	@AttributeOverride(
+		name="color",
+		column=@Column(name="pt_color")
+	),
+	@AttributeOverride(
+		name="priority",
+		column=@Column(name="pt_priority")
+	),
+})
+</pre>
+
 <h4 id="toc_0.0.1.2">Issues</h4>
 <ul>
 <li>

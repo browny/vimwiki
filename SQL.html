@@ -155,6 +155,11 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 	
 	// 查詢目前 session 的 timezone 資訊
 	mysql &gt; select timediff(now(),convert_tz(now(),@@session.time_zone,'+00:00'));
+	
+	When using convert_tz function in mysql, please issue below command to build the timezone mapping (http://dev.mysql.com/doc/refman/5.5/en/time-zone-support.html), 
+	the mysql_tzinfo_to_sql is located in the bin folder under mysql installation path (/usr/local/mysql)
+	
+	shell&gt; mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root mysql
 </pre>
 
 

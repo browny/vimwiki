@@ -96,6 +96,7 @@ ssh 連道遠端主機執行 process 後, 斷線 process 還要存活
 </p>
 <pre class='prettyprint'>
     netstat -tln # 可以看到有哪些 IP:Port 開啟
+    netstat -plten | grep java
 </pre>
 
 <p>
@@ -129,6 +130,15 @@ ssh 連道遠端主機執行 process 後, 斷線 process 還要存活
 	
 	// 查詢某個 user 屬於哪些 group
 	groups browny
+</pre>
+
+<p>
+// 查看硬碟使用量
+</p>
+<pre class='prettyprint'>
+du -h &lt;directory&gt;
+du -hcs &lt;directory&gt; // summary
+
 </pre>
 
 </div>

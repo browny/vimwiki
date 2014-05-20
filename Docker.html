@@ -69,6 +69,36 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 === Docker command 
 </p>
 
+<pre class='prettyprint'>
+	// ssh 連線進 guest machine
+	docker run -i -t &lt;image_name&gt; /bin/bash
+	
+	// 根據當前目錄下的 Dockerfile 建構 image
+	docker build -t &lt;image-name&gt; .
+	
+	// 移除某個 container
+	docker rm &lt;container-id&gt;
+
+	// 列出正在 run 的 docker container
+	docker ps 
+	docker ps -a // 列出所有
+	
+	// Remove all stopped containers
+	docker rm $(docker ps -a -q)
+	
+	// Remove all untagged images
+	docker rmi $(docker images | grep "^&lt;none&gt;" | awk "{print $3}")
+	
+	// 停止某 container
+	docker stop
+	
+	// Detach docker process
+	Crtl+p Ctri+q
+	
+	// Attach docker process
+	docker attach &lt;container-id&gt;
+</pre>
+
 
 <ul>
 <li>
@@ -76,10 +106,47 @@ docker image 的安裝路徑在 <code>/var/lib/docker/graph</code>
 
 </ul>
  
-<pre class='prettyprint'>
-	
-	
-</pre>
+<ul>
+<li>
+Docker cheatsheet
+  <a href="https://gist.github.com/wsargent/7049221">https://gist.github.com/wsargent/7049221</a>
+
+</ul>
+  
+<ul>
+<li>
+Useful Docker Bash functions and aliases - Kartar.Net
+  <a href="http://www.kartar.net/2014/03/some-useful-docker-bash-functions-and-aliases/">http://www.kartar.net/2014/03/some-useful-docker-bash-functions-and-aliases/</a>
+
+</ul>
+
+<ul>
+<li>
+Where are Docker images stored? - Lounge Scene
+  <a href="http://blog.thoward37.me/articles/where-are-docker-images-stored/">http://blog.thoward37.me/articles/where-are-docker-images-stored/</a>
+
+</ul>
+  
+<ul>
+<li>
+15 Quick Docker Tips | CenturyLink Labs
+  <a href="http://www.centurylinklabs.com/15-quick-docker-tips/">http://www.centurylinklabs.com/15-quick-docker-tips/</a>
+
+</ul>
+
+<ul>
+<li>
+Docker Networking Made Simple or 3 Ways to Connect LXC Containers | codecentric Blogcodecentric Blog
+  <a href="https://blog.codecentric.de/en/2014/01/docker-networking-made-simple-3-ways-connect-lxc-containers/">https://blog.codecentric.de/en/2014/01/docker-networking-made-simple-3-ways-connect-lxc-containers/</a>
+
+</ul>
+
+<ul>
+<li>
+Dockerfile Best Practices
+  <a href="http://crosbymichael.com/dockerfile-best-practices.html">http://crosbymichael.com/dockerfile-best-practices.html</a>
+
+</ul>
 
 </div>
 </body>

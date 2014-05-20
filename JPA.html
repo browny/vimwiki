@@ -276,6 +276,11 @@ Set fetch to non-lazy (which is generally not recommended)
 })
 </pre>
 
+<p>
+在 Mapping 時使用 LazyLoading, 在測試方法中可能會由於測試方法提前結束 entityManager 而導致無法執行 LazyLoading
+解決方法是加 @Transactional: The @Transactional is for keeping entity manager alive through this test method
+</p>
+
 <h4 id="toc_0.0.1.2">Issues</h4>
 <ul>
 <li>
@@ -284,6 +289,12 @@ LazyInitializationException
 
 </ul>
 
+<ul>
+<li>
+Unknown column 'DTYPE' in 'field list'
+  If want to re-used the @Entity for view, the <code>@MappedSuperClass</code> should be used to extract the common part
+
+</ul>
 
 <h4 id="toc_0.0.1.3">References</h4>
 <hr />

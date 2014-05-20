@@ -118,6 +118,7 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 	mysql&gt; use [db name];               // switch to a database
 	mysql&gt; show tables;                 // show all tables
 	mysql&gt; describe [table name];       // see database's field formats
+	mysql&gt; SHOW FULL TABLES IN [db_name] WHERE TABLE_TYPE LIKE 'VIEW';
 	
 	// export db
 	mysqldump -u dev -pft53738078 --routines --single-transaction fanzytv_test &gt; liquibase-backup.sql
@@ -160,6 +161,24 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 	the mysql_tzinfo_to_sql is located in the bin folder under mysql installation path (/usr/local/mysql)
 	
 	shell&gt; mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root mysql
+	
+	// MySQL 看目前 Loading status 狀況
+	$ mysql -u root -p
+	mysql&gt; \s
+	
+	// Mysql 查看 query 詳細執行步驟
+	mysql &gt; explain &lt;your query&gt;
+	
+	// Mysql profiling
+	mysql&gt; SET profiling = 1;
+	執行你的 query
+	mysql&gt; SHOW PROFILES;
+	查看你剛剛的query是編號第幾號
+	mysql&gt; SHOW PROFILE FOR QUERY &lt;query號碼&gt;;
+	
+	// show 哪些 column 有建 index
+	mysql&gt; show index from [table name]
+	
 </pre>
 
 

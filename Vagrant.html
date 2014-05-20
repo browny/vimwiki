@@ -71,8 +71,6 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 
 <h3 id="toc_0.1.1">Command</h3>
 
-
-<h4 id="toc_0.1.1.1">Box</h4>
 <pre class='prettyprint'>
 
 // 新增一個 box
@@ -84,6 +82,35 @@ vagrant box list
 // 移除某一個 box
 vagrant box remove precise64 virtualbox
 
+// 啟動
+vagrant up 
+
+// 停止
+vagrant halt
+
+// 刪除某 image
+vagrant destroy
+
+</pre>
+
+
+<h4 id="toc_0.1.1.1">VirtualBox</h4>
+
+<p>
+The following VirtualBox commands might help. If poweroff doesn't work, try unregistervm.
+</p>
+
+<pre class='prettyprint'>
+	$ VBoxManage list runningvms
+	$ VBoxManage controlvm &lt;uuid&gt; poweroff
+	$ VBoxManage unregistervm &lt;uuid&gt;
+</pre>
+
+<p>
+Shell script to stop all running vms:
+</p>
+<pre class='prettyprint'>
+	VBoxManage list runningvms | awk '{print $2;}' | xargs -I vmid VBoxManage controlvm vmid poweroff
 </pre>
 
 

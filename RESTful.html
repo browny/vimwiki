@@ -62,11 +62,16 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 <div id="items">
 </div>
 	
-<h3 id="toc_0.0.1">RESTful</h3>
+<h2 id="toc_0.1">RESTful</h2>
  
-<p>
-Restful API 該如何定義: 以寄送 mail 這個動作為例<br>
-</p>
+<ul>
+<li>
+Richardson Maturity Model (何謂真正的 RESTful)<br>
+  <a href="http://martinfowler.com/articles/richardsonMaturityModel.html">http://martinfowler.com/articles/richardsonMaturityModel.html</a>
+
+</ul>
+
+<h3 id="toc_0.1.1">Issues</h3>
 
 <ul>
 <li>
@@ -106,7 +111,7 @@ Restful API error handling <br>
 </ul>
 
   
-<h4 id="toc_0.0.1.1">Notes</h4>
+<h3 id="toc_0.1.2">Notes</h3>
 
 <ol>
 <li>
@@ -127,62 +132,48 @@ PathParam, QueryParam 就像是 filter，決定最後結果對外呈現的樣貌
 </ol>
 
 
-<h4 id="toc_0.0.1.2">References</h4>
-<hr />
+<h3 id="toc_0.1.3">References</h3>
 
 <ul>
 <li>
-Best Practices for Designing a Pragmatic RESTful API
+What are idempotent and/or safe methods? ( Safe 特性會影響是否可以快取(POST/PUT/PATCH/DELETE 一定都不可以快取)。而 Idempotent 特性則是會影響可否 Retry (重試，反正結果一樣) ) <br>
+  <a href="http://restcookbook.com/HTTP%20Methods/idempotency/">http://restcookbook.com/HTTP%20Methods/idempotency/</a> 
 
-<ul>
-<li>
-<a href="http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api">http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api</a>
-
-</ul>
 </ul>
 
 <ul>
 <li>
-HATEOAS 101: Opinionated Introduction to a REST API Style - Webcast
+Best Practices for Designing a Pragmatic RESTful API <br>
+  <a href="http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api">http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api</a>
 
-<ul>
-<li>
-<a href="http://youtu.be/6UXc71O7htc">http://youtu.be/6UXc71O7htc</a>
-
-</ul>
 </ul>
 
 <ul>
 <li>
-Beautiful REST + JSON APIs
+HATEOAS 101: Opinionated Introduction to a REST API Style - Webcast <br>
+  <a href="http://youtu.be/6UXc71O7htc">http://youtu.be/6UXc71O7htc</a>
 
-<ul>
-<li>
-<a href="http://www.slideshare.net/stormpath/rest-jsonapis">http://www.slideshare.net/stormpath/rest-jsonapis</a>
-
-</ul>
 </ul>
 
 <ul>
 <li>
-Thoughts on RESTful API Design
+Beautiful REST + JSON APIs <br>
+  <a href="http://www.slideshare.net/stormpath/rest-jsonapis">http://www.slideshare.net/stormpath/rest-jsonapis</a>
 
-<ul>
-<li>
-<a href="https://restful-api-design.readthedocs.org/en/latest/">https://restful-api-design.readthedocs.org/en/latest/</a>
-
-</ul>
 </ul>
 
 <ul>
 <li>
-How to create REST URLs without verbs?
+Thoughts on RESTful API Design <br>
+  <a href="https://restful-api-design.readthedocs.org/en/latest/">https://restful-api-design.readthedocs.org/en/latest/</a>
+
+</ul>
 
 <ul>
 <li>
-<a href="http://stackoverflow.com/questions/1619152/how-to-create-rest-urls-without-verbs">http://stackoverflow.com/questions/1619152/how-to-create-rest-urls-without-verbs</a>
+How to create REST URLs without verbs? <br>
+  <a href="http://stackoverflow.com/questions/1619152/how-to-create-rest-urls-without-verbs">http://stackoverflow.com/questions/1619152/how-to-create-rest-urls-without-verbs</a>
 
-</ul>
 </ul>
 
 </div>

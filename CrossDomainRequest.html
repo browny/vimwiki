@@ -85,35 +85,27 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 
 <h3 id="toc_0.0.3">Same-Origin Policy</h3>
 <hr />
+
 <ul>
 <li>
-一個實作在 Browser 中的限制, 避免不同 origin 的 document/script
+一個實作在 Browser 中的限制, 避免不同 origin 的 document/script 彼此存取/修改對方的資源
 
-</ul>
-<p>
-彼此存取/修改對方的資源
-</p>
-<ul>
 <li>
 origin 由三個部分所定義: <code>protocol</code>, <code>host</code> and <code>port</code>
 
 <li>
 假如 Page A 和 Page B 有相同的 origin, Page A 的 Javascript code 就可以執行 HTTP request to B's
+  server, 處理 Page B 的 DOM, 和 cookies
 
-</ul>
-<p>
-server, 處理 Page B 的 DOM, 和 cookies
-</p>
-<ul>
 <li>
 origin 指的是 webpage 的 source location, 若 Page A 從其他 domain 下載回一個 javascript, 其 origin
   是算 A 的 origin
 
 <li>
 The SOP prescribes the following general rule: Cross-Origin writes are allowed, Cross-Origin reads
-  are not.  This means that if A and C have a different origin, **HTTP requests made by A will be
-  received correctly by C (as these are “writes”), but the script residing in A will not be able to
-  read any data -not even the response code- returned from C.** This would be a Cross-Origin “read”
+  are not. This means that if A and C have a different origin, HTTP requests made by A will be
+  received correctly by C (as these are “writes”), but the script residing in A will *<strong>not</strong>* be able to
+  read any data not even the response code returned from C. This would be a Cross-Origin “read”
   and is blocked by the browser resulting in the error above.  In other words, the SOP does not
   prevent attackers to write data to their origin, it only disallows them to read data from your
   domain (cookie, localStorage or other) or to do anything with a response received from their

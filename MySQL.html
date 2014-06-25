@@ -2,7 +2,7 @@
 <html>
 <head>
 <link rel="Stylesheet" type="text/css" href="style.css">
-<title>SQL</title>
+<title>MySQL</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- Bootstrap -->
 <link href="http://6daab7.pancakeapps.com/bootstrap.min.css" rel="stylesheet"
@@ -63,7 +63,7 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 </div>
 	
 
-<h3 id="toc_0.0.1">SQL</h3>
+<h3 id="toc_0.0.1">MySQL</h3>
 
 <h4 id="toc_0.0.1.1">關系型數據庫設計</h4>
 
@@ -112,73 +112,73 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 
 <pre class='prettyprint'>
 	mysql&gt; show databases;
-	
+
 	mysql&gt; create database fanzytv_test character set='utf8';
-	
+
 	mysql&gt; use [db name];               // switch to a database
 	mysql&gt; show tables;                 // show all tables
 	mysql&gt; describe [table name];       // see database's field formats
 	mysql&gt; SHOW FULL TABLES IN [db_name] WHERE TABLE_TYPE LIKE 'VIEW';
-	
+
 	// export db
 	mysqldump -u dev -pft53738078 --routines --single-transaction fanzytv_test &gt; liquibase-backup.sql
-	
+
 	// import db (注意: $db_name 要跟 export 的一樣)
-	mysql -u dev -pft53738078 --database=$db_name &lt; liquibase-backup.sql 
-	
+	mysql -u dev -pft53738078 --database=$db_name &lt; liquibase-backup.sql
+
 	mysql&gt; show triggers like '%fx_game%'\G // 查看 trigger 內容, \G 用來美化
-	
+
 	mysql&gt; desc table_name // 看 schema
-	
+
 	mysql&gt; \e // 用文字編輯器寫 sql
-	
+
 	// 建立使用者
 	mysql&gt; CREATE USER 'monty'@'localhost' IDENTIFIED BY 'some_pass';
 	mysql&gt; GRANT ALL PRIVILEGES ON *.* TO 'monty'@'localhost' WITH GRANT OPTION;
-	
+
 	// This shows you the SQL statement necessary to receate mytable in its current form.
 	SHOW CREATE TABLE mytable;
-	
+
 	// 找出所有參考到 X table 的 X_id column 的 foreign key
 	USE information_schema;
 	SELECT TABLE_NAME, COLUMN_NAME  FROM KEY_COLUMN_USAGE WHERE CONSTRAINT_SCHEMA = 'fanzytv_online' AND REFERENCED_TABLE_NAME = 'user' AND REFERENCED_COLUMN_NAME = 'id';
-	
+
 	// 列出所有 store procedures
 	show procedure status
-	
+
 	// 查詢 mysql 使用的 my.cnf 檔案
 	/usr/sbin/mysqld --verbose --help | grep -A 1 "Default options"
-	
+
 	// 查詢 char encoding
 	mysql&gt; show variables like 'char%';
-	
+
 	mysql&gt; show variables like 'collation%';
-	
+
 	// 查詢目前 session 的 timezone 資訊
 	mysql &gt; select timediff(now(),convert_tz(now(),@@session.time_zone,'+00:00'));
-	
-	When using convert_tz function in mysql, please issue below command to build the timezone mapping (http://dev.mysql.com/doc/refman/5.5/en/time-zone-support.html), 
+
+	When using convert_tz function in mysql, please issue below command to build the timezone mapping (http://dev.mysql.com/doc/refman/5.5/en/time-zone-support.html),
 	the mysql_tzinfo_to_sql is located in the bin folder under mysql installation path (/usr/local/mysql)
-	
+
 	shell&gt; mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root mysql
-	
+
 	// MySQL 看目前 Loading status 狀況
 	$ mysql -u root -p
 	mysql&gt; \s
-	
+
 	// Mysql 查看 query 詳細執行步驟
 	mysql &gt; explain &lt;your query&gt;
-	
+
 	// Mysql profiling
 	mysql&gt; SET profiling = 1;
 	執行你的 query
 	mysql&gt; SHOW PROFILES;
 	查看你剛剛的query是編號第幾號
 	mysql&gt; SHOW PROFILE FOR QUERY &lt;query號碼&gt;;
-	
+
 	// show 哪些 column 有建 index
 	mysql&gt; show index from [table name]
-	
+
 </pre>
 
 
@@ -207,22 +207,22 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 	[mysqld]
 	character-set-server=utf8
 	collation-server=utf8_general_ci
-	
+
 	default_time_zone='+00:00'
 </pre>
 
 
 <pre class='prettyprint'>
 	// 設定資料庫採用 utf8, /etc/mysql/my.cnf
-	
+
 	[mysqld]
 	init_connect='SET collation_connection = utf8_unicode_ci'
 	character-set-server = utf8
 	collation-server = utf8_unicode_ci
-	
+
 	[client]
 	default-character-set = utf8
-	
+
 	Add these to /etc/mysql/my.cnf.
 </pre>
 
@@ -250,15 +250,15 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 
 </ul>
 </ul>
-  
+
 <ul>
 <li>
 因為 program table 有設一個 trigger 去新增 hot_program, 所以 test 之後並沒有刪掉 hot_program
-  導致下一次跑測試 insert 失敗, 解法是在 yaml 裡面加上 trigger 的 table (hot_program), 這樣 delete 才會刪掉 trigger 
+  導致下一次跑測試 insert 失敗, 解法是在 yaml 裡面加上 trigger 的 table (hot_program), 這樣 delete 才會刪掉 trigger
   產生出來的東西. 但是 INSERT 就要改成 REFRESH, 不然就會 insert 兩次 (trigger 一次, 然後又 insert 一次)
 
 </ul>
-  
+
 <ul>
 <li>
 使用 liquibase 寫 trigger 的時候, 發生 DbUnit 載入 Default 測試資料的時候發生 duplicate 的 error, 但是明明用了
@@ -275,14 +275,14 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 
 </ul>
 </ul>
-  
+
 <ul>
 <li>
 Native query select 到不同 table 但是相同名稱的 column 要怎麼 map 到 entity
 
 <ul>
 <li>
-給相同名稱的欄位不一樣的 alias 
+給相同名稱的欄位不一樣的 alias
 <pre class='prettyprint'>
 	  SELECT E1.id as "Employees_ID", E2.id as "Employers_ID"
 	  FROM Employees as E1 LEFT JOIN Employers AS E2 ON (E1.Id=E2.Id)
@@ -305,7 +305,7 @@ A Visual Explanation of SQL Joins <br>
   <a href="http://www.codinghorror.com/blog/2007/10/a-visual-explanation-of-sql-joins.html">http://www.codinghorror.com/blog/2007/10/a-visual-explanation-of-sql-joins.html</a>
 
 </ul>
-  
+
 <ul>
 <li>
 Install MySQL on Mountaion Lion <br>
@@ -326,33 +326,33 @@ MySQL Datetime 和 Timestamp 的差異 <br>
   <a href="http://stackoverflow.com/questions/409286/datetime-vs-timestamp">http://stackoverflow.com/questions/409286/datetime-vs-timestamp</a>
 
 </ul>
-  
+
 <ul>
 <li>
 MySQL索引背後的數據結構及算法原理 <br>
   <a href="http://blog.codinglabs.org/articles/theory-of-mysql-index.html">http://blog.codinglabs.org/articles/theory-of-mysql-index.html</a>
-  InnoDB 的數據文件本身就是索引文件, 稱為聚集式索引。網路上有說 InnoDB 最好使用 surrogate key 
+  InnoDB 的數據文件本身就是索引文件, 稱為聚集式索引。網路上有說 InnoDB 最好使用 surrogate key
   當做 primary key, 才不會造成記憶體分頁太多空隙。但實際上, 這要看你如何查詢而論。查詢分為兩類，
   <code>點查詢(一次輸出一筆資料)</code>和<code>範圍查詢(輸出符合條件範圍的多筆資料)</code>, 點查詢基本上跟如何索引沒有
-  關係, 範圍查詢才會牽扯到該範圍的結果是否在同一分頁內, 如果不是在同一個分頁內, 就需要額外的 IO 
+  關係, 範圍查詢才會牽扯到該範圍的結果是否在同一分頁內, 如果不是在同一個分頁內, 就需要額外的 IO
   存取。因此涉及到 primary key 的順序性(兩個以上 PK 的狀況)
 
 </ul>
-  
+
 <ul>
 <li>
 SQL Server 索引結構及其使用 <br>
   <a href="http://my.oschina.net/zimingforever/blog/130888">http://my.oschina.net/zimingforever/blog/130888</a>
 
 </ul>
-  
+
 <ul>
 <li>
 MySQL 事件和觸發器
   <a href="http://www.codedata.com.tw/database/mysql-stored-routines-trigger-event/">http://www.codedata.com.tw/database/mysql-stored-routines-trigger-event/</a>
 
 </ul>
-  
+
 <ul>
 <li>
 10 Common Mistakes Java Developers Make when Writing SQL <br>

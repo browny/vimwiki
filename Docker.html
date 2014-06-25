@@ -66,38 +66,83 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 <h2 id="toc_0.1">Docker</h2>
 
 <p>
-=== Docker command 
+=== Docker command
+</p>
+
+<h3 id="toc_0.1.1">boot2docker</h3>
+
+<pre class='prettyprint'>
+
+	// 查尋 ssh 用的 ip
+	boot2docker ip
+	ssh -p 2022 root@&lt;above ip&gt;
+
+	// 新增 port forwarding (ex: mongodb -&gt; 27017)
+	VBoxManage modifyvm "boot2docker-vm" --natpf1 "tcp-port27017,tcp,,27017,,27017"
+
+</pre>
+
+<h4 id="toc_0.1.1.1">docker run 參數</h4>
+
+<p>
+<code>-t</code>: assigns a pseudo-tty or terminal inside our new container
+</p>
+
+<p>
+<code>-i</code>: allows us to make an interactive connection by grabbing the standard in (STDIN) of the container
+</p>
+
+<p>
+<code>-d</code>: tells Docker to run the container and put it in the background, to daemonize it.
+</p>
+
+<p>
+<code>-P</code>: tells Docker to map any required network ports inside our container to our host (from the range 49000 to 49900)
+</p>
+
+<p>
+<code>--name</code>: name your container
+</p>
+
+<p>
+<code>-v</code>: add a data volume to a container
 </p>
 
 <pre class='prettyprint'>
+	// looks inside the container and returns its standard output
+	docker logs
+	docker logs -f // like `tail -f`
+
 	// ssh 連線進 guest machine
 	docker run -i -t &lt;image_name&gt; /bin/bash
-	
+
 	// 根據當前目錄下的 Dockerfile 建構 image
 	docker build -t &lt;image-name&gt; .
-	
+
 	// 移除某個 container
 	docker rm &lt;container-id&gt;
 
 	// 列出正在 run 的 docker container
-	docker ps 
+	docker ps
 	docker ps -a // 列出所有
-	
+
 	// Remove all stopped containers
 	docker rm $(docker ps -a -q)
-	
+
 	// Remove all untagged images
 	docker rmi $(docker images | grep "^&lt;none&gt;" | awk "{print $3}")
-	
+
 	// 停止某 container
 	docker stop
-	
+
 	// Detach docker process
 	Crtl+p Ctri+q
-	
+
 	// Attach docker process
 	docker attach &lt;container-id&gt;
 </pre>
+
+
 
 
 <ul>
@@ -105,14 +150,14 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 docker image 的安裝路徑在 <code>/var/lib/docker/graph</code>
 
 </ul>
- 
+
 <ul>
 <li>
 Docker cheatsheet
   <a href="https://gist.github.com/wsargent/7049221">https://gist.github.com/wsargent/7049221</a>
 
 </ul>
-  
+
 <ul>
 <li>
 Useful Docker Bash functions and aliases - Kartar.Net
@@ -126,7 +171,7 @@ Where are Docker images stored? - Lounge Scene
   <a href="http://blog.thoward37.me/articles/where-are-docker-images-stored/">http://blog.thoward37.me/articles/where-are-docker-images-stored/</a>
 
 </ul>
-  
+
 <ul>
 <li>
 15 Quick Docker Tips | CenturyLink Labs

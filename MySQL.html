@@ -63,9 +63,10 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 </div>
 	
 
-<h3 id="toc_0.0.1">MySQL</h3>
+<h2 id="toc_0.1">MySQL</h2>
 
-<h4 id="toc_0.0.1.1">關系型數據庫設計</h4>
+<h3 id="toc_0.1.1">RDBMS Design</h3>
+<hr />
 
 <p>
 概念階段的主要工作是收集並分析需求。識別需求，主要是識別數據實體和業務規則, 當該階段結束時，你應該能夠回答以下問題：
@@ -102,12 +103,7 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 </ul>
 
 
-<h4 id="toc_0.0.1.2">MySQL command</h4>
-<p>
-<a href="https://gist.github.com/browny/5906747">https://gist.github.com/browny/5906747</a>
-</p>
-
-<h4 id="toc_0.0.1.3">MySQL CLI commands</h4>
+<h3 id="toc_0.1.2">MySQL CLI commands</h3>
 <hr />
 
 <pre class='prettyprint'>
@@ -182,15 +178,17 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 </pre>
 
 
-<h4 id="toc_0.0.1.4">MySQL operation</h4>
+<h3 id="toc_0.1.3">MySQL operation</h3>
 <hr />
+
 <p>
 <code>INSERT ... ON DUPLICATE KEY UPDATE</code> <br>
 <a href="http://dev.mysql.com/doc/refman/5.7/en/insert-on-duplicate.html">http://dev.mysql.com/doc/refman/5.7/en/insert-on-duplicate.html</a> <br>
 沒有的話 insert, 有的話 update
 </p>
 
-<h4 id="toc_0.0.1.5">my.cnf 設定</h4>
+
+<h3 id="toc_0.1.4">my.cnf 設定</h3>
 <hr />
 <p>
 預設 my.cnf 當中有一行 <code>!includedir /etc/mysql/conf.d/</code>, 代表他會去載入 /etc/mysql/conf.d/ 底下的子設定檔
@@ -210,7 +208,6 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 
 	default_time_zone='+00:00'
 </pre>
-
 
 <pre class='prettyprint'>
 	// 設定資料庫採用 utf8, /etc/mysql/my.cnf
@@ -233,7 +230,9 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 </pre>
 
 
-<h4 id="toc_0.0.1.6">Issues</h4>
+<h3 id="toc_0.1.5">Issues</h3>
+<hr />
+
 <ul>
 <li>
 清空 database,  然後跑 liquibase 的時候出現 error <br>
@@ -253,9 +252,9 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 
 <ul>
 <li>
-因為 program table 有設一個 trigger 去新增 hot_program, 所以 test 之後並沒有刪掉 hot_program
-  導致下一次跑測試 insert 失敗, 解法是在 yaml 裡面加上 trigger 的 table (hot_program), 這樣 delete 才會刪掉 trigger
-  產生出來的東西. 但是 INSERT 就要改成 REFRESH, 不然就會 insert 兩次 (trigger 一次, 然後又 insert 一次)
+因為 program table 有設一個 trigger 去新增 hot_program, 所以 test 之後並沒有刪掉 hot_program 導致下一次跑測試 insert 失敗, 
+  解法是在 yaml 裡面加上 trigger 的 table (hot_program), 這樣 delete 才會刪掉 trigger 產生出來的東西. 但是 INSERT 就要改成 REFRESH, 
+  不然就會 insert 兩次 (trigger 一次, 然後又 insert 一次)
 
 </ul>
 
@@ -297,8 +296,9 @@ Native query select 到不同 table 但是相同名稱的 column 要怎麼 map �
 
 </ul>
 
-<h4 id="toc_0.0.1.7">References</h4>
+<h3 id="toc_0.1.6">References</h3>
 <hr />
+
 <ul>
 <li>
 A Visual Explanation of SQL Joins <br>

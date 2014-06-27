@@ -111,7 +111,8 @@ Spring <br>
 </p>
 
 <p>
-<code>@Repository</code>, <code>@Service</code>, and <code>@Controller</code> serve as <strong>specializations</strong> of @Component for more specific use cases <br>
+<code>@Repository</code>, <code>@Service</code>, and <code>@Controller</code> serve as <strong>specializations</strong> of @Component for more specific use cases
+<br>
 </p>
 
 <p>
@@ -133,6 +134,25 @@ JSR 330 <br>
 Any RuntimeException triggers rollback, and any checked Exception does not. <br>
 Only unchecked exceptions (that is, subclasses of java.lang.RuntimeException) are rollbacked by default
 </p>
+
+
+<ul>
+<li>
+如何在非 Spring 管理的 class 當中取的 Spring beans &lt;b4&gt;
+  <a href="http://www.kubrynski.com/2013/09/injecting-spring-dependencies-into-non.html">http://www.kubrynski.com/2013/09/injecting-spring-dependencies-into-non.html</a>
+
+<ul>
+<li>
+在 Spring 進入點要設定 <code>@EnableSpringConfigured</code>
+
+<li>
+在非 Spring 管理的 class 前宣告 <code>@Configurable</code>
+
+<li>
+然後利用 AspectJ 的設定讓非 Spring 管理的 class 也可以取得 Spring beans
+
+</ul>
+</ul>
 
 
 <h4 id="toc_0.0.1.2">References</h4>

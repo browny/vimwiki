@@ -113,7 +113,44 @@ The SOP prescribes the following general rule: Cross-Origin writes are allowed, 
 
 </ul>
 
-<h3 id="toc_0.0.4">References</h3>
+<h3 id="toc_0.0.4">Code</h3>
+<hr />
+
+<ul>
+<li>
+用 ajax 發出 request
+<pre class='prettyprint'>
+
+&lt;html&gt;
+&lt;head&gt;
+&lt;/head&gt;
+
+&lt;body&gt;  
+&lt;script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" &gt;&lt;/script&gt;
+
+&lt;button id="ajax"&gt;ajax call&lt;/button&gt;
+
+&lt;script type="text/javascript"&gt;
+
+    $('#ajax').click(function(){ 
+        alert('ajax');
+         $.ajax({ 
+             type: "GET",
+             dataType: "json",
+             url: "https://dev-1-140624-3-dot-manifest-reach-568.appspot.com/rest/device/1",
+             success: function(data){        
+                alert(data);
+             }
+         });
+    });
+
+&lt;/script&gt;
+	
+</pre>
+
+</ul>
+
+<h3 id="toc_0.0.5">References</h3>
 <hr />
 
 <ul>
@@ -134,6 +171,13 @@ Cross-Domain requests in Javascript
 <li>
 Using CORS - HTML5 Rocks
   <a href="http://www.html5rocks.com/en/tutorials/cors/">http://www.html5rocks.com/en/tutorials/cors/</a>
+
+</ul>
+  
+<ul>
+<li>
+Cross-Domain on Jersey RESTful Services  
+  <a href="http://jmchung.github.io/blog/2013/08/11/cross-domain-on-jersey-restful-web-services/">http://jmchung.github.io/blog/2013/08/11/cross-domain-on-jersey-restful-web-services/</a>
 
 </ul>
 

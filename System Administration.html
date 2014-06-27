@@ -63,23 +63,17 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 </div>
 	
 
-<p>
-== System Administration
-</p>
+<h2 id="toc_0.1">System Administration</h2>
 
 <ul>
 <li>
 iptables (防火牆設定)
+<pre class='prettyprint'>
+	/etc/sysconfig/iptables 
+	/etc/init.d/iptables restart // 重新 reload 防火牆設定
+</pre>
 
 </ul>
-
-<p>
-/etc/sysconfig/iptables 
-</p>
-
-<p>
-/etc/init.d/iptables restart // 重新 reload 防火牆設定
-</p>
 
 <ul>
 <li>
@@ -91,17 +85,19 @@ ssh 連道遠端主機執行 process 後, 斷線 process 還要存活
 </ul>
 
 
-<p>
-// 查看 TCP 被什麼 process 佔用
-</p>
+<ul>
+<li>
+查看 TCP 被什麼 process 佔用
 <pre class='prettyprint'>
     netstat -tln # 可以看到有哪些 IP:Port 開啟
     netstat -plten | grep java
 </pre>
 
-<p>
-// 查看 Linux TCP Port 被哪隻程式(Process)佔用, 可以用下述的命令:
-</p>
+</ul>
+
+<ul>
+<li>
+查看 Linux TCP Port 被哪隻程式(Process)佔用, 可以用下述的命令:
 <pre class='prettyprint'>
 	sudo lsof -i
 	sudo lsof -i | grep TCP
@@ -111,16 +107,20 @@ ssh 連道遠端主機執行 process 後, 斷線 process 還要存活
 	sudo ls -l /proc/$pid/exe
 </pre>
 
-<p>
-// 列出此 TCP Port 目前有哪些 PID
-</p>
+</ul>
+
+<ul>
+<li>
+列出此 TCP Port 目前有哪些 PID
 <pre class='prettyprint'>
     sudo fuser 80/tcp # 會把目前使用此 Port 的 PID 全部列出
 </pre>
 
-<p>
-// 關於使用者權限
-</p>
+</ul>
+
+<ul>
+<li>
+關於使用者權限
 <pre class='prettyprint'>
 	// 列出系統所有的 group
 	cat /etc/group
@@ -132,20 +132,26 @@ ssh 連道遠端主機執行 process 後, 斷線 process 還要存活
 	groups browny
 </pre>
 
-<p>
-// 查看硬碟使用量
-</p>
+</ul>
+
+<ul>
+<li>
+查看硬碟使用量
 <pre class='prettyprint'>
 	du -h &lt;directory&gt;
 	du -hcs &lt;directory&gt; // summary
 </pre>
 
-<p>
-// 查看 httpd status
-</p>
+</ul>
+
+<ul>
+<li>
+查看 httpd status
 <pre class='prettyprint'>
 	啟動 mod_status
 </pre>
+
+</ul>
 
 </div>
 </body>

@@ -64,20 +64,13 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 	
 
 <h3 id="toc_0.0.1">Java Web</h3>
-
 <ul>
 <li>
 Web Layer (Resources) -&gt; Service Layer (Buiness logic) -&gt; Data access Layer (CRUD) -&gt; ORM framework -&gt; Database
 
-</ul>
-
-<ul>
 <li>
 Broadly speaking, Jersey maps resources to classes, and HTTP verbs to methods.
 
-</ul>
-
-<ul>
 <li>
 The Deployment Descriptor: web.xml <br>
   <a href="https://developers.google.com/appengine/docs/java/config/webxml">https://developers.google.com/appengine/docs/java/config/webxml</a>
@@ -85,32 +78,24 @@ The Deployment Descriptor: web.xml <br>
 </ul>
 
 
-<h4 id="toc_0.0.1.1">Notes</h4>
-<hr />
+<h4 id="toc_0.0.1.1">Filtering</h4>
 
 <ul>
 <li>
-舊的 code 可以採用 JDBC Template 簡化
-
-<li>
-JSON 發生問題可以用 WebApplicationException 拋出 JSON 格式的異常訊息
-
-<li>
-有一個全域的 .yaml 然後各自的 DAO 要測試可以用 DbUnit 準備自己要測試的資料
-
-<li>
-DAO 寫資料進資料庫前會先跑 Validator
-
-<li>
-所謂有 Jesey context 的意思就是繼承 AbstractWebServiceTest, 他可以幫 Resource 的測試準備 http 環境
-
-<li>
-Spring 的設定在 config/ 下面
-
-<li>
-用 JPA 的時候就用 JPQL 做 query, 用 native query 會回傳 Object[][], 就沒用到 orm 的特性
+當 filter 要可以取得其他的 Spring 物件時, 可以利用 <code>DelegatingFilterProxy</code> (Proxy for a standard
 
 </ul>
+<p>
+Servlet 2.3 Filter, delegating to a Spring-managed bean that implements the Filter interface)
+</p>
+
+<ul>
+<li>
+Learning the code way: DelegatingFilterProxy And Spring Security <br>
+  <a href="http://learningviacode.blogspot.tw/2013/12/delegatingfilterproxy-and-spring.html">http://learningviacode.blogspot.tw/2013/12/delegatingfilterproxy-and-spring.html</a>
+
+</ul>
+
 
 <h4 id="toc_0.0.1.2">Basic</h4>
 <hr />
@@ -122,6 +107,7 @@ Spring 的設定在 config/ 下面
 <a href="Security.html">Security</a>
 </p>
 
+
 <h4 id="toc_0.0.1.3">Testing</h4>
 <hr />
 
@@ -132,6 +118,7 @@ Spring 的設定在 config/ 下面
 <a href="Mokito.html">Mokito</a>
 <a href="TestNG.html">TestNG</a>
 </p>
+
 
 <h4 id="toc_0.0.1.4">Persistence</h4>
 <hr />
@@ -156,6 +143,7 @@ JPA 和 Validation 基本上是獨立的兩個東西, Hibernate 會去自動 che
   都加上 flushAndClearEntityManager 然後在用 native select 驗證結果
 
 </ul>
+
 
 <h4 id="toc_0.0.1.5">IoC</h4>
 <hr />
@@ -183,7 +171,35 @@ JPA 和 Validation 基本上是獨立的兩個東西, Hibernate 會去自動 che
 </p>
 
 
-<h4 id="toc_0.0.1.8">Bookmarks</h4>
+<h4 id="toc_0.0.1.8">Notes</h4>
+<hr />
+
+<ul>
+<li>
+舊的 code 可以採用 JDBC Template 簡化
+
+<li>
+JSON 發生問題可以用 WebApplicationException 拋出 JSON 格式的異常訊息
+
+<li>
+有一個全域的 .yaml 然後各自的 DAO 要測試可以用 DbUnit 準備自己要測試的資料
+
+<li>
+DAO 寫資料進資料庫前會先跑 Validator
+
+<li>
+所謂有 Jesey context 的意思就是繼承 AbstractWebServiceTest, 他可以幫 Resource 的測試準備 http 環境
+
+<li>
+Spring 的設定在 config/ 下面
+
+<li>
+用 JPA 的時候就用 JPQL 做 query, 用 native query 會回傳 Object[][], 就沒用到 orm 的特性
+
+</ul>
+
+
+<h4 id="toc_0.0.1.9">Bookmarks</h4>
 
 <ul>
 <li>

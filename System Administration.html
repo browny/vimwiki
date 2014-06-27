@@ -69,8 +69,8 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 <li>
 iptables (防火牆設定)
 <pre class='prettyprint'>
-	/etc/sysconfig/iptables 
-	/etc/init.d/iptables restart // 重新 reload 防火牆設定
+    /etc/sysconfig/iptables 
+    /etc/init.d/iptables restart // 重新 reload 防火牆設定
 </pre>
 
 </ul>
@@ -79,7 +79,7 @@ iptables (防火牆設定)
 <li>
 ssh 連道遠端主機執行 process 後, 斷線 process 還要存活
 <pre class='prettyprint'>
-	nohup ./whatever &gt; /dev/null 2&gt;&amp;1 &amp;
+    nohup ./whatever &gt; /dev/null 2&gt;&amp;1 &amp;
 </pre>
 
 </ul>
@@ -99,12 +99,12 @@ ssh 連道遠端主機執行 process 後, 斷線 process 還要存活
 <li>
 查看 Linux TCP Port 被哪隻程式(Process)佔用, 可以用下述的命令:
 <pre class='prettyprint'>
-	sudo lsof -i
-	sudo lsof -i | grep TCP
-	sudo lsof -i :80 | grep LISTEN
-	sudo netstat -lptu
-	sudo netstat -tulpn
-	sudo ls -l /proc/$pid/exe
+    sudo lsof -i
+    sudo lsof -i | grep TCP
+    sudo lsof -i :80 | grep LISTEN
+    sudo netstat -lptu
+    sudo netstat -tulpn
+    sudo ls -l /proc/$pid/exe
 </pre>
 
 </ul>
@@ -122,14 +122,14 @@ ssh 連道遠端主機執行 process 後, 斷線 process 還要存活
 <li>
 關於使用者權限
 <pre class='prettyprint'>
-	// 列出系統所有的 group
-	cat /etc/group
-	
-	// 將某個 user 加入 root 的 group
-	sudo adduser browny root
-	
-	// 查詢某個 user 屬於哪些 group
-	groups browny
+    // 列出系統所有的 group
+    cat /etc/group
+    
+    // 將某個 user 加入 root 的 group
+    sudo adduser browny root
+    
+    // 查詢某個 user 屬於哪些 group
+    groups browny
 </pre>
 
 </ul>
@@ -138,8 +138,8 @@ ssh 連道遠端主機執行 process 後, 斷線 process 還要存活
 <li>
 查看硬碟使用量
 <pre class='prettyprint'>
-	du -h &lt;directory&gt;
-	du -hcs &lt;directory&gt; // summary
+    du -h &lt;directory&gt;
+    du -hcs &lt;directory&gt; // summary
 </pre>
 
 </ul>
@@ -148,7 +148,7 @@ ssh 連道遠端主機執行 process 後, 斷線 process 還要存活
 <li>
 查看 httpd status
 <pre class='prettyprint'>
-	啟動 mod_status
+    啟動 mod_status
 </pre>
 
 </ul>

@@ -63,49 +63,35 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 </div>
 	
 
-<p>
-== Ruby
-</p>
+<h2 id="toc_0.1">Ruby</h2>
 
-<p>
+<h3 id="toc_0.1.1">Installation</h3>
+<hr />
+
+<ul>
+<li>
 使用 RVM install ruby 
-</p>
+
+</ul>
 
 <p>
 <a href="https://rvm.io/">https://rvm.io/</a>
 </p>
-<ul>
-<li>
-<code>\curl -L https://get.rvm.io | bash -s stable</code>
 
-</ul>
-
-<p>
-列出 RVM 上可安裝的 ruby version
-</p>
-<ul>
-<li>
-<code>rvm list known</code>
-
-</ul>
-
-<p>
-安裝某版本的 ruby
-</p>
 <pre class='prettyprint'>
-	rvm install 1.9.3
-	rvm use 1.9.3
-	rvm rubygems latest
+    \curl -L https://get.rvm.io | bash -s stable
+    
+    // 列出 RVM 上可安裝的 ruby version
+    rvm list known
+    
+    // 安裝某版本的 ruby
+    rvm install 1.9.3
+    rvm use 1.9.3
+    rvm rubygems latest
+    
+    // 全域的安裝動作
+    rvm @global do gem install &lt;xxx&gt;
 </pre>
-
-<p>
-全域的安裝動作
-</p>
-<ul>
-<li>
-<code>rvm @global do gem install &lt;xxx&gt;</code>
-
-</ul>
 
 </div>
 </body>

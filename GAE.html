@@ -282,9 +282,9 @@ has collected the maximum number of results requested by the query.
 
 <pre class='prettyprint'>
 Query q = new Query("Person")
-                .addFilter("lastName", Query.FilterOperator.EQUAL, "Smith")
-                .addFilter("height", Query.FilterOperator.LESS_THAN, 72)
-                .addSort("height", Query.SortDirection.DESCENDING);
+        .addFilter("lastName", Query.FilterOperator.EQUAL, "Smith")
+        .addFilter("height", Query.FilterOperator.LESS_THAN, 72)
+        .addSort("height", Query.SortDirection.DESCENDING);
 
 The perfect index for this query is a table of keys for entities of kind Person, with columns for the values of the lastName and height properties. 
 The index is sorted first in ascending order by lastName and then in descending order by height.
@@ -349,7 +349,7 @@ Creating App Engine applications or backend APIs using the archetypes (用 maven
 
 </ul>
 <p>
-application)
+application) <br>
   <a href="https://developers.google.com/appengine/docs/java/tools/maven?hl=zh-tw#creating_app_engine_applications_or_backend_apis_using_the_archetypes">https://developers.google.com/appengine/docs/java/tools/maven?hl=zh-tw#creating_app_engine_applications_or_backend_apis_using_the_archetypes</a>
 </p>
 

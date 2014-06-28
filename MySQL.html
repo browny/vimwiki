@@ -107,73 +107,73 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 <hr />
 
 <pre class='prettyprint'>
-	mysql&gt; show databases;
+    mysql&gt; show databases;
 
-	mysql&gt; create database fanzytv_test character set='utf8';
+    mysql&gt; create database fanzytv_test character set='utf8';
 
-	mysql&gt; use [db name];               // switch to a database
-	mysql&gt; show tables;                 // show all tables
-	mysql&gt; describe [table name];       // see database's field formats
-	mysql&gt; SHOW FULL TABLES IN [db_name] WHERE TABLE_TYPE LIKE 'VIEW';
+    mysql&gt; use [db name];               // switch to a database
+    mysql&gt; show tables;                 // show all tables
+    mysql&gt; describe [table name];       // see database's field formats
+    mysql&gt; SHOW FULL TABLES IN [db_name] WHERE TABLE_TYPE LIKE 'VIEW';
 
-	// export db
-	mysqldump -u dev -pft53738078 --routines --single-transaction fanzytv_test &gt; liquibase-backup.sql
+    // export db
+    mysqldump -u dev -pft53738078 --routines --single-transaction fanzytv_test &gt; liquibase-backup.sql
 
-	// import db (注意: $db_name 要跟 export 的一樣)
-	mysql -u dev -pft53738078 --database=$db_name &lt; liquibase-backup.sql
+    // import db (注意: $db_name 要跟 export 的一樣)
+    mysql -u dev -pft53738078 --database=$db_name &lt; liquibase-backup.sql
 
-	mysql&gt; show triggers like '%fx_game%'\G // 查看 trigger 內容, \G 用來美化
+    mysql&gt; show triggers like '%fx_game%'\G // 查看 trigger 內容, \G 用來美化
 
-	mysql&gt; desc table_name // 看 schema
+    mysql&gt; desc table_name // 看 schema
 
-	mysql&gt; \e // 用文字編輯器寫 sql
+    mysql&gt; \e // 用文字編輯器寫 sql
 
-	// 建立使用者
-	mysql&gt; CREATE USER 'monty'@'localhost' IDENTIFIED BY 'some_pass';
-	mysql&gt; GRANT ALL PRIVILEGES ON *.* TO 'monty'@'localhost' WITH GRANT OPTION;
+    // 建立使用者
+    mysql&gt; CREATE USER 'monty'@'localhost' IDENTIFIED BY 'some_pass';
+    mysql&gt; GRANT ALL PRIVILEGES ON *.* TO 'monty'@'localhost' WITH GRANT OPTION;
 
-	// This shows you the SQL statement necessary to receate mytable in its current form.
-	SHOW CREATE TABLE mytable;
+    // This shows you the SQL statement necessary to receate mytable in its current form.
+    SHOW CREATE TABLE mytable;
 
-	// 找出所有參考到 X table 的 X_id column 的 foreign key
-	USE information_schema;
-	SELECT TABLE_NAME, COLUMN_NAME  FROM KEY_COLUMN_USAGE WHERE CONSTRAINT_SCHEMA = 'fanzytv_online' AND REFERENCED_TABLE_NAME = 'user' AND REFERENCED_COLUMN_NAME = 'id';
+    // 找出所有參考到 X table 的 X_id column 的 foreign key
+    USE information_schema;
+    SELECT TABLE_NAME, COLUMN_NAME  FROM KEY_COLUMN_USAGE WHERE CONSTRAINT_SCHEMA = 'fanzytv_online' AND REFERENCED_TABLE_NAME = 'user' AND REFERENCED_COLUMN_NAME = 'id';
 
-	// 列出所有 store procedures
-	show procedure status
+    // 列出所有 store procedures
+    show procedure status
 
-	// 查詢 mysql 使用的 my.cnf 檔案
-	/usr/sbin/mysqld --verbose --help | grep -A 1 "Default options"
+    // 查詢 mysql 使用的 my.cnf 檔案
+    /usr/sbin/mysqld --verbose --help | grep -A 1 "Default options"
 
-	// 查詢 char encoding
-	mysql&gt; show variables like 'char%';
+    // 查詢 char encoding
+    mysql&gt; show variables like 'char%';
 
-	mysql&gt; show variables like 'collation%';
+    mysql&gt; show variables like 'collation%';
 
-	// 查詢目前 session 的 timezone 資訊
-	mysql &gt; select timediff(now(),convert_tz(now(),@@session.time_zone,'+00:00'));
+    // 查詢目前 session 的 timezone 資訊
+    mysql &gt; select timediff(now(),convert_tz(now(),@@session.time_zone,'+00:00'));
 
-	When using convert_tz function in mysql, please issue below command to build the timezone mapping (http://dev.mysql.com/doc/refman/5.5/en/time-zone-support.html),
-	the mysql_tzinfo_to_sql is located in the bin folder under mysql installation path (/usr/local/mysql)
+    When using convert_tz function in mysql, please issue below command to build the timezone mapping (http://dev.mysql.com/doc/refman/5.5/en/time-zone-support.html),
+    the mysql_tzinfo_to_sql is located in the bin folder under mysql installation path (/usr/local/mysql)
 
-	shell&gt; mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root mysql
+    shell&gt; mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root mysql
 
-	// MySQL 看目前 Loading status 狀況
-	$ mysql -u root -p
-	mysql&gt; \s
+    // MySQL 看目前 Loading status 狀況
+    $ mysql -u root -p
+    mysql&gt; \s
 
-	// Mysql 查看 query 詳細執行步驟
-	mysql &gt; explain &lt;your query&gt;
+    // Mysql 查看 query 詳細執行步驟
+    mysql &gt; explain &lt;your query&gt;
 
-	// Mysql profiling
-	mysql&gt; SET profiling = 1;
-	執行你的 query
-	mysql&gt; SHOW PROFILES;
-	查看你剛剛的query是編號第幾號
-	mysql&gt; SHOW PROFILE FOR QUERY &lt;query號碼&gt;;
+    // Mysql profiling
+    mysql&gt; SET profiling = 1;
+    執行你的 query
+    mysql&gt; SHOW PROFILES;
+    查看你剛剛的query是編號第幾號
+    mysql&gt; SHOW PROFILE FOR QUERY &lt;query號碼&gt;;
 
-	// show 哪些 column 有建 index
-	mysql&gt; show index from [table name]
+    // show 哪些 column 有建 index
+    mysql&gt; show index from [table name]
 
 </pre>
 
@@ -202,31 +202,31 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 內容為, 請參考: <a href="http://blog.lesc.se/2011/06/switch-to-utf-8-charset-in-mysql-on.html">http://blog.lesc.se/2011/06/switch-to-utf-8-charset-in-mysql-on.html</a>
 </p>
 <pre class='prettyprint'>
-	[mysqld]
-	character-set-server=utf8
-	collation-server=utf8_general_ci
+    [mysqld]
+    character-set-server=utf8
+    collation-server=utf8_general_ci
 
-	default_time_zone='+00:00'
+    default_time_zone='+00:00'
 </pre>
 
 <pre class='prettyprint'>
-	// 設定資料庫採用 utf8, /etc/mysql/my.cnf
+    // 設定資料庫採用 utf8, /etc/mysql/my.cnf
 
-	[mysqld]
-	init_connect='SET collation_connection = utf8_unicode_ci'
-	character-set-server = utf8
-	collation-server = utf8_unicode_ci
+    [mysqld]
+    init_connect='SET collation_connection = utf8_unicode_ci'
+    character-set-server = utf8
+    collation-server = utf8_unicode_ci
 
-	[client]
-	default-character-set = utf8
+    [client]
+    default-character-set = utf8
 
-	Add these to /etc/mysql/my.cnf.
+    Add these to /etc/mysql/my.cnf.
 </pre>
 
 <pre class='prettyprint'>
-	// 重新啟動 mysql
-	sudo /usr/local/mysql/support-files/mysql.server stop
-	sudo /usr/local/mysql/support-files/mysql.server start
+    // 重新啟動 mysql
+    sudo /usr/local/mysql/support-files/mysql.server stop
+    sudo /usr/local/mysql/support-files/mysql.server start
 </pre>
 
 
@@ -283,8 +283,8 @@ Native query select 到不同 table 但是相同名稱的 column 要怎麼 map �
 <li>
 給相同名稱的欄位不一樣的 alias
 <pre class='prettyprint'>
-	  SELECT E1.id as "Employees_ID", E2.id as "Employers_ID"
-	  FROM Employees as E1 LEFT JOIN Employers AS E2 ON (E1.Id=E2.Id)
+      SELECT E1.id as "Employees_ID", E2.id as "Employers_ID"
+      FROM Employees as E1 LEFT JOIN Employers AS E2 ON (E1.Id=E2.Id)
 </pre>
 
 </ul>

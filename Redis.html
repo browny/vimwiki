@@ -71,7 +71,7 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 <li>
 啓動 redis-server 指定 port
 <pre class='prettyprint'>
-	./redis-server --port 6380
+    ./redis-server --port 6380
 </pre>
 
 </ul>
@@ -80,8 +80,8 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 <li>
 跑 redis-server 遇到的 warning, 解法: <a href="http://oksoft.blogspot.tw/2012/01/redis-tips.html">http://oksoft.blogspot.tw/2012/01/redis-tips.html</a> 
 <pre class='prettyprint'>
-	[3240] 02 Mar 14:53:10 # WARNING overcommit_memory is set to 0! Background save may fail under low memory condition. 
-	To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl '
+    [3240] 02 Mar 14:53:10 # WARNING overcommit_memory is set to 0! Background save may fail under low memory condition. 
+    To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl '
 </pre>
 
 </ul>
@@ -90,8 +90,8 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 The following 2 commands will do the needful.
 </p>
 <pre class='prettyprint'>
-	echo 'vm.overcommit_memory = 1' &gt;&gt; /etc/sysctl.conf
-	sysctl vm.overcommit_memory=1
+    echo 'vm.overcommit_memory = 1' &gt;&gt; /etc/sysctl.conf
+    sysctl vm.overcommit_memory=1
 </pre>
 
 <h3 id="toc_0.1.2">References</h3>

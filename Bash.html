@@ -63,13 +63,11 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 </div>
 	
 
-<h3 id="toc_0.0.1">Bash</h3>
+<h2 id="toc_0.1">Bash</h2>
 
-<p>
-<br>
-</p>
-<h4 id="toc_0.0.1.1">Commands</h4>
+<h3 id="toc_0.1.1">Commands</h3>
 <hr />
+
 <p>
 <code>uname -m</code> : check 32bit or 64bit
 </p>
@@ -86,19 +84,23 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 <code>find . -name *.java -exec rm \{} \;</code> 刪除所有 .java 檔
 </p>
 
-<p>
+<ul>
+<li>
 Execute a command with a timeout <br>
-<a href="http://www.pixelbeat.org/scripts/timeout">http://www.pixelbeat.org/scripts/timeout</a> <br>
+  <a href="http://www.pixelbeat.org/scripts/timeout">http://www.pixelbeat.org/scripts/timeout</a> 
+
+</ul>
+  
+<p>
 Ex: <code>timeout.sh 5 python twitterstream.py</code>
 </p>
 
 
-<h4 id="toc_0.0.1.2">Network Debug</h4>
-<p>
-<code>ps aux | less</code>: display all running process
-</p>
+<h3 id="toc_0.1.2">Network Debug</h3>
+<hr />
 
 <p>
+<code>ps aux | less</code>: display all running process
 <code>netstat -anp | grep LISTEN</code>: list open ports and listening services
 </p>
 

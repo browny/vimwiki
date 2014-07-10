@@ -1,0 +1,315 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<link rel="Stylesheet" type="text/css" href="style.css">
+<title>PushNotification</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- Bootstrap -->
+<link href="http://6daab7.pancakeapps.com/bootstrap.min.css" rel="stylesheet"
+media="screen" type='text/css'>
+
+
+<link href='http://6daab7.pancakeapps.com/google-code-prettify/prettify.css' rel='stylesheet' type='text/css'/>
+<script language='javascript' src='http://6daab7.pancakeapps.com/google-code-prettify/prettify.js' type='text/javascript'/>
+<script type='text/javascript'>
+document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();});
+</script>
+
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+<script type="text/javascript" src="http://6daab7.pancakeapps.com/jquery.stoc.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$("#items").stoc({
+			search: "#container"
+		});
+	});
+</script>
+<style type="text/css">
+	#items {
+		position: fixed;
+		top: 5%;
+		right: 5%;
+		float: right;
+		width: 220px;
+		padding: 5px;
+		margin:0 0 0px 0px;
+		/* rgba with ie compatibility */
+		background-color: transparent;
+		background-color: rgba(255,255,255,0.4);
+		filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#20ffffff,endColorstr=#20ffffff);
+		-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#20ffffff,endColorstr=#20ffffff)";
+	}
+	#items ul {
+		margin: 0 0 0 10px;
+		padding: 0 0 3px;
+		list-style-type: none;
+	}
+	#items ul ul {
+		font-size: 85%;
+	}
+	#items ul a {
+		font-family: "arial";
+		text-decoration: none;
+		color: #c10000;
+	}
+	#items ul a:hover { color: #ff0000 }
+</style>
+
+</head>
+<body onload='prettyPrint()'>
+<div id="container">
+<div id="items">
+</div>
+	
+
+<h2 id="toc_0.1">Push Notification</h2>
+
+<h3 id="toc_0.1.1">Google Cloud Messaging</h3>
+
+<ul>
+<li>
+Google Cloud Messaging for Android: <a href="http://developer.android.com/google/gcm/index.html">http://developer.android.com/google/gcm/index.html</a>
+
+</ul>
+
+<ul>
+<li>
+The payload the message contains can be up to 4kb.
+
+</ul>
+
+<ul>
+<li>
+<strong>Sender ID</strong>: The sender ID is used in the registration process to identify a 3rd-party application
+   server that is permitted to send messages to the device (Google application 的專案編號, client
+   要利用這個 sender id 向 GCM 取得 registration id)
+
+<li>
+<strong>Application ID</strong>: The Android application that is registering to receive messages
+
+<li>
+<strong>Registration ID</strong>: An ID issued by the GCM servers to the Android application that allows it to
+   receive messages. *Once the Android application has the registration ID, it sends it to the
+   3rd-party application server*, which uses it to identify each device that has registered to
+   receive messages for a given Android application. In other words, *a registration ID is tied to a
+   particular Android application running on a particular device*. Note that registration IDs must
+   be kept secret (client 向 GCM 註冊後取得的裝置識別 id)
+
+<li>
+<strong>Sender Auth Token</strong>: An API key that is saved on the 3rd-party application server that gives the
+   application server authorized access to Google services. The API key is included in the header of
+   POST requests that send messages. (專案 -&gt; 憑證 -&gt; 伺服器應用程式的金鑰 -&gt; API 金鑰)
+
+</ul>
+
+<h4 id="toc_0.1.1.1">Implementing GCM Server</h4>
+<p>
+Refer: <a href="http://developer.android.com/google/gcm/server.html">http://developer.android.com/google/gcm/server.html</a>
+</p>
+
+<ul>
+<li>
+有兩種 GCM Connection Server 可以選: HTTP 和 CSS(XMPP)
+
+<ul>
+<li>
+CSS 支持雙向, HTTP 只支持 cloud to device
+
+<li>
+CSS 為非同步, HTTP 為同步
+
+<li>
+CSS 將 JSON 封裝成 XMPP messages 傳送, HTTP 直接以 JSON 傳送
+
+<li>
+Google AppEngine <strong>does not</strong> support connections to CCS.
+
+</ul>
+</ul>
+
+<h4 id="toc_0.1.1.2">Role of the 3rd-party Application Server</h4>
+<ul>
+<li>
+Able to handle requests and resend them as needed, using exponential back-off.
+
+<li>
+Able to <strong>store the API key and client registration IDs</strong> The API key is included in the header of POST requests that send messages.
+
+<li>
+Able to generate message IDs to uniquely identify each message it sends. <strong>Message IDs should be unique per sender ID</strong>
+
+</ul>
+
+<h4 id="toc_0.1.1.3">GCM HTTP Connection Server</h4>
+<p>
+Refer: <a href="http://developer.android.com/google/gcm/http.html">http://developer.android.com/google/gcm/http.html</a>
+</p>
+
+<pre class='prettyprint'>
+  // 用 curl 送 notification 給 client
+  curl --header "Authorization: key= AIzaSyAhM6CQtGp9vSqtLaraBwJtQVRBYzwaEBg" --header Content-Type:"application/json" https://android.googleapis.com/gcm/send  -d "{\"registration_ids\":[\"ABC\"]}"
+</pre>
+
+<h4 id="toc_0.1.1.4">Message Format</h4>
+
+<ul>
+<li>
+必要欄位 (<code>registration_ids</code> 或 <code>notification_key</code>)
+   <strong>registration_ids</strong> For sending to 1 or more devices (up to 1000). When you send a message to multiple registration IDs, that is called a <strong>multicast message</strong>  
+
+</ul>
+
+<p>
+   <strong>notification_key</strong> For sending to multiple devices owned by a single user.
+</p>
+
+<ul>
+<li>
+參考: <a href="http://developer.android.com/google/gcm/server.html#payload">http://developer.android.com/google/gcm/server.html#payload</a>
+
+</ul>
+
+
+<h4 id="toc_0.1.1.5">User Notification</h4>
+
+<ul>
+<li>
+3rd-party app servers can <strong>send a single message to multiple instance of an app running on devices owned by a single user</strong> This feature is called <strong>user notifications</strong>
+
+<ul>
+<li>
+If a message has been handled on one device, the GCM message on the other devices are dismissed. For example, if a user has handled a calendar notification on one device, the notification will go away on the user's other devices.
+
+<li>
+If a message has not been delivered yet to a device and but it has been handled, the GCM server removes it from the unsent queue for the other devices.
+
+<li>
+Likewise, a device can send messages to the notification_key, which is the token that GCM uses to fan out notifications to all devices whose registration IDs are associated with the key.
+
+</ul>
+</ul>
+
+<ul>
+<li>
+<strong>notification_key</strong> 可以由 server 生成也可以由 client 生成 (若由 client 生成前提是需要有一個 Google Account): 參考 [<a href="http://developer.android.com/google/gcm/notifications.html#gen-server]">http://developer.android.com/google/gcm/notifications.html#gen-server]</a>
+
+</ul>
+
+<hr />
+
+<h3 id="toc_0.1.2">Apple Push Notification service (APNs)</h3>
+
+<ul>
+<li>
+Users control how the device and specific applications installed on the device should handle notifications. 
+  They can also <code>selectively enable or disable push notification types</code> (that is, icon badging, alert messages, and sounds) for specific applications
+
+<li>
+You should never use the remote-notification mechanism for data transport because delivery of push notifications is not guaranteed
+
+</ul>
+
+<h4 id="toc_0.1.2.1">Registering for Remote Notifications</h4>
+
+<p>
+Refer: <a href="https://developer.apple.com/library/mac/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Art/registration_sequence_2x.png">https://developer.apple.com/library/mac/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/Art/registration_sequence_2x.png</a>
+</p>
+
+<p>
+1. The app registers for remote notifications.
+1. The system sets up remote notifications for the app and, if registration is successful, passes a device token to the app delegate.
+1. The app sends its device token to the push provider.
+</p>
+
+<ul>
+<li>
+Device tokens can change. Your app needs to reregister every time it is launched
+
+<li>
+By requesting the device token and passing it to the provider every time your application launches, you ensure that the provider has the current token for the device
+
+</ul>
+
+<h4 id="toc_0.1.2.2">Provisioning and Development</h4>
+<ul>
+<li>
+To develop and deploy the provider side of a client/server application, you must get <strong>SSL certificates</strong> from the appropriate Dev Center. Each certificate is limited to a single application, identified by its bundle ID.
+
+<li>
+You must get separate certificates for the <strong>development environment</strong> and the <strong>production environment</strong>. The certificates are associated with an identifier of the application that is the recipient of push notifications;
+
+</ul>
+
+
+<h4 id="toc_0.1.2.3">Provider Communication with Apple Push Notification Service</h4>
+
+<p>
+As a provider, you are responsible for the following aspects of push notifications:
+</p>
+
+<p>
+1. You must compose the notification payload (see “The Notification Payload”).
+1. You are responsible for supplying the badge number to be displayed on the application icon.
+1. Connect regularly with the feedback service and fetch the current list of those devices that have repeatedly reported failed-delivery attempts. Then stop sending notifications to the devices associated with those applications.
+</p>
+
+
+<h4 id="toc_0.1.2.4">Message Format</h4>
+
+<ul>
+<li>
+The maximum size allowed for a notification payload is <strong>256 bytes</strong> Apple Push Notification Service refuses any notification that exceeds this limit
+
+</ul>
+
+<ul>
+<li>
+<code>aps</code> 為必要欄位, 自定義欄位放在 <code>aps</code> 外面, 例 <code>acme1</code>, <code>acme2</code>
+<pre class='prettyprint'>
+{
+  "aps": {
+    "alert": {
+      "body": "Bob wants to play poker",
+      "action-loc-key": "PLAY"
+    },
+    "badge": 5,
+    "sound": "default"
+  },
+  "acme1": "bar",
+  "acme2": [
+    "bang",
+    "whiz"
+  ]
+}
+</pre>
+
+</ul>
+
+
+<h3 id="toc_0.1.3">References</h3>
+
+<ul>
+<li>
+Pushy: A Java library for sending APNs (iOS/OS X) push notifications
+  <a href="http://relayrides.github.io/pushy/">http://relayrides.github.io/pushy/</a>
+
+</ul>
+  
+<ul>
+<li>
+Google Cloud Messaging for Android demo project
+  <a href="https://code.google.com/p/gcm/">https://code.google.com/p/gcm/</a>
+
+</ul>
+
+<ul>
+<li>
+一步一步實現 iOS 應用 PUSH 功能 - Cooper's Blog
+  <a href="http://tanqisen.github.io/blog/2013/02/27/ios-push-apns/">http://tanqisen.github.io/blog/2013/02/27/ios-push-apns/</a> 
+
+</ul>
+
+</div>
+</body>
+</html>

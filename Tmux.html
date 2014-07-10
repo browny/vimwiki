@@ -2,7 +2,7 @@
 <html>
 <head>
 <link rel="Stylesheet" type="text/css" href="style.css">
-<title>Vim</title>
+<title>Tmux</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <!-- Bootstrap -->
 <link href="http://6daab7.pancakeapps.com/bootstrap.min.css" rel="stylesheet"
@@ -63,72 +63,15 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 </div>
 	
 
-<h3 id="toc_0.0.1">Vim</h3>
+<h2 id="toc_0.1">Tmux</h2>
 
-<ul>
-<li>
-Learn to speak vim – verbs, nouns, and modifiers! <br>
-
-</ul>
-<p>
-<a href="http://yanpritzker.com/2011/12/16/learn-to-speak-vim-verbs-nouns-and-modifiers/">http://yanpritzker.com/2011/12/16/learn-to-speak-vim-verbs-nouns-and-modifiers/</a>
-</p>
-
-<ul>
-<li>
-Break long line to multiple lines
 <pre class='prettyprint'>
-    :set tw=80 // set textwidth
-    V          // highlight line
-    gq         // reformat it
+	Ctrl + a [  // into selection mode
+	// use vim command to do selection
+	Enter // copy
+	Ctrl + a ] // paste
+}}
 </pre>
-
-</ul>
-
-<ul>
-<li>
-Replace multiple spaces with single space
-<pre class='prettyprint'>
-    s/ \{2,}/ /g
-</pre>
-
-</ul>
-
-<ul>
-<li>
-Regular expression 
-<pre class='prettyprint'>
-
-:h magic
-
-預設的 search mode 是 magic
-
-\(\) 用這個包住你想要 grouping 的東西, 然後用 \1 \2 在 replace 的時候 apply 
-
-</pre>
-
-</ul>
-
-<ul>
-<li>
-將所有 tab 取代成空白
-<pre class='prettyprint'>
-    :set expandtab
-    :retab
-</pre>
-
-</ul>
-
-<ul>
-<li>
-整份檔案針對某個字作取代
-<pre class='prettyprint'>
-	g*
-	:%s//&lt;取代成什麼&gt;/g 
-	:%s//&lt;取代成什麼&gt;/gc // global confirmed 
-</pre>
-
-</ul>
 
 </div>
 </body>

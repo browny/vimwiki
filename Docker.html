@@ -141,6 +141,9 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 
     // Attach docker process
     docker attach &lt;container-id&gt;
+    
+	// Remove all untagged images
+	docker images | grep "&lt;none&gt;" | awk '{print $3}' | xargs docker rmi
 </pre>
 
 
@@ -166,43 +169,53 @@ docker image 的安裝路徑在 <code>/var/lib/docker/graph</code>
 
 <ul>
 <li>
-Docker cheatsheet
+Docker cheatsheet <br>
   <a href="https://gist.github.com/wsargent/7049221">https://gist.github.com/wsargent/7049221</a>
 
 </ul>
 
 <ul>
 <li>
-Useful Docker Bash functions and aliases - Kartar.Net
+Useful Docker Bash functions and aliases - Kartar.Net <br>
   <a href="http://www.kartar.net/2014/03/some-useful-docker-bash-functions-and-aliases/">http://www.kartar.net/2014/03/some-useful-docker-bash-functions-and-aliases/</a>
 
 </ul>
 
 <ul>
 <li>
-Where are Docker images stored? - Lounge Scene
+Where are Docker images stored? - Lounge Scene <br>
   <a href="http://blog.thoward37.me/articles/where-are-docker-images-stored/">http://blog.thoward37.me/articles/where-are-docker-images-stored/</a>
 
 </ul>
 
 <ul>
 <li>
-15 Quick Docker Tips | CenturyLink Labs
+15 Quick Docker Tips | CenturyLink Labs <br>
   <a href="http://www.centurylinklabs.com/15-quick-docker-tips/">http://www.centurylinklabs.com/15-quick-docker-tips/</a>
 
 </ul>
 
 <ul>
 <li>
-Docker Networking Made Simple or 3 Ways to Connect LXC Containers | codecentric Blogcodecentric Blog
+Docker Networking Made Simple or 3 Ways to Connect LXC Containers | codecentric Blogcodecentric
+
+</ul>
+<p>
+Blog <br>
   <a href="https://blog.codecentric.de/en/2014/01/docker-networking-made-simple-3-ways-connect-lxc-containers/">https://blog.codecentric.de/en/2014/01/docker-networking-made-simple-3-ways-connect-lxc-containers/</a>
+</p>
+
+<ul>
+<li>
+Dockerfile Best Practices <br>
+  <a href="http://crosbymichael.com/dockerfile-best-practices.html">http://crosbymichael.com/dockerfile-best-practices.html</a>
 
 </ul>
 
 <ul>
 <li>
-Dockerfile Best Practices
-  <a href="http://crosbymichael.com/dockerfile-best-practices.html">http://crosbymichael.com/dockerfile-best-practices.html</a>
+If you run SSHD in your Docker containers, you're doing it wrong! <br>
+  <a href="http://jpetazzo.github.io/2014/06/23/docker-ssh-considered-evil/">http://jpetazzo.github.io/2014/06/23/docker-ssh-considered-evil/</a>
 
 </ul>
 

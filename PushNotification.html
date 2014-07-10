@@ -9,8 +9,8 @@
 media="screen" type='text/css'>
 
 
-<link href='http://6daab7.pancakeapps.com/google-code-prettify/prettify.css' rel='stylesheet' type='text/css'/>
-<script language='javascript' src='http://6daab7.pancakeapps.com/google-code-prettify/prettify.js' type='text/javascript'/>
+<link href='http://6daab7.pancakeapps.com/prettify.css' rel='stylesheet' type='text/css'/>
+<script language='javascript' src='http://6daab7.pancakeapps.com/prettify.js' type='text/javascript'/>
 <script type='text/javascript'>
 document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();});
 </script>
@@ -65,6 +65,7 @@ document.addEventListener(&#39;DOMContentLoaded&#39;,function() { prettyPrint();
 
 <h2 id="toc_0.1">Push Notification</h2>
 
+
 <h3 id="toc_0.1.1">Google Cloud Messaging</h3>
 
 <ul>
@@ -81,29 +82,32 @@ The payload the message contains can be up to 4kb.
 
 <ul>
 <li>
-<strong>Sender ID</strong>: The sender ID is used in the registration process to identify a 3rd-party application
-   server that is permitted to send messages to the device (Google application 的專案編號, client
-   要利用這個 sender id 向 GCM 取得 registration id)
+<strong>Sender ID</strong>: 
+    The sender ID is used in the registration process to identify a 3rd-party application server that is permitted to 
+    Send messages to the device (Google application 的專案編號, client 要利用這個 sender id 向 GCM 取得 registration id)
 
 <li>
-<strong>Application ID</strong>: The Android application that is registering to receive messages
+<strong>Application ID</strong>: 
+    The Android application that is registering to receive messages
 
 <li>
-<strong>Registration ID</strong>: An ID issued by the GCM servers to the Android application that allows it to
-   receive messages. *Once the Android application has the registration ID, it sends it to the
-   3rd-party application server*, which uses it to identify each device that has registered to
-   receive messages for a given Android application. In other words, *a registration ID is tied to a
-   particular Android application running on a particular device*. Note that registration IDs must
-   be kept secret (client 向 GCM 註冊後取得的裝置識別 id)
+<strong>Registration ID</strong>: 
+    An ID issued by the GCM servers to the Android application that allows it to receive messages.  
+    <strong>Once the Android application has the registration ID, it sends it to the 3rd-party application server</strong>, which uses 
+    it to identify each device that has registered to receive messages for a given Android application. In other words, 
+    <strong>a registration ID is tied to a particular Android application running on a particular device</strong>. Note that 
+    registration IDs must be kept secret (client 向 GCM 註冊後取得的裝置識別 id)
 
 <li>
-<strong>Sender Auth Token</strong>: An API key that is saved on the 3rd-party application server that gives the
-   application server authorized access to Google services. The API key is included in the header of
-   POST requests that send messages. (專案 -&gt; 憑證 -&gt; 伺服器應用程式的金鑰 -&gt; API 金鑰)
+<strong>Sender Auth Token</strong>: 
+    An API key that is saved on the 3rd-party application server that gives the application server authorized access to 
+    Google services. The API key is included in the header of POST requests that send messages. (專案 -&gt; 憑證 -&gt; 伺服器應用程式的金鑰 -&gt; API 金鑰)
 
 </ul>
 
+
 <h4 id="toc_0.1.1.1">Implementing GCM Server</h4>
+
 <p>
 Refer: <a href="http://developer.android.com/google/gcm/server.html">http://developer.android.com/google/gcm/server.html</a>
 </p>
@@ -291,22 +295,36 @@ The maximum size allowed for a notification payload is <strong>256 bytes</strong
 
 <ul>
 <li>
-Pushy: A Java library for sending APNs (iOS/OS X) push notifications
+Pushy: A Java library for sending APNs (iOS/OS X) push notifications <br>
   <a href="http://relayrides.github.io/pushy/">http://relayrides.github.io/pushy/</a>
 
 </ul>
   
 <ul>
 <li>
-Google Cloud Messaging for Android demo project
+Google Cloud Messaging for Android demo project <br>
   <a href="https://code.google.com/p/gcm/">https://code.google.com/p/gcm/</a>
 
 </ul>
 
 <ul>
 <li>
-一步一步實現 iOS 應用 PUSH 功能 - Cooper's Blog
+一步一步實現 iOS 應用 PUSH 功能 - Cooper's Blog <br>
   <a href="http://tanqisen.github.io/blog/2013/02/27/ios-push-apns/">http://tanqisen.github.io/blog/2013/02/27/ios-push-apns/</a> 
+
+</ul>
+
+<ul>
+<li>
+Apple Push Notification Services in iOS 6 Tutorial: Part 1/2 | Ray Wenderlich <br>
+  <a href="http://www.raywenderlich.com/32960/apple-push-notification-services-in-ios-6-tutorial-part-1">http://www.raywenderlich.com/32960/apple-push-notification-services-in-ios-6-tutorial-part-1</a>
+
+</ul>
+
+<ul>
+<li>
+Apple Push Notification Services in iOS 6 Tutorial: Part 2/2 | Ray Wenderlich <br>
+  <a href="http://www.raywenderlich.com/32963/apple-push-notification-services-in-ios-6-tutorial-part-2">http://www.raywenderlich.com/32963/apple-push-notification-services-in-ios-6-tutorial-part-2</a>
 
 </ul>
 
